@@ -14,3 +14,6 @@ These are verified latent bugs existing in the current codebase:
 - **2026-08-29**: Discovered and documented the `Buttons::update()` double-polling bug in Doom.
 - **2026-08-29**: Split singular `project-rules.md` into multiple `.agents/rules/` files to evade the 12,000 character context truncation limit.
 - **2026-08-29**: Completely rewrote rules file to enforce strict structure. Reconciled dormant module discrepancies, consolidated pin map, and formally acquired tooling to verify ESP32 core version (3.3.11) and libraries. (Agent Antigravity)
+- **2026-08-29**: Purged Zig compiler binary from git history using `git filter-repo` and ignored `tools/zig/`.
+- **2026-08-29**: Relocated `walnut_cgb.h` to the canonical `src/vendor/walnut_cgb/` directory.
+- **2026-08-29**: Fixed `host_test.cpp` string-matching logic to require full `Passed all tests` instead of short-circuiting at `Passed`.
