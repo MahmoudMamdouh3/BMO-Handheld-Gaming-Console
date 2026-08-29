@@ -18,3 +18,8 @@ Before syncing a vendor library to a newer upstream version:
 
 ## Patch Ledger
 - Maintain a short patch ledger (a table here, or a linked `docs/VENDOR_PATCHES.md` if it outgrows this file's char budget): file, line, one-line reason, date added.
+
+| File | Line | Reason | Date Added |
+|---|---|---|---|
+| `src/emulators/emu_walnut.cpp` | ~L84, ~L90 | Replaced unsafe unaligned pointer casts with byte-wise little-endian reconstruction | 2026-08-29 |
+| `src/engine/walnut_cgb/walnut_cgb.h` | ~L67 | Fixed typo _OPS_OPS and _DISABLED to correctly enable 16-bit fast paths | 2026-08-29 |
