@@ -6,9 +6,9 @@ The budget for every hot path that has one:
 | Subsystem/Path | Budget |
 |---|---|
 | GB/GBC frame | 16742 µs |
-| Boot-to-menu time | TODO |
-| SD mount time | TODO |
-| ROM-load time (largest ROM) | TODO |
+| Boot-to-menu time | TODO (requires on-device flash + Serial capture, not available this session) |
+| SD mount time | TODO (requires on-device flash + Serial capture, not available this session) |
+| ROM-load time (largest ROM) | TODO (requires on-device flash + Serial capture, not available this session) |
 
 If a number doesn't exist yet, mark it `TODO` rather than inventing one.
 
