@@ -8,6 +8,7 @@ These are verified latent bugs existing in the current codebase:
 2. **Missing Semicolons in Dead Branches (DEBUNKED)**: The reported syntax errors in dead branches (e.g. CALL C) did not exist. Un-dead-coding the branches resulted in a clean compile, demonstrating the report was an artifact from a flawed grep check.
 3. **Unaligned Pointer Casts (VERIFIED_HOST)**: `gb_rom_read16` and `gb_rom_read32` in `emu_walnut.cpp` used raw pointer casts that were unsafe on Xtensa architectures. This is fixed by implementing byte-wise, explicitly little-endian reconstruction. The host-side CPU test harness completed `cpu_instrs.gb` and printed `Passed all tests`. The remaining 54 raw pointer casts in the codebase operate on internal SRAM/PSRAM (where unaligned access is supported) and are deferred.
 4. **Serial.print in Hot Loops (OPEN)**: Widespread usage of `Serial.print` (appears in 9 files, 41 total call sites) violates `15_performance_budgets.md` by placing un-gated print statements inside hot paths. Needs to be replaced with a gated `LOG_LEVEL` macro.
+5. **Vendor Versions Missing (OPEN)**: Vendor libraries `peanut_gb`, `walnut_cgb`, and `doomgeneric` have no recorded upstream version in their headers/source files. Cannot pin retroactively without external research.
 
 ---
 
