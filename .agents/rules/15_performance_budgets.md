@@ -1,0 +1,33 @@
+# Performance Engineering & Budgets
+Purpose: make "fast enough" a checkable number. The project already has one hard number (16742 µs/frame); generalize the discipline.
+
+## Budget Ledger
+The budget for every hot path that has one:
+| Subsystem/Path | Budget |
+|---|---|
+| GB/GBC frame | 16742 µs |
+| Boot-to-menu time | TODO |
+| SD mount time | TODO |
+| ROM-load time (largest ROM) | TODO |
+
+If a number doesn't exist yet, mark it `TODO` rather than inventing one.
+
+## Measurement & Validation
+- Any change to a hot path (opcode dispatch, per-scanline render, input poll) expected to affect timing must be measured before/after with `micros()`/`millis()` instrumentation or the host_test harness's cycle counting, with both numbers stated in the commit body — "should be faster" is not a verification (`06_verification_standards.md`).
+- "Fast enough" claims always require a number and a method: what was measured, with what tool, over how many frames/iterations — never "feels smoother."
+
+## No Per-Frame Heap Allocation
+- **No heap allocation** (`malloc`, `new`, `heap_caps_malloc`) inside any per-frame path — generalizes `12_extensibility_contract.md`'s no-per-frame-allocation rule to UI/menu render loops too, not just emulator cores.
+
+## Memory Budgets & Usage
+- **PSRAM budget:** Ceiling is 8MB octal (`01_hardware.md`). Any new PSRAM consumer must state worst-case allocation size in this table before merging, so exhaustion is caught at design time, not by an on-hardware OOM.
+- **DRAM budget:** ~400KB internal DRAM (`software-design-document.md` §3), shared with the WiFi/BT stack even if unused — if any future change enables a radio feature, re-check this budget explicitly. (Note: no high-water mark logging currently exists for this, so use heap tracking manually if needed).
+- **IRAM budget:** List of functions currently claiming `IRAM_ATTR` so a future addition can check for room rather than silently evicting something else from cache:
+  - `agnes.c`
+  - `unit_tests.cpp`
+  - `emu_peanut.cpp`
+  - `emu_walnut.cpp`
+  - `BmoGameboy.ino`
+
+## Cache-line Alignment
+- Cache-line alignment (`__attribute__((aligned(32)))`) applies to any new hot-path struct read every CPU tick/scanline, not just `gb_s`. See `02_architecture.md` for the original instance.

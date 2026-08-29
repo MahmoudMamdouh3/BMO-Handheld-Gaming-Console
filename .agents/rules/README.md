@@ -1,4 +1,6 @@
 # .agents/rules/ Index
+**RULESET_VERSION: 1**
+
 Read in this order. 00-01 are mandatory for every task, no exceptions.
 
 | File | Purpose | Mandatory? |
@@ -16,3 +18,14 @@ Read in this order. 00-01 are mandatory for every task, no exceptions.
 | 10_symbol_reference.md | Ground-truth symbol table (prevents invented names) | Always check before code claims |
 | 11_rules_meta.md | Rules about the rules directory itself | Rare |
 | 12_extensibility_contract.md | New emulator core contract, teardown rule, no-per-frame-alloc rule | New emulator/core-touching tasks |
+| 13_code_style.md | Code style, conventions, naming | Code edits |
+| 14_error_handling_and_fault_isolation.md | Failure paths and panics | Core tasks |
+| 15_performance_budgets.md | Hot path tracking, zero-allocation rules | Core tasks |
+| 16_logging_and_diagnostics.md | Log levels, visibility, boot logs | Core tasks |
+| 17_release_and_versioning.md | Version definitions and release checklist | Releases |
+| 18_dependency_and_vendor_sync.md | Patch handling and upstream syncing | Vendor/Library updates |
+| 19_security_and_data_integrity.md | Untrusted input constraints | I/O tasks |
+| 20_multi_agent_protocol.md | Agent-to-agent crediting and handoffs | Always |
+| 21_documentation_standards.md | In-code and out-of-code documentation rules | Docs/Architecture tasks |
+| 22_review_checklist.md | Lightweight everyday self-review | Before reporting done |
+| 23_incident_postmortem_log.md | Record of process failures | Process revisions |

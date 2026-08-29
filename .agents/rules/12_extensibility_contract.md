@@ -37,3 +37,6 @@ which fragment badly on repeated alloc/free cycles on this hardware. If
 you find an existing violation while working on something else, log it in
 04_known_issues.md as `OPEN` rather than silently fixing it inline (per
 07_task_protocol.md's existing rule about unrelated bugs).
+
+## General Peripheral Extensions
+The zero-touch / init-update-teardown / `FEATURE_*`-flag contract described above for emulator cores is the general pattern for **any** new hardware peripheral module (FRAM, audio, battery, a future second display). Additionally, the rules in `14_error_handling_and_fault_isolation.md` and `15_performance_budgets.md` apply to any such hardware addition.

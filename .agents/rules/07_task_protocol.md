@@ -77,3 +77,4 @@ Never merge these two categories. Never imply the second category is done.
   confirmed by the human, never in anticipation of it.
 - **New UI screen/menu:** follows 08_ui_style_guide.md; no new raw hex
   colors outside the shared theme constants file.
+- **Rules-directory / process change:** diff reviewed; every new file under 12,000 chars; README index and RULESET_VERSION updated; changelog entries added; no hard-stop or hardware-ground-truth text restated elsewhere.

@@ -1,4 +1,6 @@
 # Meta-Rules for the Rules Directory Itself
+**RULESET_VERSION: 1** <!-- v1 = baseline as of the 13-23 rules expansion -->
+
 - Every file in .agents/rules/ must stay under 12,000 characters (the
   original constraint that caused project-rules.md to be split). If a
   file grows past that, split it into a new numbered file and update
