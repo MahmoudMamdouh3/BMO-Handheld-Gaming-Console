@@ -18,6 +18,8 @@ Maintain a table (in this file or a linked LICENSES.md) of every test ROM
 in use: name, source URL, license, and which sub-tests/instruction
 categories it covers. Entry format:
 | ROM | License | Source | Covers |
+|---|---|---|---|
+| `cpu_instrs.gb` (Blargg) | Public Domain | https://github.com/retrio/gb-test-roms | 11 sub-tests covering Game Boy CPU instruction correctness and timing |
 This is required before `03_conventions.md` section 9 logging is
 considered complete — that section says a ROM must be logged before being
 added; this table is where.
