@@ -38,7 +38,7 @@ called X in the codebase" instead of describing what it supposedly does.
 ## src/engine/walnut_cgb/walnut_cgb.h
 | Symbol | Kind | Signature | Notes |
 |---|---|---|---|
-| `gb_init` | fn | `enum gb_init_error_e gb_init(...)` | 8 arguments including 16/32 read callbacks |
+| `gb_init` | fn | `enum gb_init_error_e gb_init(struct gb_s* gb, uint8_t(*gb_rom_read)(struct gb_s*, const uint_fast32_t), uint16_t(*gb_rom_read16)(struct gb_s*, const uint_fast32_t), uint32_t(*gb_rom_read32)(struct gb_s*, const uint_fast32_t), uint8_t(*gb_cart_ram_read)(struct gb_s*, const uint_fast32_t), void (*gb_cart_ram_write)(struct gb_s*, const uint_fast32_t, const uint8_t), void (*gb_error)(struct gb_s*, const enum gb_error_e, const uint16_t), void* priv)` | 8 arguments including 16/32 read callbacks |
 | `gb_run_frame` | fn | `void gb_run_frame(struct gb_s *gb)` | Executes one frame (16742 µs) |
 | `gb_s` | struct | `struct gb_s` | Core emulator context, align(32) |
 | `gb_init_error_e` | enum | `enum gb_init_error_e` | Initialization error codes |
