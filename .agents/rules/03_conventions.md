@@ -36,6 +36,7 @@ repo-root/
 # 9. IP & Licensing Notes
 This project currently bakes multiple commercial ROMs directly into the firmware flash as fallback games (`mario_deluxe.h`, `zelda_ages.h`, `aladdin.h`, `lego_racers.h` under `src/assets/roms/`). 
 - This is a known, deliberate personal/non-commercial choice.
+- **Test ROMs:** We use Blargg's `cpu_instrs.gb` (Public Domain) for CPU correctness validation in the host-side test harness.
 - **FORWARD-LOOKING RULE:** No new copyrighted commercial ROM or third-party copyrighted asset may be baked into the firmware without it being explicitly logged in this file first.
 
 ---
