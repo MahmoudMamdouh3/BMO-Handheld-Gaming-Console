@@ -1,5 +1,7 @@
 # Project Ground-Truth & Strict Agent Rules
 
+update the entirety of docuemntation with what we are doing as soon as you finish any tasks 
+
 This file contains the strict rules and ground truth for the GB-Emu-ESP32S3 project. **All LLM agents must read and adhere to these rules strictly to avoid hallucination or breaking the build.**
 
 ## 1. Hardware Ground Truth
@@ -14,6 +16,11 @@ This file contains the strict rules and ground truth for the GB-Emu-ESP32S3 proj
 * **GPIO 0, 3, 45, 46:** STRAPPING PINS. Do not use for inputs/buttons.
 * **GPIO 19, 20:** USB D-/D+. **DO NOT USE.**
 * **GPIO 1 (Battery ADC):** Currently FLOATING. Do not read this pin and trigger deep sleep, or the board will enter a fatal boot-loop.
+
+## 3. Firmware Compilation Rules
+* **Flash Mode (CRITICAL):** Because this is an N16R8 board with Octal Flash AND Octal PSRAM, **Flash Mode MUST be set to `OPI 80MHz`** in the Arduino IDE. If left on the default `QIO`, the ESP32-S3 will instantly panic (`esp_core_dump_flash: No core dump partition found!`) on boot due to a flash cache mismatch.
+* **PSRAM:** MUST be set to `OPI PSRAM`.
+* **Partition Scheme:** `Custom` or `Huge APP (3MB No OTA/1MB SPIFFS)`.
 
 ## 3. Architecture & Performance Rules
 * **Shared SPI Initialization:** The display and (future) SD card share the FSPI bus. You MUST explicitly call `SPI.begin(SCK, MISO, MOSI, -1)` before initializing the TFT or SD, otherwise initialization will collide and hang.
