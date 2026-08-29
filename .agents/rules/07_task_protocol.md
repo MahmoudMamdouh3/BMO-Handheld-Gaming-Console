@@ -27,15 +27,27 @@ capable or careful the specific model is.
    don't actually know it (a line number, a variable name, a test
    result) — stop. State the uncertainty instead. This is the single
    highest-value habit for this repo given past incidents.
+8. **Stop-after-2-failures rule:** if the same interaction/approach fails
+   twice in a row (a build flag, a test invocation, a specific fix
+   attempt), STOP retrying variations of the same approach. Switch
+   strategy entirely, or stop and ask. Never spend more than 5 tool calls
+   total on a single stuck sub-problem before changing approach or asking.
+9. **Implementation-plan gate for substantial changes:** for anything
+   multi-file, architectural, or that would trigger the review gate in
+   05_git_workflow.md (hard-stop-adjacent, history-rewriting, new
+   binaries) — write a short plan (a few bullets is fine, doesn't need to
+   be a separate file for most cases) and wait for explicit approval
+   before writing code or running risky commands. Trivial fixes and
+   single-line edits skip this, same as always.
 
 ## Before reporting done
-8. Compile. A successful compile is necessary, never sufficient, for
+10. Compile. A successful compile is necessary, never sufficient, for
    "done" — see 06_verification_standards.md for what else is required
    depending on what was touched.
-9. Update .agents/rules/ files per the Documentation Maintenance Protocol
+11. Update .agents/rules/ files per the Documentation Maintenance Protocol
    in 03_conventions.md, using the status vocabulary from
    06_verification_standards.md.
-10. Update 04_known_issues.md's Changelog section with a one-line dated
+12. Update 04_known_issues.md's Changelog section with a one-line dated
     entry (see existing entries for format).
 
 ## Final report format (always use these two headers, verbatim)

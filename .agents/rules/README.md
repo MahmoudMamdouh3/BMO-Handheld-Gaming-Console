@@ -15,3 +15,4 @@ Read in this order. 00-01 are mandatory for every task, no exceptions.
 | 09_testing_infrastructure.md | host_test harness, ROM ledger, pass/fail definitions | Core/CPU tasks |
 | 10_symbol_reference.md | Ground-truth symbol table (prevents invented names) | Always check before code claims |
 | 11_rules_meta.md | Rules about the rules directory itself | Rare |
+| 12_extensibility_contract.md | New emulator core contract, teardown rule, no-per-frame-alloc rule | New emulator/core-touching tasks |

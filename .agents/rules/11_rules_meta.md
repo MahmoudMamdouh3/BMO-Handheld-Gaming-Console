@@ -3,10 +3,10 @@
   original constraint that caused project-rules.md to be split). If a
   file grows past that, split it into a new numbered file and update
   README.md's index — don't silently let one file balloon.
-- Numbered files (00-04 existing; 05-11 added this session) are read in
-  numeric order and are mandatory context for any nontrivial task.
-  README.md is the index and is always safe to read first — it should
-  never itself contain binding rules, only pointers.
+- Numbered files (00-12 existing) are read in numeric order and are
+  mandatory context for any nontrivial task. README.md is the index and
+  is always safe to read first — it should never itself contain binding
+  rules, only pointers.
 - Any change to a numbered rules file requires a one-line changelog entry
   in 04_known_issues.md's Changelog section, dated, same as existing
   entries.

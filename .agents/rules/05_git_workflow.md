@@ -46,3 +46,21 @@
 - Build output directories, host_test binaries, `.o`/`.elf`/`.bin` files.
 - Anything from Part A of a prompt that Part A told you to correct — i.e.
   never commit an overclaimed result before it's actually true.
+
+## Review gate before committing actual work
+The existing checkpoint-commit-before-starting rule stays automatic — no
+review needed for that, it's a safety net.
+For the commit that represents COMPLETED work, before running `git
+commit`: show me the exact `git diff --stat` (file list) and the proposed
+commit message, and wait for an explicit yes before committing, IF any of
+these apply:
+- Any new file over 1MB is being added.
+- Any new binary, executable, or downloaded-toolchain file is being added
+  (this is exactly how the Zig binary ended up in history last time — a
+  review step here would have caught it before the commit, not after).
+- The change touches anything in a 00_hard_stops.md category.
+- The change involves rewriting git history (filter-repo, rebase -i,
+  amend of an already-old commit).
+Routine docs-only or single-file low-risk commits don't need this gate —
+use judgment, but the binary/size/hard-stop triggers above are not
+judgment calls, they always require the review step.
