@@ -9,6 +9,7 @@ These are verified latent bugs existing in the current codebase:
 3. **Unaligned Pointer Casts (VERIFIED_HOST)**: `gb_rom_read16` and `gb_rom_read32` in `emu_walnut.cpp` used raw pointer casts that were unsafe on Xtensa architectures. This is fixed by implementing byte-wise, explicitly little-endian reconstruction. The host-side CPU test harness completed `cpu_instrs.gb` and printed `Passed all tests`. The remaining 54 raw pointer casts in the codebase operate on internal SRAM/PSRAM (where unaligned access is supported) and are deferred.
 4. **Serial.print in Hot Loops (FIXED)**: Widespread usage of `Serial.print` (appears in 9 files, 41 total call sites) violated `15_performance_budgets.md`. Replaced with gated `LOG_LEVEL` macros defined in `config.h`.
 5. **Vendor Versions Missing (OPEN)**: Vendor libraries `peanut_gb`, `walnut_cgb`, and `doomgeneric` have no recorded upstream version in their headers/source files. Cannot pin retroactively without external research.
+6. **Walnut-CGB 16-bit Fast Paths Incompatible with GBC ROMs (FIXED_UNVERIFIED)**: `WALNUT_GB_16_BIT_OPS_DUALFETCH=1` and `WALNUT_GB_16_BIT_OPS=1` were enabled by a previous agent session. The upstream author's own comment warns "currently breaks compatibility with some games." Super Mario Bros. Deluxe (GBC) froze at the title screen when attempting to start/load a game. Both flags reverted to `0` in `walnut_cgb.h`. Status: `FIXED_UNVERIFIED` — compiled, no hardware test run this session.
 
 ---
 
@@ -30,4 +31,5 @@ These are verified latent bugs existing in the current codebase:
 - **2026-08-29**: Added `20_multi_agent_protocol.md` to make multi-session/multi-model handoffs explicit. (Agent Antigravity)
 - **2026-08-29**: Added `21_documentation_standards.md` to define `docs/` vs `.agents/rules/` hierarchy. (Agent Antigravity)
 - **2026-08-29**: Added `22_review_checklist.md` as an everyday self-review counterpart to git workflow gates. (Agent Antigravity)
-- **2026-08-29**: Added `23_incident_postmortem_log.md` with retroactive INC-1 and INC-2 logs. (Agent Antigravity)
+- **2026-08-29**: Added `23_incident_postmortem_log.md` with retroactive INC-1 and INC-2 logs.
+- **2026-08-30**: Reverted `WALNUT_GB_16_BIT_OPS_DUALFETCH` and `WALNUT_GB_16_BIT_OPS` to `0` in `walnut_cgb.h`. Previous agent enabled them; upstream docs warn they break some games. Root cause of Super Mario Bros. Deluxe GBC freezing on new game/load. Status: FIXED_UNVERIFIED. (Agent Antigravity) (Agent Antigravity)
