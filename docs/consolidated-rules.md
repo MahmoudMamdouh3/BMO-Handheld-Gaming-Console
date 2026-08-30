@@ -1,7 +1,7 @@
-# BMO Handheld Gaming Console — Consolidated Ruleset (v4)
+# BMO Handheld Gaming Console — Consolidated Ruleset (v5)
 **Target Platform:** ESP32-S3-N16R8 (Dual-Core LX7 @ 240MHz, 16MB OPI Flash, 8MB Octal PSRAM)  
 **Display:** ST7789VW 240×320 SPI TFT (Landscape 320×240)  
-**Document Status:** Complete Consolidated Ground Truth (Rules 00 through 34)  
+**Document Status:** Complete Consolidated Ground Truth (Rules 00 through 37)  
 **Purpose:** Single-file compilation for external architectural and code review.
 
 ---
@@ -9,40 +9,42 @@
 ## Table of Contents
 - [0. Hard Stops](#0-hard-stops)
 - [1. Physically Wired Hardware (Verified Ground Truth)](#1-physically-wired-hardware-verified-ground-truth)
-- [4. Toolchain & Build Configuration](#4-toolchain--build-configuration)
-- [7. Repository & File Structure](#7-repository--file-structure)
-- [6. Known Issues / Technical Debt Log](#6-known-issues--technical-debt-log)
-- [Git & Commit Discipline](#git--commit-discipline)
-- [Verification & Evidence Standards](#verification--evidence-standards)
+- [4. Toolchain & Build Configuration](#4-toolchain-build-configuration)
+- [7. Repository & File Structure](#7-repository-file-structure)
+- [6. Known Issues / Technical Debt Log](#6-known-issues-technical-debt-log)
+- [Git & Commit Discipline](#git-commit-discipline)
+- [Verification & Evidence Standards](#verification-evidence-standards)
 - [Standard Task Protocol](#standard-task-protocol)
-- [UI & Visual Style Guide](#ui--visual-style-guide)
+- [UI & Visual Style Guide](#ui-visual-style-guide)
 - [Testing Infrastructure](#testing-infrastructure)
 - [Symbol Reference (Ground Truth for Names)](#symbol-reference-ground-truth-for-names)
 - [Meta-Rules for the Rules Directory Itself](#meta-rules-for-the-rules-directory-itself)
 - [Extensibility Contract (New Emulator Cores)](#extensibility-contract-new-emulator-cores)
-- [Code Style & Formatting](#code-style--formatting)
-- [Error Handling & Fault Isolation](#error-handling--fault-isolation)
-- [Performance Engineering & Budgets](#performance-engineering--budgets)
-- [Logging & Diagnostics](#logging--diagnostics)
-- [Release & Versioning](#release--versioning)
-- [Dependency & Vendor-Library Sync](#dependency--vendor-library-sync)
-- [Security & Data Integrity](#security--data-integrity)
-- [Multi-Agent / Cross-Session Protocol](#multi-agent--cross-session-protocol)
+- [Code Style & Formatting](#code-style-formatting)
+- [Error Handling & Fault Isolation](#error-handling-fault-isolation)
+- [Performance Engineering & Budgets](#performance-engineering-budgets)
+- [Logging & Diagnostics](#logging-diagnostics)
+- [Release & Versioning](#release-versioning)
+- [Dependency & Vendor-Library Sync](#dependency-vendor-library-sync)
+- [Security & Data Integrity](#security-data-integrity)
+- [Multi-Agent / Cross-Session Protocol](#multi-agent-cross-session-protocol)
 - [Documentation Standards](#documentation-standards)
 - [Everyday Self-Review Checklist](#everyday-self-review-checklist)
-- [Incident / Process-Failure Log](#incident--process-failure-log)
+- [Incident / Process-Failure Log](#incident-process-failure-log)
 - [Vendor Flag Safety](#vendor-flag-safety)
 - [Game Compatibility Ledger](#game-compatibility-ledger)
 - [Emulator Exit Contract](#emulator-exit-contract)
-- [Codebase Map — Ground Truth for Architecture](#codebase-map--ground-truth-for-architecture)
-- [Display & SPI Bus Contract](#display--spi-bus-contract)
+- [Codebase Map — Ground Truth for Architecture](#codebase-map-ground-truth-for-architecture)
+- [Display & SPI Bus Contract](#display-spi-bus-contract)
 - [How to Add a Baked ROM](#how-to-add-a-baked-rom)
 - [Common Agent Mistakes (Anti-Pattern Catalogue)](#common-agent-mistakes-anti-pattern-catalogue)
 - [31. Quick-Start Primer (Zero-Context Agent On-Ramp)](#31-quick-start-primer-zero-context-agent-on-ramp)
-- [32. Modular Core Template & Scaffolding Guide](#32-modular-core-template--scaffolding-guide)
-- [33. Agent Handoff & Continuous Optimization Cycle](#33-agent-handoff--continuous-optimization-cycle)
-- [34. AI Agent Guardrails & Execution Invariants](#34-ai-agent-guardrails--execution-invariants)
-
+- [32. Modular Core Template & Scaffolding Guide](#32-modular-core-template-scaffolding-guide)
+- [33. Agent Handoff & Continuous Optimization Cycle](#33-agent-handoff-continuous-optimization-cycle)
+- [34. AI Agent Guardrails & Execution Invariants](#34-ai-agent-guardrails-execution-invariants)
+- [BmoFace Mascot Subsystem Contract](#bmoface-mascot-subsystem-contract)
+- [Human-Reported Hardware Bug Intake Protocol](#human-reported-hardware-bug-intake-protocol)
+- [ROM Governance & Flash-Budget Invariant](#rom-governance-flash-budget-invariant)
 
 ---
 
@@ -242,6 +244,9 @@ These are verified latent bugs existing in the current codebase:
 - **2026-08-30**: Ruleset v2 — full repo audit. Added 27_codebase_map.md (architecture map), 28_display_and_spi_contract.md (pixel format + SPI rules), 29_adding_a_baked_rom.md (ROM baking checklist), 30_common_agent_mistakes.md (anti-pattern catalogue M1-M15). Updated 07_task_protocol.md to lead with codebase map and mistakes catalogue. (Agent Antigravity)
 - **2026-08-30**: Ruleset v3 & SDD Upgrade — Fixed Walnut/Peanut `destroy()` PSRAM teardown in `BmoGameboy.ino` (status: FIXED_UNVERIFIED). Rewrote `docs/software-design-document.md` to full reviewer-grade specification. Expanded `10_symbol_reference.md` with all core/emulator APIs. Added `31_quick_start_primer.md`, root-level `CHANGELOG.md`, updated root `README.md`, synchronized `scripts/` and `tests/` paths, and added M-16 mistake entry. Updated directory trees in `03_conventions.md` and codebase map. (Agent Antigravity)
 - **2026-08-30**: Ruleset v4 & AI Environment Upgrade — Elevated Software Design Document to v3.0 (authoritative standalone engineering specification). Added Rules 32 (Modular Core Template), 33 (Agent Handoff & Optimization Cycle), 34 (AI Agent Sandbox & Guardrails), anti-patterns M-17 through M-20 in Rule 30, and created machine-readable indices `AGENT_MANIFEST.json` and `.agents/rules/CONTEXT_INDEX.json`. Upgraded `validate_repo.py` into multi-phase AI Guardian validator and expanded `test_repo_tools.py` unit test suite. (Agent Antigravity)
+- **2026-08-30**: Baked ROM Flash Audit & Registration — Validated `aladdin.h` and `lego_racers.h` ROM headers, checksums, and actual binary sizes (1,048,576 bytes each). Registered both in `sd_card.cpp` with flash .rodata protection guards in `freeRom()`. Compiled firmware: 4,986,092 bytes (59.44% of 8MB `app0` partition, leaving 3,402,516 bytes headroom). Status: FIXED_UNVERIFIED. (Agent Antigravity)
+- **2026-08-30**: BmoFace Mascot Rendering & Visibility Fix — Resolved symptom where mascot was invisible/flickering. Fixed menu canvas full-screen overwrite covering face on clean frames, cached `faceBuf` in `blitFace()` to skip recomputation when clean, added 1000ms boot splash hold in `setup()`, and added 400ms game launch celebration hold in `BmoGameboy.ino`. Status: FIXED_UNVERIFIED. (Agent Antigravity)
+- **2026-08-30**: Ruleset v5 (Governance Gaps) — Added 35_bmo_face_contract.md (mascot subsystem contract), 36_bug_intake_protocol.md (structured hardware bug intake protocol), and 37_rom_governance_and_flash_budget.md (ROM tracking truth & standing flash-budget invariant). Bumped RULESET_VERSION to 5, updated indices, and added cross-references across 07_task_protocol.md, 29_adding_a_baked_rom.md, 30_common_agent_mistakes.md, and 33_agent_handoff_and_optimization_cycle.md. (Agent Antigravity)
 
 ---
 
@@ -476,6 +481,7 @@ Never merge these two categories. Never imply the second category is done.
   confirmed by the human, never in anticipation of it.
 - **New UI screen/menu:** follows 08_ui_style_guide.md; no new raw hex
   colors outside the shared theme constants file.
+- **Change touching src/assets/ or adding a vendor library:** flash-budget invariant in `37_rom_governance_and_flash_budget.md` verified this session.
 - **Rules-directory / process change:** diff reviewed; every new file under 12,000 chars; README index and RULESET_VERSION updated; changelog entries added; no hard-stop or hardware-ground-truth text restated elsewhere.
 
 ---
@@ -759,7 +765,7 @@ One table per file, columns: `Symbol | Kind (fn/macro/struct) | Signature | Note
 <!-- Section: 11_rules_meta.md -->
 
 # Meta-Rules for the Rules Directory Itself
-**RULESET_VERSION: 1** <!-- v1 = baseline as of the 13-23 rules expansion -->
+**RULESET_VERSION: 5** <!-- v5 = closed mascot contract, bug intake protocol, and ROM governance -->
 
 - Every file in .agents/rules/ must stay under 12,000 characters (the
   original constraint that caused project-rules.md to be split). If a
@@ -1278,8 +1284,8 @@ Document the definition in this file before the hardware test, not after.
 | Super Mario Bros. Deluxe (Baked) | GBC | WalnutEmu | 3c53275 (logging refactor) | 16BIT_OPS=1, DUALFETCH=1 | BROKEN | 2026-08-30 | Froze on new-game/load. INC-3. Flags reverted to 0 in 5d78e8b. |
 | Super Mario Bros. Deluxe (Baked) | GBC | WalnutEmu | 5d78e8b (flag revert) | 16BIT_OPS=0, DUALFETCH=0 | UNTESTED | -- | Flags reverted; needs hardware re-flash to confirm fix. |
 | Legend of Zelda: Oracle of Ages (Baked) | GBC | WalnutEmu | -- | -- | UNTESTED | -- | Baked ROM present, never hardware-tested |
-| Aladdin | GBC | WalnutEmu | -- | -- | UNTESTED | -- | ROM header in assets/, not registered as baked |
-| Lego Racers | GBC | WalnutEmu | -- | -- | UNTESTED | -- | ROM header in assets/, not registered as baked |
+| Aladdin (Baked) | GBC | WalnutEmu | -- | -- | UNTESTED | -- | Baked ROM registered in sd_card.cpp; compiles cleanly |
+| Lego Racers (Baked) | GBC | WalnutEmu | -- | -- | UNTESTED | -- | Baked ROM registered in sd_card.cpp; compiles cleanly |
 
 ## How to update this file
 When you flash and test a game:
@@ -1402,8 +1408,8 @@ repo-root/
 │       │   └── roms/
 │       │       ├── mario_deluxe.h   <- 1MB GBC ROM baked as C array
 │       │       ├── zelda_ages.h     <- 1MB GBC ROM baked as C array
-│       │       ├── aladdin.h        <- not yet registered in sd_card.cpp
-│       │       └── lego_racers.h    <- not yet registered in sd_card.cpp
+│       │       ├── aladdin.h        <- 1MB GBC ROM baked as C array
+│       │       └── lego_racers.h    <- 1MB GBC ROM baked as C array
 │       └── tests/
 │           └── unit_tests.cpp     <- on-device test suite (requires ENABLE_UNIT_TESTS)
 ├── tools/
@@ -1454,12 +1460,12 @@ Registered in `SDCard::begin()` and `SDCard::loadRom()` in sd_card.cpp.
 |---|---|---|---|
 | Super Mario Bros Deluxe (Baked).gbc | mario_deluxe.h | 1MB | YES |
 | Legend of Zelda Ages (Baked).gbc | zelda_ages.h | 1MB | YES |
-| aladdin.h | aladdin.h | ~6MB | NO — header exists, not in sd_card.cpp |
-| lego_racers.h | lego_racers.h | ~6MB | NO — header exists, not in sd_card.cpp |
+| Aladdin (Baked).gbc | aladdin.h | 1MB | YES |
+| Lego Racers (Baked).gbc | lego_racers.h | 1MB | YES |
 
-aladdin.h and lego_racers.h are ~6MB each. Registering them as baked would
-push the flash footprint over the 8MB app0 partition limit. Do not register
-them without first verifying the compiled binary fits.
+Note: Header files are ~6MB of formatted C text on disk, but each compiles
+to exactly 1,048,576 bytes (1MB) in flash .rodata. All 4 baked ROMs consume
+~4.98MB total firmware binary space, well within the 8MB app0 partition limit.
 
 ---
 
@@ -1635,11 +1641,13 @@ The firmware can serve these WITHOUT an SD card. The ROM data lives in
 the ESP32-S3 flash .rodata section.
 
 ## Pre-flight checklist (do all before touching sd_card.cpp)
+This budget check is now a standing invariant, not a one-time step — see `37_rom_governance_and_flash_budget.md`.
+
 1. **Check flash budget.** Run the arduino-cli build and inspect the
    binary size. The `app0` partition is exactly 8MB (8,388,608 bytes).
-   The current binary with mario + zelda baked is approximately 4-5MB.
-   Each 1MB ROM adds ~1MB to the binary. aladdin.h and lego_racers.h
-   are ~6MB each -- baking either WILL exceed the partition limit.
+   The binary with 4 baked 1MB ROMs (mario, zelda, aladdin, lego_racers) is ~4.98MB.
+   Each 1MB ROM adds ~1MB to the binary (do not confuse the ~6MB C source text size
+   on disk with the actual 1MB compiled binary .rodata array size).
    Formula: `current_binary_size + new_rom_size_bytes < 8,388,608`
    If this does not hold, DO NOT proceed -- the flash will fail silently.
 
@@ -1772,7 +1780,7 @@ address window that startFrame() set, producing screen tearing or
 corrupting the ongoing frame transfer.
 **Prevention:** BmoFace::draw() and BmoFace::update() are NEVER called
 during STATE_EMULATOR. This is enforced by the loop() structure --
-do not move those calls inside the emulator branch.
+do not move those calls inside the emulator branch. See also `35_bmo_face_contract.md` for the full mascot subsystem contract.
 
 ---
 
@@ -1802,11 +1810,12 @@ or the SELECT+UP exit handler MUST update 27_codebase_map.md routing table.
 
 ---
 
-## M-11: Forgetting that aladdin.h and lego_racers.h are ~6MB each
-**What happens:** Agent registers them as baked ROMs. Binary exceeds 8MB.
-Flash fails. Device may require reflash with different partition table.
-**Prevention:** See 29_adding_a_baked_rom.md step 1. Check binary size
-before committing any new baked ROM registration.
+## M-11: Confusing C-array source header size with flash binary size
+**What happens:** Agent sees a 6MB `.h` file on disk and assumes it takes 6MB
+of flash. In reality, each byte formatted as `0xXX, ` takes 6 bytes of ASCII text,
+so a 1MB ROM produces a 6MB `.h` file, but compiles to exactly 1MB in flash `.rodata`.
+**Prevention:** Always verify the compiled binary size with `arduino-cli` rather than
+estimating from the header text size on disk. See `29_adding_a_baked_rom.md`.
 
 ---
 
@@ -1868,7 +1877,7 @@ Loading a full copy into PSRAM wastes ~4MB of PSRAM and causes DOOM's internal z
 
 ## M-19: Leaving `DisplayEmu::startFrame()` open without matching `endFrame()`
 **What happens:** `startFrame()` asserts `TFT_CS` LOW. If `endFrame()` is omitted, the SPI bus is held, causing any subsequent MicroSD SPI transactions to fail or collide.
-**Prevention:** Always pair `DisplayEmu::startFrame()` with `DisplayEmu::endFrame()`.
+**Prevention:** Always pair `DisplayEmu::startFrame()` with `DisplayEmu::endFrame()`. See also `35_bmo_face_contract.md` for the full mascot subsystem contract.
 
 ---
 
@@ -2117,6 +2126,7 @@ Check known issues         Run validate_repo.py       Verify build & host tests 
 1. Read [`31_quick_start_primer.md`](file:///e:/BMO%20Gameboy/.agents/rules/31_quick_start_primer.md).
 2. Check `04_known_issues.md` to see currently active bugs, debunked theories, and pending verifications.
 3. Review `AGENT_MANIFEST.json` for current pin maps and build commands.
+4. For any human-reported device-misbehavior task with no specific symptom yet, read `36_bug_intake_protocol.md` before Stage 2.
 
 ### Stage 2: Investigation & Truth Discovery
 1. Never assume an API or struct member exists from LLM training data. Always check `10_symbol_reference.md` or grep the actual header file.
@@ -2204,3 +2214,218 @@ Every agent concluding a task should present findings using this structured form
 | Memory leak after playing several games | Core `destroy()` not called | Verify `BmoGameboy.ino` calls `Core::destroy()` and `SDCard::freeRom()` |
 | Frame rate drops in game / audio stutter | Dynamic allocation in `runFrame()` | Move all `malloc`/`heap_caps_malloc` out of frame loop into `begin()` |
 | Build fails with "undefined reference" | Hallucinated function name | Check `10_symbol_reference.md` for exact signature |
+
+---
+
+<!-- Section: 35_bmo_face_contract.md -->
+
+# BmoFace Mascot Subsystem Contract
+Purpose: consolidate every invariant governing the procedural SDF mascot
+renderer into one place, the way `28_display_and_spi_contract.md` does for
+the display. Previously scattered across the SDD, M-7, M-19, and the UI
+style guide — this file is now the canonical source; those other files
+reference it rather than restate it.
+
+## Call-timing invariants
+- `BmoFace::draw()` runs during `STATE_CONSOLE_MENU` and `STATE_GAME_MENU`.
+  NEVER during active frame rendering in `STATE_EMULATOR` (mistake M-7) — calling
+  `draw()` mid-frame corrupts the active SPI transaction.
+- `BmoFace::update()` runs every `loop()` tick regardless of state
+  (so blink and exponential-decay interpolation timers advance correctly
+  even when not drawing).
+- Every `BmoFace::draw()` call occurs strictly outside any open
+  `DisplayEmu::startFrame()` / `endFrame()` pair (mistake M-19).
+
+## Dirty-flag & caching contract
+- `BmoFace::isDirty()` returns true if and only if an animated parameter
+  (expression target, blink progress) changed since the last SDF render.
+- `blitFace()` in `src/core/bmo_face.cpp` caches `faceBuf` (128×128): it only
+  recomputes the 2D SDF (`renderFace()`, ~3ms) when `s_dirty` is true. On static
+  frames, it reuses `faceBuf` to execute a fast ~0.4ms row-blit.
+- In `STATE_CONSOLE_MENU` and `STATE_GAME_MENU`, `BmoFace::draw()` is called
+  unconditionally after `writeMenuCanvas()`. This ensures the menu canvas's
+  full-screen blit does not erase the mascot face on clean frames.
+
+## Expression state-transition contract
+- The 9 states are: `IDLE`, `HAPPY`, `SURPRISED`, `SLEEPY`, `LOW_BATTERY`,
+  `CHARGING`, `ERROR`, `SHUTDOWN`, `HIDDEN` (SDD §6).
+- `LOW_BATTERY` and `CHARGING` must never be reachable while
+  `FEATURE_BATTERY_MONITOR=0` — all call sites passing these values are gated
+  by `#if FEATURE_BATTERY_MONITOR`.
+- All transitions interpolate via exponential decay (`k = EASE_RATE * dt`)
+  EXCEPT `ERROR`, which snaps instantaneously without easing.
+
+### Call Site Registry
+| File & Line | Trigger Context | Target Expression |
+|---|---|---|
+| `BmoGameboy.ino:128` | Setup / boot splash initialization | `IDLE` |
+| `BmoGameboy.ino:178` | Console Menu -> Game Menu navigation (`BTN_A`) | `IDLE` |
+| `BmoGameboy.ino:220` | Game Menu -> Console Menu navigation (`BTN_B`) | `IDLE` |
+| `BmoGameboy.ino:226` | Invalid ROM selection fallback | `IDLE` |
+| `BmoGameboy.ino:273` | Emulator initialization failure fallback | `IDLE` |
+| `BmoGameboy.ino:285` | Game launch celebration beat | `HAPPY` |
+| `BmoGameboy.ino:332` | Emulator exit (`SELECT + UP`) return to menu | `IDLE` |
+| `src/emulators/emu_walnut.cpp:114` | Walnut-CGB `gb_error` panic | `ERROR` |
+| `src/emulators/emu_peanut.cpp:83` | Peanut-GB `gb_error` panic | `ERROR` |
+| `src/core/battery.cpp:50` | Low battery shutdown (`FEATURE_BATTERY_MONITOR=1`) | `SHUTDOWN` |
+| `src/core/battery.cpp:63` | Low battery warning (`FEATURE_BATTERY_MONITOR=1`) | `LOW_BATTERY` |
+
+## Memory & rendering contract
+- **Framebuffer:** 128×128 RGB565 in internal DRAM (32KB, `faceBuf`), statically
+  allocated at module level with 4-byte alignment. Zero heap allocations
+  (`malloc`/`new`) in `update()` or `draw()`.
+- **Wire Format:** Color output is packed as BGR565 byte-swapped via `packBGR565()`,
+  matching `DisplayEmu::uiColor` and `CLASSIC_PALETTE`.
+- **Non-blocking:** Zero `delay()` calls in `BmoFace::update()` or `draw()`.
+  All timing is driven by `millis()` and `micros()` deltas.
+
+## Host-testability note
+The 2D SDF math (ellipses, parabolic mouth, smoothstep AA, easing) is pure
+arithmetic. The only hardware dependency is `DisplayEmu::pushPixelsAt()`.
+Host test harnesses can compile and verify `renderFace()` output independently.
+
+## Known failure signatures
+| Symptom | Likely cause | Where to look |
+|---|---|---|
+| Face missing / flashes once and disappears | Menu canvas full-screen overwrite covering face when clean | `BmoGameboy.ino` menu loops |
+| Face frozen, never animates | `BmoFace::update()` not called every tick | `loop()` top-level calls |
+| Screen tears / corrupts near face | M-7 or M-19 violation | grep `BmoFace::` across ALL files |
+| Colors wrong only on face | Missing BGR565 byte-swap | `bmo_face.cpp` `packBGR565` helper |
+| Erratic / rapid blink | Blink timer not using `millis()` delta | Blink state variables in `bmo_face.cpp` |
+
+---
+
+<!-- Section: 36_bug_intake_protocol.md -->
+
+# Human-Reported Hardware Bug Intake Protocol
+Purpose: prevent a repeat of INC-1 (Hallucinated Bug Report,
+`23_incident_postmortem_log.md`). When a human reports the device "isn't
+behaving as expected" with no further detail, an agent's default
+instinct is to form a plausible-sounding hypothesis and start editing
+code. This file makes that instinct structurally harder to act on.
+
+## When this applies
+Any report of unexpected physical-device behavior with fewer than:
+(a) a specific visual/behavioral description, (b) a when/how-to-reproduce
+note, and (c) whether it's a regression. If a report already includes
+all three, you may skip straight to the static-audit phase below. If it
+doesn't, do NOT start editing code — do intake first.
+
+## Phase 1: Structured intake (ask, don't assume)
+Ask the human, as a concrete checklist (not open-ended prose):
+1. **WHEN does it happen?** (always / specific state or transition /
+   intermittent / after N minutes)
+2. **WHAT does it look like, specifically?** Offer a menu of concrete
+   options relevant to the subsystem in question rather than an open
+   "describe the bug" — humans under-describe visual bugs in prose, a
+   checklist gets better signal.
+3. **Any correlated action?** (button presses, SD removal, console switch)
+4. **Regression or always-broken?** If regression, roughly when did it last
+   work (a date, a firmware commit, "before the last flash")?
+5. **Can they capture a Serial Monitor log around the event?**
+
+If some questions go unanswered, proceed with what's available but list
+the gaps explicitly in your final report's "Waiting on you" section —
+never backfill an unanswered question with an assumption stated as fact.
+
+## Phase 2: Static audit BEFORE hypothesis
+Before naming a root cause, read the actual live code for the implicated
+subsystem and check it against every documented contract/mistake entry
+for that subsystem (e.g. `28_display_and_spi_contract.md` +
+`30_common_agent_mistakes.md` for display bugs; `35_bmo_face_contract.md` for
+mascot bugs). For each relevant contract, report PASS (quote the line
+proving it) or FAIL (quote the violating line) — "looks fine" without a
+quoted line is not acceptable evidence (`06_verification_standards.md`).
+
+## Phase 3: Map symptom to hypothesis
+Only after Phase 1 + Phase 2, state which hypothesis the EVIDENCE
+supports. A hypothesis whose corresponding Phase 2 check came back PASS
+is ruled out — do not pursue it further. If no hypothesis is supported
+with confidence, say so explicitly and propose gated LOG_DEBUG
+instrumentation (`16_logging_and_diagnostics.md`) as the next step, rather
+than picking the most plausible-sounding guess.
+
+## Phase 4: Instrumentation is the last resort, not the first move
+If Phase 2 can't rule a hypothesis in or out from static reading alone,
+add the minimum `LOG_DEBUG` calls needed, gated behind `LOG_LEVEL`, and
+explicitly hand off to the human for a physical capture — this is a
+"Waiting on you" item, not something you can verify yourself.
+
+## Phase 5: Fix only with evidence, verify with an explicit PASS bar
+State the fix's plan in 3-6 bullets citing which Phase 2/4 evidence
+justifies it (`07_task_protocol.md`). Before claiming any status better
+than `FIXED_UNVERIFIED`, state an explicit, human-checkable PASS/FAIL
+description (`06_verification_standards.md`'s `VERIFIED_HARDWARE`
+requirement) — e.g. "X transitions within 1 second, no corruption over 5
+repetitions" — not "should be fixed now."
+
+## Anti-pattern this file exists to prevent
+Naming a specific function, line number, or variable in a bug report
+that you have not personally greped from a live file THIS session. This
+is precisely how INC-1 happened — a fabricated, confidently-specific
+report. If you don't know it, say "I have not verified this" instead of
+inventing a plausible detail.
+
+---
+
+<!-- Section: 37_rom_governance_and_flash_budget.md -->
+
+# ROM Governance & Flash-Budget Invariant
+Purpose: resolve the standing ambiguity between `docs/hardware-notes.md`
+§11 ("never commit a copyrighted commercial ROM... .gitignore excludes
+ROM files and their generated headers") and `27_codebase_map.md` (which
+shows registered baked ROMs the unconditional build depends on). Also
+promotes the flash-budget check from a one-time manual checklist
+(`29_adding_a_baked_rom.md`) to a standing invariant.
+
+## Tracking status (verified ground truth)
+Audit command executed in session:
+```powershell
+git ls-files firmware/BmoGameboy/src/assets/roms/
+```
+Literal output:
+```text
+firmware/BmoGameboy/src/assets/roms/aladdin.h
+firmware/BmoGameboy/src/assets/roms/lego_racers.h
+firmware/BmoGameboy/src/assets/roms/mario_deluxe.h
+firmware/BmoGameboy/src/assets/roms/zelda_ages.h
+```
+
+**Finding:** All four ROM headers under `src/assets/roms/` are currently
+tracked and committed in git history. The root `.gitignore` specifies
+patterns `rom_*.h` and `rom_data*.h`, which do not match `aladdin.h`,
+`lego_racers.h`, `mario_deluxe.h`, or `zelda_ages.h`.
+
+## Governance & Legality Policy
+- **Direct Policy Conflict:** The presence of commercial ROM C-arrays in git
+  directly conflicts with `docs/hardware-notes.md` §11 ("never commit a
+  copyrighted commercial ROM").
+- **Standing Status:** Tracked as an `OPEN` technical debt item in
+  `04_known_issues.md` for human operator resolution (licensing and
+  distribution decisions are outside autonomous agent authority).
+- In the interim, firmware builds compile against these four tracked headers
+  (`mario_deluxe.h`, `zelda_ages.h`, `aladdin.h`, `lego_racers.h`).
+
+## Flash-budget invariant (standing rule)
+Any change that adds to `app0`'s compiled content — a new baked ROM, a new
+large const table, or a new library — MUST satisfy:
+$$\text{new\_total\_binary\_size\_bytes} < 8,388,608 \text{ bytes (app0 partition capacity)}$$
+Verified by an ACTUAL `arduino-cli compile` run in the current session, not an estimate.
+
+This check is a mandatory part of Definition of Done (`07_task_protocol.md`)
+for ANY change touching `src/assets/` or adding vendor libraries.
+
+## Partition-change protocol (repartitioning app0/ffat)
+The `ffat` partition (~7.9MB) is currently unused. Growing `app0` at its
+expense is possible in principle but is a HARD-STOP-ADJACENT change:
+1. First grep the entire firmware for any `FFat.` / `SPIFFS.` / filesystem
+   mount call to confirm `ffat` is truly unused before touching it.
+2. A `partitions.csv` change requires the review gate in `05_git_workflow.md`
+   (show `git diff --stat` + message, wait for explicit human approval)
+   BEFORE committing, every time, no exceptions.
+3. Never repartition speculatively "in case it's needed" — only when a
+   specific, currently-blocked ROM registration is the stated reason,
+   documented in the same commit.
+4. After any partition change, re-run the FULL flash-budget verification
+   above, plus confirm OTA metadata (`otadata`) still fits its 8KB
+   allocation unchanged.
