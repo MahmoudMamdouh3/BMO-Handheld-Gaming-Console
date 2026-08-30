@@ -7,12 +7,17 @@ capable or careful the specific model is.
 1. Read 00_hard_stops.md, 01_hardware.md in full — always, every task,
    regardless of how unrelated the task seems, since a task that looks
    pure-software can still touch a pin or a feature flag.
-2. Read 10_symbol_reference.md and confirm any function/struct/macro
+2. Read 27_codebase_map.md — this gives the full architecture, routing,
+   PSRAM budget, SPI sharing, and bitmask layout in one place. Knowing
+   this prevents the most common structural mistakes without reading 5 files.
+3. Skim 30_common_agent_mistakes.md — 2 minutes, saves hours. If your task
+   touches a category listed there, re-read the linked rule file in full.
+4. Read 10_symbol_reference.md and confirm any function/struct/macro
    you're about to reference actually appears there. If it doesn't, grep
    for it yourself before using it in a claim — never assume a name
    exists because it "sounds right" for the codebase.
-3. `git status`; checkpoint-commit if dirty.
-4. State your plan in 3-6 bullets before writing code. If the task
+5. `git status`; checkpoint-commit if dirty.
+6. State your plan in 3-6 bullets before writing code. If the task
    touches anything in 00_hard_stops.md's categories, say so explicitly
    and state which constraint applies.
 

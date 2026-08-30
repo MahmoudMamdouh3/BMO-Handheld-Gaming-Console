@@ -1,5 +1,5 @@
 # .agents/rules/ Index
-**RULESET_VERSION: 1**
+**RULESET_VERSION: 2**
 
 Read in this order. 00-01 are mandatory for every task, no exceptions.
 
@@ -32,3 +32,7 @@ Read in this order. 00-01 are mandatory for every task, no exceptions.
 | 24_vendor_flag_safety.md | Mandatory read-before-enable protocol for vendor #define flags | **Always before touching src/engine/ or src/vendor/ flags** |
 | 25_game_compatibility_ledger.md | Per-game hardware test ledger; WORKS/PARTIAL/BROKEN status | Always skim before emulator changes |
 | 26_emulator_exit_contract.md | destroy() teardown requirements; documents current Walnut/Peanut gap | Emulator or menu tasks |
+| 27_codebase_map.md | Full architecture map: directories, state machine, routing, PSRAM, SPI, partitions | **Always** (replaces needing to re-read 5 files from scratch) |
+| 28_display_and_spi_contract.md | Pixel format, startFrame/endFrame protocol, SPI sharing rules | Display/rendering tasks |
+| 29_adding_a_baked_rom.md | Step-by-step checklist for baking a new ROM into flash | Adding ROM tasks |
+| 30_common_agent_mistakes.md | Anti-pattern catalogue (M-1 through M-15) with INC cross-references | **Always skim** — prevents repeated mistakes |
