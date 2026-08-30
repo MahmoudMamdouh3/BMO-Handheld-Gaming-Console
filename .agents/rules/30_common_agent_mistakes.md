@@ -93,11 +93,12 @@ or the SELECT+UP exit handler MUST update 27_codebase_map.md routing table.
 
 ---
 
-## M-11: Forgetting that aladdin.h and lego_racers.h are ~6MB each
-**What happens:** Agent registers them as baked ROMs. Binary exceeds 8MB.
-Flash fails. Device may require reflash with different partition table.
-**Prevention:** See 29_adding_a_baked_rom.md step 1. Check binary size
-before committing any new baked ROM registration.
+## M-11: Confusing C-array source header size with flash binary size
+**What happens:** Agent sees a 6MB `.h` file on disk and assumes it takes 6MB
+of flash. In reality, each byte formatted as `0xXX, ` takes 6 bytes of ASCII text,
+so a 1MB ROM produces a 6MB `.h` file, but compiles to exactly 1MB in flash `.rodata`.
+**Prevention:** Always verify the compiled binary size with `arduino-cli` rather than
+estimating from the header text size on disk. See `29_adding_a_baked_rom.md`.
 
 ---
 

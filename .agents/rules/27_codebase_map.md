@@ -50,8 +50,8 @@ repo-root/
 │       │   └── roms/
 │       │       ├── mario_deluxe.h   <- 1MB GBC ROM baked as C array
 │       │       ├── zelda_ages.h     <- 1MB GBC ROM baked as C array
-│       │       ├── aladdin.h        <- not yet registered in sd_card.cpp
-│       │       └── lego_racers.h    <- not yet registered in sd_card.cpp
+│       │       ├── aladdin.h        <- 1MB GBC ROM baked as C array
+│       │       └── lego_racers.h    <- 1MB GBC ROM baked as C array
 │       └── tests/
 │           └── unit_tests.cpp     <- on-device test suite (requires ENABLE_UNIT_TESTS)
 ├── tools/
@@ -102,12 +102,12 @@ Registered in `SDCard::begin()` and `SDCard::loadRom()` in sd_card.cpp.
 |---|---|---|---|
 | Super Mario Bros Deluxe (Baked).gbc | mario_deluxe.h | 1MB | YES |
 | Legend of Zelda Ages (Baked).gbc | zelda_ages.h | 1MB | YES |
-| aladdin.h | aladdin.h | ~6MB | NO — header exists, not in sd_card.cpp |
-| lego_racers.h | lego_racers.h | ~6MB | NO — header exists, not in sd_card.cpp |
+| Aladdin (Baked).gbc | aladdin.h | 1MB | YES |
+| Lego Racers (Baked).gbc | lego_racers.h | 1MB | YES |
 
-aladdin.h and lego_racers.h are ~6MB each. Registering them as baked would
-push the flash footprint over the 8MB app0 partition limit. Do not register
-them without first verifying the compiled binary fits.
+Note: Header files are ~6MB of formatted C text on disk, but each compiles
+to exactly 1,048,576 bytes (1MB) in flash .rodata. All 4 baked ROMs consume
+~4.98MB total firmware binary space, well within the 8MB app0 partition limit.
 
 ---
 

@@ -40,8 +40,8 @@ Document the definition in this file before the hardware test, not after.
 | Super Mario Bros. Deluxe (Baked) | GBC | WalnutEmu | 3c53275 (logging refactor) | 16BIT_OPS=1, DUALFETCH=1 | BROKEN | 2026-08-30 | Froze on new-game/load. INC-3. Flags reverted to 0 in 5d78e8b. |
 | Super Mario Bros. Deluxe (Baked) | GBC | WalnutEmu | 5d78e8b (flag revert) | 16BIT_OPS=0, DUALFETCH=0 | UNTESTED | -- | Flags reverted; needs hardware re-flash to confirm fix. |
 | Legend of Zelda: Oracle of Ages (Baked) | GBC | WalnutEmu | -- | -- | UNTESTED | -- | Baked ROM present, never hardware-tested |
-| Aladdin | GBC | WalnutEmu | -- | -- | UNTESTED | -- | ROM header in assets/, not registered as baked |
-| Lego Racers | GBC | WalnutEmu | -- | -- | UNTESTED | -- | ROM header in assets/, not registered as baked |
+| Aladdin (Baked) | GBC | WalnutEmu | -- | -- | UNTESTED | -- | Baked ROM registered in sd_card.cpp; compiles cleanly |
+| Lego Racers (Baked) | GBC | WalnutEmu | -- | -- | UNTESTED | -- | Baked ROM registered in sd_card.cpp; compiles cleanly |
 
 ## How to update this file
 When you flash and test a game:

@@ -11,9 +11,9 @@ the ESP32-S3 flash .rodata section.
 ## Pre-flight checklist (do all before touching sd_card.cpp)
 1. **Check flash budget.** Run the arduino-cli build and inspect the
    binary size. The `app0` partition is exactly 8MB (8,388,608 bytes).
-   The current binary with mario + zelda baked is approximately 4-5MB.
-   Each 1MB ROM adds ~1MB to the binary. aladdin.h and lego_racers.h
-   are ~6MB each -- baking either WILL exceed the partition limit.
+   The binary with 4 baked 1MB ROMs (mario, zelda, aladdin, lego_racers) is ~4.98MB.
+   Each 1MB ROM adds ~1MB to the binary (do not confuse the ~6MB C source text size
+   on disk with the actual 1MB compiled binary .rodata array size).
    Formula: `current_binary_size + new_rom_size_bytes < 8,388,608`
    If this does not hold, DO NOT proceed -- the flash will fail silently.
 
