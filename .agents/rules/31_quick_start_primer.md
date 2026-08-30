@@ -51,22 +51,29 @@ Purpose: Any AI agent or developer starting a session with zero prior memory can
 | :--- | :--- |
 | Any pin, GPIO, or hardware component | `01_hardware.md` & `src/core/config.h` |
 | Display rendering, colors, scaling, or SPI | `28_display_and_spi_contract.md` |
-| Adding or modifying an emulator core | `12_extensibility_contract.md` & `26_emulator_exit_contract.md` |
+| Adding or modifying an emulator core | `12_extensibility_contract.md`, `26_emulator_exit_contract.md`, & `32_modular_core_template.md` |
 | Adding a new baked ROM | `29_adding_a_baked_rom.md` |
 | Citing any function or variable name | `10_symbol_reference.md` |
 | Modifying vendor `#define` flags | `24_vendor_flag_safety.md` |
+| AI guardrails, anti-hallucination, invariants | `34_ai_agent_sandbox_and_guardrails.md` |
+| Ending session / logging handoffs | `33_agent_handoff_and_optimization_cycle.md` & `04_known_issues.md` |
 | Writing commit messages or status reports | `05_git_workflow.md` & `06_verification_standards.md` |
 | Investigating an unexpected bug | `04_known_issues.md` & `30_common_agent_mistakes.md` |
 
 ---
 
 ## 6. How To Build & Hand Off Cleanly
-1. **Verified Build Command:**
+1. **Run AI Guardian CI Validation:**
+   ```powershell
+   python scripts/validate_repo.py
+   python -m unittest discover tests
+   ```
+2. **Verified Firmware Build Command:**
    ```powershell
    .\arduino-cli.exe compile --fqbn "esp32:esp32:esp32s3:FlashMode=opi,FlashSize=16M,PartitionScheme=custom,PSRAM=opi" firmware/BmoGameboy
    ```
-2. Run compilation / tests before claiming completion.
-3. Update `04_known_issues.md` and `CHANGELOG.md` with a one-line dated entry.
-4. Use the mandatory two-header final report format:
+3. Run compilation / tests before claiming completion.
+4. Update `04_known_issues.md` and `CHANGELOG.md` with a one-line dated entry.
+5. Use the mandatory two-header final report format:
    - `## Verified by me this session`
    - `## Waiting on you`

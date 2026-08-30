@@ -140,3 +140,30 @@ destroy() is not wired, assumes it is still missing, and attempts to re-add it o
 **Prevention:** Check BmoGameboy.ino SELECT+UP handler live in THIS session before claiming
 a teardown gap exists. All four cores (Walnut, Peanut, NES, DOOM) are wired to call destroy().
 
+---
+
+## M-17: Using raw unaligned pointer casts on Flash `.rodata`
+**What happens:** Direct pointer casts like `*(uint16_t*)&rom[addr]` on Flash memory
+can trigger unaligned memory access exceptions on Xtensa LX7 cores.
+**Prevention:** Always reconstruct 16-bit and 32-bit words byte-by-byte in little-endian order:
+`((uint16_t)rom[addr]) | ((uint16_t)rom[addr + 1] << 8)`.
+
+---
+
+## M-18: Pre-loading DOOM WAD into PSRAM before calling `DoomEmu::begin()`
+**What happens:** DOOM streams `.wad` data directly from the MicroSD FAT filesystem via POSIX VFS `fopen()` / `fread()`.
+Loading a full copy into PSRAM wastes ~4MB of PSRAM and causes DOOM's internal zone allocator to fail.
+**Prevention:** For `ROM_WAD`, pass the VFS file path `/sd/FILENAME.WAD` directly to `DoomEmu::begin()` with `romData = nullptr`.
+
+---
+
+## M-19: Leaving `DisplayEmu::startFrame()` open without matching `endFrame()`
+**What happens:** `startFrame()` asserts `TFT_CS` LOW. If `endFrame()` is omitted, the SPI bus is held, causing any subsequent MicroSD SPI transactions to fail or collide.
+**Prevention:** Always pair `DisplayEmu::startFrame()` with `DisplayEmu::endFrame()`.
+
+---
+
+## M-20: Omitting handoff logs in `04_known_issues.md` and `CHANGELOG.md`
+**What happens:** Future agents or sessions lack ground-truth context about what was modified, verified, or debunked, causing duplicate effort or regressions.
+**Prevention:** Follow `33_agent_handoff_and_optimization_cycle.md` and always leave clear, dated logs before concluding a session.
+

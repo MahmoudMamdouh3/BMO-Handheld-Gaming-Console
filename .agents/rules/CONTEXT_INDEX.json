@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "index_version": 4,
+  "last_updated": "2026-08-30",
+  "task_to_rules": {
+    "quick_start": [
+      ".agents/rules/31_quick_start_primer.md",
+      "AGENT_MANIFEST.json"
+    ],
+    "hardware_wiring_or_pins": [
+      ".agents/rules/00_hard_stops.md",
+      ".agents/rules/01_hardware.md",
+      "firmware/BmoGameboy/src/core/config.h"
+    ],
+    "display_colors_spi_scaling": [
+      ".agents/rules/28_display_and_spi_contract.md",
+      "firmware/BmoGameboy/src/core/display_emu.h",
+      "firmware/BmoGameboy/src/core/display_emu.cpp"
+    ],
+    "emulator_modification_or_new_core": [
+      ".agents/rules/12_extensibility_contract.md",
+      ".agents/rules/26_emulator_exit_contract.md",
+      ".agents/rules/32_modular_core_template.md"
+    ],
+    "adding_baked_rom": [
+      ".agents/rules/29_adding_a_baked_rom.md",
+      "firmware/BmoGameboy/src/core/sd_card.cpp",
+      "firmware/BmoGameboy/src/assets/rom_data.h"
+    ],
+    "api_lookup_and_symbol_check": [
+      ".agents/rules/10_symbol_reference.md"
+    ],
+    "vendor_flags_or_patches": [
+      ".agents/rules/18_dependency_and_vendor_sync.md",
+      ".agents/rules/24_vendor_flag_safety.md"
+    ],
+    "ai_guardrails_and_invariants": [
+      ".agents/rules/34_ai_agent_sandbox_and_guardrails.md",
+      ".agents/rules/30_common_agent_mistakes.md"
+    ],
+    "session_handoff_and_logging": [
+      ".agents/rules/33_agent_handoff_and_optimization_cycle.md",
+      ".agents/rules/04_known_issues.md",
+      "CHANGELOG.md"
+    ],
+    "debugging_or_investigation": [
+      ".agents/rules/04_known_issues.md",
+      ".agents/rules/23_incident_postmortem_log.md",
+      ".agents/rules/30_common_agent_mistakes.md"
+    ]
+  }
+}

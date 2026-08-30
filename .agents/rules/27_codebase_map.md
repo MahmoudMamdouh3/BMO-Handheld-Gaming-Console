@@ -10,13 +10,14 @@ Last updated: 2026-08-30 (Antigravity)
 ## Directory tree (verified, current)
 ```
 repo-root/
-├── AGENTS.md                      <- entry point, points here
+├── AGENTS.md                      <- entry point, points here (Ruleset v4)
 ├── README.md                      <- user-facing project summary
+├── AGENT_MANIFEST.json            <- machine-readable hardware & build manifest
 ├── IMPLEMENTATION_PLAN.md         <- historical plan, status=COMPLETE, safe to ignore
 ├── partitions.csv                 <- WARNING: see Flash Partitions below
-├── .agents/rules/                 <- agent ruleset (this dir)
+├── .agents/rules/                 <- agent ruleset (34 rules + CONTEXT_INDEX.json)
 ├── docs/
-│   ├── software-design-document.md  <- ASPIRATIONAL only, has warning banner
+│   ├── software-design-document.md  <- Living architectural specification (v3.0 Ground Truth)
 │   └── hardware-notes.md
 ├── firmware/BmoGameboy/
 │   ├── BmoGameboy.ino             <- ONLY setup(), loop(), state machine

@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "project": "BMO-Handheld-Gaming-Console",
+  "version": "3.0.0",
+  "ruleset_version": 4,
+  "sdd_version": "3.0",
+  "hardware": {
+    "mcu": "ESP32-S3-N16R8",
+    "cpu_frequency_mhz": 240,
+    "flash_mode": "opi",
+    "flash_size_mb": 16,
+    "psram_mode": "opi",
+    "psram_size_mb": 8,
+    "display": {
+      "controller": "ST7789VW",
+      "resolution": "240x320",
+      "logical_resolution": "320x240",
+      "rotation": 3,
+      "pixel_format": "BGR565_BYTESWAPPED",
+      "bus": "FSPI",
+      "clock_mhz": 80,
+      "pins": {
+        "sck": 12,
+        "mosi": 11,
+        "cs": 10,
+        "dc": 8,
+        "rst": 9
+      }
+    },
+    "sd_card": {
+      "status": "ACTIVE",
+      "bus": "FSPI",
+      "pins": {
+        "miso": 15,
+        "cs": 13,
+        "sck": 12,
+        "mosi": 11
+      }
+    },
+    "buttons": {
+      "status": "ACTIVE",
+      "logic": "ACTIVE_LOW_INPUT_PULLUP",
+      "polling": "ATOMIC_GPIO_IN_REG",
+      "pins": {
+        "up": 4,
+        "down": 5,
+        "left": 6,
+        "right": 7,
+        "a": 16,
+        "b": 17,
+        "start": 18,
+        "select": 21
+      }
+    },
+    "dormant_peripherals": {
+      "battery_monitor": {
+        "status": "DORMANT",
+        "pin": 1,
+        "flag": "FEATURE_BATTERY_MONITOR",
+        "value": 0
+      },
+      "audio_i2s": {
+        "status": "DORMANT",
+        "pins": {
+          "bclk": 38,
+          "lrc": 39,
+          "din": 40
+        },
+        "flag": "FEATURE_AUDIO",
+        "value": 0
+      },
+      "fram_i2c": {
+        "status": "DORMANT_RESERVED",
+        "pins": {
+          "sda": 43,
+          "scl": 44
+        }
+      }
+    }
+  },
+  "build": {
+    "arduino_cli_fqbn": "esp32:esp32:esp32s3:FlashMode=opi,FlashSize=16M,PartitionScheme=custom,PSRAM=opi",
+    "sketch_path": "firmware/BmoGameboy",
+    "validation_command": "python scripts/validate_repo.py",
+    "test_command": "python -m unittest discover tests"
+  },
+  "emulators": [
+    {
+      "name": "Walnut-CGB",
+      "type": "ROM_GBC",
+      "extension": ".gbc",
+      "wrapper": "src/emulators/emu_walnut.cpp",
+      "engine": "src/engine/walnut_cgb/walnut_cgb.h"
+    },
+    {
+      "name": "Peanut-GB",
+      "type": "ROM_GB",
+      "extension": ".gb",
+      "wrapper": "src/emulators/emu_peanut.cpp",
+      "engine": "src/vendor/peanut_gb/peanut_gb.h"
+    },
+    {
+      "name": "Agnes",
+      "type": "ROM_NES",
+      "extension": ".nes",
+      "wrapper": "src/emulators/emu_nes.cpp",
+      "engine": "src/vendor/agnes/agnes.c"
+    },
+    {
+      "name": "doomgeneric",
+      "type": "ROM_WAD",
+      "extension": ".wad",
+      "wrapper": "src/emulators/emu_doom.cpp",
+      "engine": "src/vendor/doom/"
+    }
+  ]
+}
