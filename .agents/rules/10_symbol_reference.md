@@ -11,7 +11,19 @@ This file must be regenerated (not hand-edited from memory) any time a
 core emulator file, driver, or shared header changes its public
 functions/macros/structs. Regenerate by grepping actual function
 signatures, macro `#define`s, and top-level struct declarations from:
-`src/core/`, `src/emulators/`, `src/vendor/*/`.
+`src/core/`, `src/emulators/`, `src/engine/*/`, `src/vendor/*/`.
+
+## Staleness detection
+This file was last regenerated: **2026-08-30**.
+If any of the following files have a newer git commit date than that,
+this file is stale -- grep live and update before making any symbol claims:
+- `src/emulators/emu_walnut.cpp`
+- `src/emulators/emu_peanut.cpp`
+- `src/engine/walnut_cgb/walnut_cgb.h`
+- `src/core/config.h`
+
+Run: `git log --oneline -1 -- <file>` for each to check. If any show a
+commit newer than the date above, grep live instead of trusting this table.
 
 ## Format
 One table per file, columns: `Symbol | Kind (fn/macro/struct) | Signature
@@ -39,7 +51,9 @@ called X in the codebase" instead of describing what it supposedly does.
 | Symbol | Kind | Signature | Notes |
 |---|---|---|---|
 | `gb_init` | fn | `enum gb_init_error_e gb_init(struct gb_s* gb, uint8_t(*gb_rom_read)(struct gb_s*, const uint_fast32_t), uint16_t(*gb_rom_read16)(struct gb_s*, const uint_fast32_t), uint32_t(*gb_rom_read32)(struct gb_s*, const uint_fast32_t), uint8_t(*gb_cart_ram_read)(struct gb_s*, const uint_fast32_t), void (*gb_cart_ram_write)(struct gb_s*, const uint_fast32_t, const uint8_t), void (*gb_error)(struct gb_s*, const enum gb_error_e, const uint16_t), void* priv)` | 8 arguments including 16/32 read callbacks |
-| `gb_run_frame` | fn | `void gb_run_frame(struct gb_s *gb)` | Executes one frame (16742 µs) |
+| `gb_run_frame` | fn | `void gb_run_frame(struct gb_s *gb)` | Executes one frame via `__gb_step_cpu_x` |
+| `gb_run_frame_dualfetch` | fn | `void gb_run_frame_dualfetch(struct gb_s *gb)` | Executes one frame via `__gb_step_cpu` (dual-fetch path); THIS is what `WalnutEmu::runFrame()` calls |
+| `gb_init_lcd` | fn | `void gb_init_lcd(struct gb_s *gb, void(*lcd_draw_line)(...))` | Registers scanline callback |
 | `gb_s` | struct | `struct gb_s` | Core emulator context, align(32) |
 | `gb_init_error_e` | enum | `enum gb_init_error_e` | Initialization error codes |
 

@@ -19,7 +19,13 @@ Before syncing a vendor library to a newer upstream version:
 ## Patch Ledger
 - Maintain a short patch ledger (a table here, or a linked `docs/VENDOR_PATCHES.md` if it outgrows this file's char budget): file, line, one-line reason, date added.
 
-| File | Line | Reason | Date Added |
-|---|---|---|---|
-| `src/emulators/emu_walnut.cpp` | ~L84, ~L90 | Replaced unsafe unaligned pointer casts with byte-wise little-endian reconstruction | 2026-08-29 |
-| `src/engine/walnut_cgb/walnut_cgb.h` | ~L67 | Fixed typo _OPS_OPS and _DISABLED to correctly enable 16-bit fast paths | 2026-08-29 |
+| File | Line | Reason | Date Added | Status |
+|---|---|---|---|---|
+| `src/emulators/emu_walnut.cpp` | ~L84, ~L90 | Replaced unsafe unaligned pointer casts with byte-wise little-endian reconstruction | 2026-08-29 | ACTIVE |
+| `src/engine/walnut_cgb/walnut_cgb.h` | ~L67 | Enabled 16-bit fast paths (DUALFETCH + 16BIT_OPS) | 2026-08-29 | **REVERTED 2026-08-30** -- caused Mario Deluxe GBC freeze (INC-3). See `24_vendor_flag_safety.md`. |
+
+## Vendor flag changes require 24_vendor_flag_safety.md compliance
+Any change to a `#define` value in `src/engine/*/` or `src/vendor/*/`
+that is NOT a whitespace/comment-only change must follow the protocol in
+`24_vendor_flag_safety.md` before being committed. Add a row to this
+table when you make such a change, and update its Status if reverted.

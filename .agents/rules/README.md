@@ -29,3 +29,6 @@ Read in this order. 00-01 are mandatory for every task, no exceptions.
 | 21_documentation_standards.md | In-code and out-of-code documentation rules | Docs/Architecture tasks |
 | 22_review_checklist.md | Lightweight everyday self-review | Before reporting done |
 | 23_incident_postmortem_log.md | Record of process failures | Process revisions |
+| 24_vendor_flag_safety.md | Mandatory read-before-enable protocol for vendor #define flags | **Always before touching src/engine/ or src/vendor/ flags** |
+| 25_game_compatibility_ledger.md | Per-game hardware test ledger; WORKS/PARTIAL/BROKEN status | Always skim before emulator changes |
+| 26_emulator_exit_contract.md | destroy() teardown requirements; documents current Walnut/Peanut gap | Emulator or menu tasks |
