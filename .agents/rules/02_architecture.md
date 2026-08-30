@@ -3,8 +3,12 @@
 - **Key Libraries:** `Adafruit ST7735 and ST7789 Library` v1.11.0, `SD` v1.3.0, `Agnes` v0.2.0.
 - **Board Model:** ESP32-S3-N16R8 (16MB Flash, 8MB PSRAM).
 - **Host Test Compiler:** Zig v0.13.0 for Windows x86_64 (`https://ziglang.org/download/0.13.0/zig-windows-x86_64-0.13.0.zip`). Downloaded and extracted via `curl` and `Expand-Archive`.
-- **Flash Mode:** OPI PSRAM, 80MHz flash speed. (Crucial for performance and stability).
+- **Flash Mode:** OPI Flash & OPI PSRAM, 80MHz flash speed. (Crucial for performance and stability).
 - **Partition Scheme:** Custom `partitions.csv` prioritizing `app0` space for baked ROMs.
+- **Verified Build Command:**
+  ```powershell
+  .\arduino-cli.exe compile --fqbn "esp32:esp32:esp32s3:FlashMode=opi,FlashSize=16M,PartitionScheme=custom,PSRAM=opi" firmware/BmoGameboy
+  ```
 
 ---
 

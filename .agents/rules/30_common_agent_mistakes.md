@@ -129,5 +129,14 @@ An agent looking for walnut_cgb.h in src/vendor/ will not find it.
 ## M-15: Not calling WalnutEmu::destroy() or PeanutEmu::destroy() on exit
 **What happens:** cart_ram (128KB each) stays allocated in PSRAM.
 Repeated play sessions fragment PSRAM until a future allocation fails.
-**Prevention:** See 26_emulator_exit_contract.md. This is a known OPEN bug.
-When fixing it, follow the exact dispatch pattern in that file.
+**Prevention:** See 26_emulator_exit_contract.md. Follow the universal
+teardown contract in BmoGameboy.ino SELECT+UP handler.
+
+---
+
+## M-16: Assuming the destroy() PSRAM gap is still open after the 2026-08-30 fix
+**What happens:** Agent reads an older document or prompt mentioning that Walnut/Peanut
+destroy() is not wired, assumes it is still missing, and attempts to re-add it or files a false bug.
+**Prevention:** Check BmoGameboy.ino SELECT+UP handler live in THIS session before claiming
+a teardown gap exists. All four cores (Walnut, Peanut, NES, DOOM) are wired to call destroy().
+

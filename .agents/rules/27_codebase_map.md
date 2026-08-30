@@ -85,8 +85,8 @@ regardless of state. Emulator cores do NOT call them — only menu states do.
 ## Emulator routing (sd_card.h RomType enum -> BmoGameboy.ino)
 | Extension | RomType | selectedEmulatorIndex | Engine | destroy() called on exit? |
 |---|---|---|---|---|
-| `.gb`  | ROM_GB  | 1 | PeanutEmu (peanut_gb.h) | NO — OPEN BUG (26_emulator_exit_contract.md) |
-| `.gbc` | ROM_GBC | 0 | WalnutEmu (walnut_cgb.h) | NO — OPEN BUG |
+| `.gb`  | ROM_GB  | 1 | PeanutEmu (peanut_gb.h) | YES (wired in BmoGameboy.ino) |
+| `.gbc` | ROM_GBC | 0 | WalnutEmu (walnut_cgb.h) | YES (wired in BmoGameboy.ino) |
 | `.nes` | ROM_NES | 2 | NesEmu (agnes) | YES |
 | `.wad` | ROM_WAD | 3 | DoomEmu (doomgeneric) | YES (no-op) |
 

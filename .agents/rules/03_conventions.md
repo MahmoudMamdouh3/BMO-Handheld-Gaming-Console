@@ -4,25 +4,28 @@ The project uses a **single, clean repository structure**. No numbered milestone
 ```
 repo-root/
 ├── README.md
+├── CHANGELOG.md                      ← human-readable version log
 ├── .gitignore
-├── docs/                          ← human-readable documentation stubs
-├── .agents/                       ← ground-truth LLM agent rules
-│   └── rules/                     ← topic-specific modular rule files
-├── tools/                         ← build/asset tooling scripts
+├── docs/                             ← architecture docs & hardware notes
+├── .agents/                          ← ground-truth LLM agent rules
+│   └── rules/                        ← topic-specific modular rule files
+├── tools/                            ← host test harness & asset tooling
+├── scripts/                          ← ROM validator and build automation scripts
 └── firmware/
-    └── BmoGameboy/                ← Arduino sketch folder (MUST match .ino)
-        ├── BmoGameboy.ino         ← ONLY setup(), loop(), and state dispatch
-        ├── partitions.csv
+    └── BmoGameboy/                   ← Arduino sketch folder (MUST match .ino)
+        ├── BmoGameboy.ino            ← ONLY setup(), loop(), and state dispatch
+        ├── partitions.csv            ← 8MB app0 custom partition table
         └── src/
-            ├── core/              ← custom hardware drivers (config.h, display, buttons)
-            ├── emulators/         ← glue code per console (emu_peanut, emu_doom)
-            ├── vendor/            ← pristine third-party libraries (peanut_gb, doom)
-            ├── assets/            ← generated binary-as-C-array data (bmo_face SDFs)
-            │   └── roms/          ← commercial baked ROM headers
-            └── tests/             ← unit_tests.cpp
+            ├── core/                 ← hardware drivers (config.h, display, buttons, SDF face)
+            ├── emulators/            ← glue code per console (emu_peanut, emu_walnut, emu_nes, emu_doom)
+            ├── engine/               ← header-only engines (walnut_cgb)
+            ├── vendor/               ← third-party libraries (peanut_gb, agnes, doom)
+            ├── assets/               ← asset headers
+            │   └── roms/             ← baked commercial ROM headers (mario, zelda)
+            └── tests/                ← on-device unit tests
 ```
-- **Rule:** Third-party libraries go under `src/vendor/<name>/` and must remain as close to upstream as possible.
-- **Rule:** Generated assets (sprites, ROM arrays) go under `src/assets/`.
+- **Rule:** Custom engines live in `src/engine/<name>/`, while third-party vendor libraries go under `src/vendor/<name>/`.
+- **Rule:** Generated assets and baked ROM headers go under `src/assets/`.
 
 ---
 

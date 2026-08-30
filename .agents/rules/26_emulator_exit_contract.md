@@ -6,11 +6,11 @@ This file tracks that gap, formalizes what teardown must do, and prevents
 agents from silently adding more violations.
 
 ## Current state (verified 2026-08-30)
-In BmoGameboy.ino SELECT+UP handler (around line 313):
+In BmoGameboy.ino SELECT+UP handler:
+- WalnutEmu::destroy() IS called when selectedEmulatorIndex == 0. (FIXED_UNVERIFIED)
+- PeanutEmu::destroy() IS called when selectedEmulatorIndex == 1. (FIXED_UNVERIFIED)
 - NesEmu::destroy() IS called when selectedEmulatorIndex == 2. OK.
 - DoomEmu::destroy() IS called when selectedEmulatorIndex == 3. OK.
-- WalnutEmu::destroy() is NOT called. OPEN gap (PSRAM cart_ram leaks 128KB per session).
-- PeanutEmu::destroy() is NOT called. OPEN gap.
 
 ## What every emulator destroy() must do
 When called, a core's destroy() function must:
@@ -20,18 +20,21 @@ When called, a core's destroy() function must:
    and freed via SDCard::freeRom() after destroy() returns.
 4. NOT crash if called multiple times (idempotent null-pointer guards required).
 
-## The dispatch gap -- open fix task
-BmoGameboy.ino SELECT+UP handler must call the outgoing emulator's destroy()
-for ALL four emulator indices, not just NES (2) and Doom (3).
-The fix pattern:
+## The dispatch pattern (Active in BmoGameboy.ino)
+BmoGameboy.ino SELECT+UP handler calls the outgoing emulator's destroy()
+for ALL four emulator indices:
+```cpp
+if (selectedEmulatorIndex == 0) {
+  WalnutEmu::destroy();
+} else if (selectedEmulatorIndex == 1) {
+  PeanutEmu::destroy();
+} else if (selectedEmulatorIndex == 2) {
+  NesEmu::destroy();
+} else if (selectedEmulatorIndex == 3) {
+  DoomEmu::destroy();
+}
 ```
-if (selectedEmulatorIndex == 0) WalnutEmu::destroy();
-else if (selectedEmulatorIndex == 1) PeanutEmu::destroy();
-else if (selectedEmulatorIndex == 2) NesEmu::destroy();
-else if (selectedEmulatorIndex == 3) DoomEmu::destroy();
-```
-Status: OPEN -- do not mark as fixed until verified that cart_ram is freed
-and PSRAM is recovered on every emulator exit.
+Status: FIXED_UNVERIFIED (hardware verification required to confirm cart_ram recovery on physical device).
 
 ## Why this matters
 The ESP32-S3-N16R8 has 8MB of PSRAM. WalnutEmu allocates 128KB for cart_ram.

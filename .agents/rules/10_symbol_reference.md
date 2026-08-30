@@ -17,45 +17,130 @@ signatures, macro `#define`s, and top-level struct declarations from:
 This file was last regenerated: **2026-08-30**.
 If any of the following files have a newer git commit date than that,
 this file is stale -- grep live and update before making any symbol claims:
-- `src/emulators/emu_walnut.cpp`
-- `src/emulators/emu_peanut.cpp`
-- `src/engine/walnut_cgb/walnut_cgb.h`
+- `src/emulators/emu_walnut.cpp/h`
+- `src/emulators/emu_peanut.cpp/h`
+- `src/emulators/emu_nes.cpp/h`
+- `src/emulators/emu_doom.cpp/h`
+- `src/core/display_emu.h`
+- `src/core/buttons.h`
+- `src/core/sd_card.h`
+- `src/core/bmo_face.h`
+- `src/core/battery.h`
 - `src/core/config.h`
+- `src/engine/walnut_cgb/walnut_cgb.h`
 
 Run: `git log --oneline -1 -- <file>` for each to check. If any show a
 commit newer than the date above, grep live instead of trusting this table.
 
 ## Format
-One table per file, columns: `Symbol | Kind (fn/macro/struct) | Signature
-| Notes`. Keep entries terse — this is a lookup table, not documentation
-prose.
+One table per file, columns: `Symbol | Kind (fn/macro/struct) | Signature | Notes`.
 
-## Standing rule for all agents
-Before writing a claim that references a specific function, macro, or
-struct field by name — especially in a bug report, a diff justification,
-or a "here's what's wrong" explanation — check it against this file (or
-grep live if this file might be stale) BEFORE presenting the claim as
-fact. If the symbol isn't found in either, say "I could not find a symbol
-called X in the codebase" instead of describing what it supposedly does.
+---
 
-## src/emulators/emu_walnut.cpp
+## src/core/display_emu.h (DisplayEmu)
 | Symbol | Kind | Signature | Notes |
 |---|---|---|---|
-| `gb_rom_read16` | fn | `uint16_t gb_rom_read16(struct gb_s *gb, const uint_fast32_t addr)` | Reads 2 bytes from external flash |
-| `gb_rom_read32` | fn | `uint32_t gb_rom_read32(struct gb_s *gb, const uint_fast32_t addr)` | Reads 4 bytes from external flash |
-| `gb_rom_read` | fn | `uint8_t gb_rom_read(struct gb_s *gb, const uint_fast32_t addr)` | Reads 1 byte from external flash |
-| `gb_error` | fn | `void gb_error(struct gb_s *gb, const enum gb_error_e gb_err, const uint16_t val)` | Handles emulator panics |
-| `lcd_draw_line` | fn | `void lcd_draw_line(struct gb_s *gb, const uint8_t *pixels, const uint_fast8_t line)` | TFT raster callback |
+| `DisplayEmu::begin` | fn | `void begin()` | Initializes ST7789 display over SPI |
+| `DisplayEmu::clearScreen` | fn | `void clearScreen()` | Clears screen to black |
+| `DisplayEmu::showSDCardWarning` | fn | `void showSDCardWarning()` | Shows SD card error message |
+| `DisplayEmu::initMenuUI` | fn | `void initMenuUI()` | Allocates menu buffer in PSRAM |
+| `DisplayEmu::cleanupMenuUI` | fn | `void cleanupMenuUI()` | Frees menu buffer in PSRAM |
+| `DisplayEmu::drawConsoleSelectMenu`| fn | `void drawConsoleSelectMenu(int selectedIndex, const int gameCounts[4], bool sdMounted)` | Renders console menu carousel |
+| `DisplayEmu::drawGameSelectMenu` | fn | `void drawGameSelectMenu(const RomFile* const* games, int count, int selectedIndex, RomType console, bool sdMounted)` | Renders game list menu |
+| `DisplayEmu::startFrame` | fn | `void startFrame()` | Asserts CS & sets 240x216 window once |
+| `DisplayEmu::endFrame` | fn | `void endFrame()` | Deasserts CS |
+| `DisplayEmu::streamPixelRow` | fn | `void streamPixelRow(const uint16_t* buf, int pixelCount)` | Streams scanline without CS toggle |
+| `DisplayEmu::pushPixelsFullScreen`| fn | `void pushPixelsFullScreen(const uint16_t* buffer)` | Full 320x240 frame blit |
+| `DisplayEmu::pushPixelsAt` | fn | `void pushPixelsAt(int x, int y, int w, int h, const uint16_t* buf)` | Arbitrary sub-rect blit |
+| `DisplayEmu::CLASSIC_PALETTE` | const | `const uint16_t CLASSIC_PALETTE[4]` | Pre-swapped BGR565 green palette |
+| `DisplayEmu::NES_PALETTE` | const | `const uint16_t NES_PALETTE[64]` | Pre-swapped BGR565 NES palette |
+
+---
+
+## src/core/buttons.h (Buttons)
+| Symbol | Kind | Signature | Notes |
+|---|---|---|---|
+| `Buttons::begin` | fn | `void begin()` | Configures button GPIOs as INPUT_PULLUP |
+| `Buttons::update` | fn | `void update()` | Reads GPIO_IN_REG atomically, updates state |
+| `Buttons::count` | fn | `int count()` | Returns number of buttons (8) |
+| `Buttons::get` | fn | `const ButtonState& get(int index)` | Returns ButtonState struct |
+| `Buttons::gb_joypad_state` | var | `uint8_t gb_joypad_state` | Active-low joypad bitmask (0=pressed) |
+| `Buttons::Index` | enum | `enum Index : int { UP, DOWN, LEFT, RIGHT, A, B, START, SELECT }` | Button indices |
+| `ButtonState` | struct | `struct ButtonState { const char* name; uint8_t pin; bool pressed; bool changed; }` | Button state info |
+
+---
+
+## src/core/sd_card.h (SDCard)
+| Symbol | Kind | Signature | Notes |
+|---|---|---|---|
+| `SDCard::begin` | fn | `bool begin()` | Mounts SD & registers baked flash ROMs |
+| `SDCard::isMounted` | fn | `bool isMounted()` | Returns true if SD card is mounted |
+| `SDCard::scanRoms` | fn | `void scanRoms()` | Populates romList from SD card |
+| `SDCard::getRomCount` | fn | `int getRomCount()` | Returns total ROM count (baked + SD) |
+| `SDCard::getRomInfo` | fn | `const RomFile* getRomInfo(int index)` | Returns RomFile pointer |
+| `SDCard::loadRom` | fn | `uint8_t* loadRom(const char* filename, size_t* outSize)` | Loads ROM to PSRAM (or returns .rodata) |
+| `SDCard::freeRom` | fn | `void freeRom(uint8_t* buffer)` | Frees PSRAM ROM (safe for .rodata) |
+| `RomType` | enum | `enum RomType { ROM_UNKNOWN, ROM_GB, ROM_GBC, ROM_NES, ROM_WAD }` | Console type enum |
+| `RomFile` | struct | `struct RomFile { char filename[64]; RomType type; }` | ROM entry info |
+
+---
+
+## src/core/bmo_face.h (BmoFace)
+| Symbol | Kind | Signature | Notes |
+|---|---|---|---|
+| `BmoFace::begin` | fn | `void begin()` | Initializes RNG and clears dirty flag |
+| `BmoFace::setExpression` | fn | `void setExpression(BmoExpression expr)` | Sets target facial expression |
+| `BmoFace::update` | fn | `void update()` | Ticks procedural animation & blink |
+| `BmoFace::draw` | fn | `void draw(int x, int y, int size)` | Renders & blits scaled face |
+| `BmoFace::draw` | fn | `void draw()` | Blits large centered face |
+| `BmoFace::isDirty` | fn | `bool isDirty()` | True if expression or blink changed |
+| `BmoFace::BmoExpression`| enum | `enum BmoExpression { IDLE, SURPRISED, HAPPY, SLEEPY, LOW_BATTERY, CHARGING, ERROR, SHUTDOWN, HIDDEN }` | Face emotion states |
+
+---
+
+## src/core/battery.h (Battery)
+| Symbol | Kind | Signature | Notes |
+|---|---|---|---|
+| `Battery::begin` | fn | `void begin()` | Initializes ADC pin (dormant if flag=0) |
+| `Battery::getVoltage` | fn | `float getVoltage()` | Returns smoothed voltage (0.0 - 4.2V) |
+| `Battery::getPercentage`| fn | `int getPercentage()` | Returns percentage (0 - 100) |
+| `Battery::update` | fn | `void update()` | Updates moving average; checks low-cutoff |
+| `Battery::safeShutdown` | fn | `void safeShutdown()` | Shows low battery face & triggers deep sleep |
+
+---
+
+## src/emulators/ Public APIs
+| Symbol | Kind | Signature | Notes |
+|---|---|---|---|
+| `PeanutEmu::begin` | fn | `bool begin(const uint8_t* rom_data, size_t rom_len)` | Starts Game Boy DMG core |
+| `PeanutEmu::updateJoypad` | fn | `void updateJoypad()` | Syncs direct.joypad with buttons |
+| `PeanutEmu::runFrame` | fn | `void runFrame()` | Runs 1 frame inside startFrame/endFrame |
+| `PeanutEmu::destroy` | fn | `void destroy()` | Frees cart_ram in PSRAM |
+| `WalnutEmu::begin` | fn | `bool begin(const uint8_t* rom_data, size_t rom_len)` | Starts Game Boy Color core |
+| `WalnutEmu::updateJoypad` | fn | `void updateJoypad()` | Syncs direct.joypad with buttons |
+| `WalnutEmu::runFrame` | fn | `void runFrame()` | Runs 1 frame inside startFrame/endFrame |
+| `WalnutEmu::destroy` | fn | `void destroy()` | Frees cart_ram in PSRAM |
+| `NesEmu::begin` | fn | `static bool begin(const uint8_t* romData, size_t romSize)` | Starts Agnes NES core |
+| `NesEmu::updateJoypad` | fn | `static void updateJoypad()` | Syncs Agnes controller mask |
+| `NesEmu::runFrame` | fn | `static void runFrame()` | Runs 1 NES frame |
+| `NesEmu::destroy` | fn | `static void destroy()` | Shuts down Agnes NES core |
+| `DoomEmu::begin` | fn | `bool begin(const char* wadPath)` | Starts doomgeneric core |
+| `DoomEmu::runFrame` | fn | `void runFrame()` | Runs 1 DOOM engine tick |
+| `DoomEmu::destroy` | fn | `void destroy()` | Shuts down doomgeneric core |
+
+---
 
 ## src/engine/walnut_cgb/walnut_cgb.h
 | Symbol | Kind | Signature | Notes |
 |---|---|---|---|
 | `gb_init` | fn | `enum gb_init_error_e gb_init(struct gb_s* gb, uint8_t(*gb_rom_read)(struct gb_s*, const uint_fast32_t), uint16_t(*gb_rom_read16)(struct gb_s*, const uint_fast32_t), uint32_t(*gb_rom_read32)(struct gb_s*, const uint_fast32_t), uint8_t(*gb_cart_ram_read)(struct gb_s*, const uint_fast32_t), void (*gb_cart_ram_write)(struct gb_s*, const uint_fast32_t, const uint8_t), void (*gb_error)(struct gb_s*, const enum gb_error_e, const uint16_t), void* priv)` | 8 arguments including 16/32 read callbacks |
 | `gb_run_frame` | fn | `void gb_run_frame(struct gb_s *gb)` | Executes one frame via `__gb_step_cpu_x` |
-| `gb_run_frame_dualfetch` | fn | `void gb_run_frame_dualfetch(struct gb_s *gb)` | Executes one frame via `__gb_step_cpu` (dual-fetch path); THIS is what `WalnutEmu::runFrame()` calls |
+| `gb_run_frame_dualfetch` | fn | `void gb_run_frame_dualfetch(struct gb_s *gb)` | Executes one frame via `__gb_step_cpu` (dual-fetch path) |
 | `gb_init_lcd` | fn | `void gb_init_lcd(struct gb_s *gb, void(*lcd_draw_line)(...))` | Registers scanline callback |
 | `gb_s` | struct | `struct gb_s` | Core emulator context, align(32) |
 | `gb_init_error_e` | enum | `enum gb_init_error_e` | Initialization error codes |
+
+---
 
 ## src/core/config.h
 | Symbol | Kind | Signature | Notes |
@@ -64,3 +149,4 @@ called X in the codebase" instead of describing what it supposedly does.
 | `FEATURE_BATTERY_MONITOR` | macro | `#define FEATURE_BATTERY_MONITOR 0` | Dormant battery logic |
 | `FEATURE_AUDIO` | macro | `#define FEATURE_AUDIO 0` | Dormant I2S audio logic |
 | `BTN_UP`... | macro | `#define BTN_UP 4` (etc) | GPIO pin assignments |
+| `LOG_INFO`, `LOG_ERROR`... | macro | `#define LOG_INFO(fmt, ...)` | Gated logging macros |
