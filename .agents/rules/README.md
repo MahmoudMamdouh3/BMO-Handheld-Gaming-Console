@@ -1,5 +1,5 @@
 # .agents/rules/ Index
-**RULESET_VERSION: 4**
+**RULESET_VERSION: 5**
 
 Read in this order. 00-01 are mandatory for every task, no exceptions.
 For a fast 90-second primer on the entire codebase, start with [`31_quick_start_primer.md`](file:///e:/BMO%20Gameboy/.agents/rules/31_quick_start_primer.md).
@@ -41,3 +41,7 @@ For a fast 90-second primer on the entire codebase, start with [`31_quick_start_
 | [`32_modular_core_template.md`](file:///e:/BMO%20Gameboy/.agents/rules/32_modular_core_template.md) | Copy-paste template and scaffolding for adding new cores/screens | New core/screen tasks |
 | [`33_agent_handoff_and_optimization_cycle.md`](file:///e:/BMO%20Gameboy/.agents/rules/33_agent_handoff_and_optimization_cycle.md) | Anonymous agent-to-agent continuous optimization loop | Always at session handoff |
 | [`34_ai_agent_sandbox_and_guardrails.md`](file:///e:/BMO%20Gameboy/.agents/rules/34_ai_agent_sandbox_and_guardrails.md) | LLM anti-hallucination protocols, memory alignment, hardware safety | **Always for AI agents** |
+| [`35_bmo_face_contract.md`](file:///e:/BMO%20Gameboy/.agents/rules/35_bmo_face_contract.md) | Procedural SDF mascot renderer contract, dirty-flag caching, call sites | Mascot/UI tasks |
+| [`36_bug_intake_protocol.md`](file:///e:/BMO%20Gameboy/.agents/rules/36_bug_intake_protocol.md) | Structured bug intake protocol for human-reported device misbehavior | Bug investigation tasks |
+| [`37_rom_governance_and_flash_budget.md`](file:///e:/BMO%20Gameboy/.agents/rules/37_rom_governance_and_flash_budget.md) | ROM tracking resolution, standing flash-budget invariant, partition changes | Assets/ROM tasks |
+

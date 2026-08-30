@@ -63,7 +63,7 @@ address window that startFrame() set, producing screen tearing or
 corrupting the ongoing frame transfer.
 **Prevention:** BmoFace::draw() and BmoFace::update() are NEVER called
 during STATE_EMULATOR. This is enforced by the loop() structure --
-do not move those calls inside the emulator branch.
+do not move those calls inside the emulator branch. See also `35_bmo_face_contract.md` for the full mascot subsystem contract.
 
 ---
 
@@ -160,7 +160,7 @@ Loading a full copy into PSRAM wastes ~4MB of PSRAM and causes DOOM's internal z
 
 ## M-19: Leaving `DisplayEmu::startFrame()` open without matching `endFrame()`
 **What happens:** `startFrame()` asserts `TFT_CS` LOW. If `endFrame()` is omitted, the SPI bus is held, causing any subsequent MicroSD SPI transactions to fail or collide.
-**Prevention:** Always pair `DisplayEmu::startFrame()` with `DisplayEmu::endFrame()`.
+**Prevention:** Always pair `DisplayEmu::startFrame()` with `DisplayEmu::endFrame()`. See also `35_bmo_face_contract.md` for the full mascot subsystem contract.
 
 ---
 

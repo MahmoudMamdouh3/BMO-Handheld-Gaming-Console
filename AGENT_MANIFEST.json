@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "project": "BMO-Handheld-Gaming-Console",
   "version": "3.0.0",
-  "ruleset_version": 4,
+  "ruleset_version": 5,
   "sdd_version": "3.0",
   "hardware": {
     "mcu": "ESP32-S3-N16R8",

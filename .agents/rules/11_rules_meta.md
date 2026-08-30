@@ -1,5 +1,5 @@
 # Meta-Rules for the Rules Directory Itself
-**RULESET_VERSION: 1** <!-- v1 = baseline as of the 13-23 rules expansion -->
+**RULESET_VERSION: 5** <!-- v5 = closed mascot contract, bug intake protocol, and ROM governance -->
 
 - Every file in .agents/rules/ must stay under 12,000 characters (the
   original constraint that caused project-rules.md to be split). If a

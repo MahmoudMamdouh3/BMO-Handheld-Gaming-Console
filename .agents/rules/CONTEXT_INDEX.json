@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "index_version": 4,
+  "index_version": 5,
   "last_updated": "2026-08-30",
   "task_to_rules": {
     "quick_start": [
@@ -17,6 +17,15 @@
       "firmware/BmoGameboy/src/core/display_emu.h",
       "firmware/BmoGameboy/src/core/display_emu.cpp"
     ],
+    "mascot_bmo_face_rendering": [
+      ".agents/rules/35_bmo_face_contract.md",
+      "firmware/BmoGameboy/src/core/bmo_face.h",
+      "firmware/BmoGameboy/src/core/bmo_face.cpp"
+    ],
+    "hardware_bug_intake": [
+      ".agents/rules/36_bug_intake_protocol.md",
+      ".agents/rules/23_incident_postmortem_log.md"
+    ],
     "emulator_modification_or_new_core": [
       ".agents/rules/12_extensibility_contract.md",
       ".agents/rules/26_emulator_exit_contract.md",
@@ -24,8 +33,13 @@
     ],
     "adding_baked_rom": [
       ".agents/rules/29_adding_a_baked_rom.md",
-      "firmware/BmoGameboy/src/core/sd_card.cpp",
-      "firmware/BmoGameboy/src/assets/rom_data.h"
+      ".agents/rules/37_rom_governance_and_flash_budget.md",
+      "firmware/BmoGameboy/src/core/sd_card.cpp"
+    ],
+    "rom_governance_and_flash_budget": [
+      ".agents/rules/37_rom_governance_and_flash_budget.md",
+      ".agents/rules/29_adding_a_baked_rom.md",
+      "firmware/BmoGameboy/partitions.csv"
     ],
     "api_lookup_and_symbol_check": [
       ".agents/rules/10_symbol_reference.md"
@@ -44,6 +58,7 @@
       "CHANGELOG.md"
     ],
     "debugging_or_investigation": [
+      ".agents/rules/36_bug_intake_protocol.md",
       ".agents/rules/04_known_issues.md",
       ".agents/rules/23_incident_postmortem_log.md",
       ".agents/rules/30_common_agent_mistakes.md"

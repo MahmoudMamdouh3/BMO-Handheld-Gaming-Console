@@ -9,6 +9,8 @@ The firmware can serve these WITHOUT an SD card. The ROM data lives in
 the ESP32-S3 flash .rodata section.
 
 ## Pre-flight checklist (do all before touching sd_card.cpp)
+This budget check is now a standing invariant, not a one-time step — see `37_rom_governance_and_flash_budget.md`.
+
 1. **Check flash budget.** Run the arduino-cli build and inspect the
    binary size. The `app0` partition is exactly 8MB (8,388,608 bytes).
    The binary with 4 baked 1MB ROMs (mario, zelda, aladdin, lego_racers) is ~4.98MB.

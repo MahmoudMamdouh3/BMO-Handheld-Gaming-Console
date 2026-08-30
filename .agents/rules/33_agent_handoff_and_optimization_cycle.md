@@ -18,6 +18,7 @@ Check known issues         Run validate_repo.py       Verify build & host tests 
 1. Read [`31_quick_start_primer.md`](file:///e:/BMO%20Gameboy/.agents/rules/31_quick_start_primer.md).
 2. Check `04_known_issues.md` to see currently active bugs, debunked theories, and pending verifications.
 3. Review `AGENT_MANIFEST.json` for current pin maps and build commands.
+4. For any human-reported device-misbehavior task with no specific symptom yet, read `36_bug_intake_protocol.md` before Stage 2.
 
 ### Stage 2: Investigation & Truth Discovery
 1. Never assume an API or struct member exists from LLM training data. Always check `10_symbol_reference.md` or grep the actual header file.
