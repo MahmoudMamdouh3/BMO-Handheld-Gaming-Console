@@ -45,3 +45,14 @@ All peripheral modules must be gated by `FEATURE_*` flags in `config.h`. A disab
 - **`FEATURE_SD_CARD` (Current: `1`)**: Gates `sd_card.cpp`. The SD card is physically present and enabled.
 - **`FEATURE_BATTERY_MONITOR` (Current: `0`)**: Gates `battery.cpp`. **Note:** A complete, realistic driver implementation exists in `battery.cpp`. It is dormant. It is safe to read/modify, but MUST NEVER be enabled until the physical voltage divider is confirmed soldered in Section 1.
 - **`FEATURE_AUDIO` (Current: `0`)**: Gates `audio_i2s.cpp` and emulator APU callbacks. **Note:** A complete driver implementation exists and is dormant. Do NOT enable until physical I2S hardware is verified in Section 1.
+
+---
+
+# 4. Verified ESP32-S3 Flash & PSRAM Configuration
+- **Module Hardware:** ESP32-S3-WROOM-1 (N16R8 variant with Quad SPI Flash and Octal SPI PSRAM).
+- **Verified Working Arduino IDE Settings (Ground Truth):**
+  - `Flash Mode:` **`"QIO 80MHz"`** (CRITICAL: Setting to OPI causes a black screen because the flash chip is Quad SPI).
+  - `Flash Size:` **`"16MB (128Mb)"`**
+  - `PSRAM:` **`"OPI PSRAM"`** (Octal SPI PSRAM in PSRAM mapped window).
+  - `Partition Scheme:` **`"Custom"`** (`partitions.csv`).
+  - `CPU Frequency:` **`"240MHz (WiFi)"`**

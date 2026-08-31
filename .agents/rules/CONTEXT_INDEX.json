@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "last_updated": "2026-08-31T16:41:40.326610",
+  "last_updated": "2026-08-31T17:14:09.704403",
   "task_decision_table": {
     "modify_gpio_or_pin": {
       "rules": [
@@ -95,7 +95,7 @@
     "01_hardware.md": {
       "file": ".agents/rules/01_hardware.md",
       "title": "1. Physically Wired Hardware (Verified Ground Truth)",
-      "lines": 47
+      "lines": 58
     },
     "02_architecture.md": {
       "file": ".agents/rules/02_architecture.md",
