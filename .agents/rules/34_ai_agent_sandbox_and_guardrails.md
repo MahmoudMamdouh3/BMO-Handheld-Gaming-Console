@@ -31,6 +31,13 @@
    - Every `begin()` dynamic allocation in PSRAM must be matched by a corresponding deallocation in `destroy()`.
    - The main `STATE_EMULATOR` loop in `BmoGameboy.ino` must call `destroy()` upon `SELECT + UP` exit.
 
+7. **Critical Pushback & Anti-Sycophancy Guardrail (See Rule 41):**
+   - If user instructions propose impossible physics, hazardous hardware states (e.g. enabling floating ADC lines), unbudgeted DRAM allocations, or architectural regressions, DO NOT blindly execute.
+   - Respectfully explain the technical constraints with physics/memory figures, describe the failure consequences, and present standard engineering alternatives before taking action.
+
+8. **Toolchain Autonomy & Resource Utilization:**
+   - If a tool, dependency, compiler, or script is missing or fails, autonomously install, fix, or build it using full host system resources (CPU, GPU, RAM, internet) rather than assuming a blocker.
+
 ---
 
 ## 2. Guardrail Failure Matrix & Instant Resolutions

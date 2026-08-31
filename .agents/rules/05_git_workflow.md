@@ -13,7 +13,8 @@
 ## Commit message format (Conventional Commits)
 `type(scope): summary`, where type is one of:
 `fix | feat | docs | test | refactor | chore | perf`
-- scope is the module touched (e.g. `emu_walnut`, `rules`, `sd_card`).
+- scope is the module touched (e.g. `emu_walnut`, `rules`, `sd_card`, `guardian`).
+- Summary must be concise, objective, and technical. **Never use hyperbolic marketing words** (e.g. "groundbreaking", "amazing", "ultimate", "state-of-the-art", "production grade", "overkill").
 - Body (optional, below the summary line) must state verification status
   using the vocabulary in 06_verification_standards.md — e.g. "Verified:
   host-test suite full pass (11/11). Hardware: unverified."

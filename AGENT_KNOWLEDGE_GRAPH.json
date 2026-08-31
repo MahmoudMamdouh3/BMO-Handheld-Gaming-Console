@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-08-31T15:22:09.717485",
+  "generated_at": "2026-08-31T15:34:45.169683",
   "target_mcu": {
     "chip": "ESP32-S3-N16R8",
     "cpu_arch": "Xtensa dual-core 32-bit LX7 @ 240MHz",
@@ -425,50 +425,50 @@
     {
       "name": "BMO_SDF_Procedural_Face_Render_Unculled",
       "iterations": 100,
-      "avg_latency_us": 1291.058,
-      "throughput_mops": 3.17,
+      "avg_latency_us": 2042.66,
+      "throughput_mops": 2.01,
       "description": "Evaluates raw procedural 2D SDF math across 128x128 grid without spatial culling."
     },
     {
       "name": "BMO_SDF_Procedural_Face_Render_Culled",
       "iterations": 200,
-      "avg_latency_us": 539.79,
-      "throughput_mops": 7.59,
+      "avg_latency_us": 700.208,
+      "throughput_mops": 5.85,
       "description": "Evaluates procedural 2D SDF with bounding-box spatial culling (~75% math reduction)."
     },
     {
       "name": "4Pixel_Coalesced_Aligned_Store_Kernel",
       "iterations": 50000,
-      "avg_latency_us": 2.59,
-      "throughput_mops": 11.58,
+      "avg_latency_us": 2.488,
+      "throughput_mops": 12.06,
       "description": "Measures throughput of Xtensa LX7 32-bit coalesced memory stores for 3:2 scaling."
     },
     {
       "name": "O1_Palette_Scanline_Transformation",
       "iterations": 10000,
-      "avg_latency_us": 4.902,
-      "throughput_mops": 48.96,
+      "avg_latency_us": 4.881,
+      "throughput_mops": 49.17,
       "description": "Measures 240-pixel scanline indexed-to-BGR565 palette transform throughput."
     },
     {
       "name": "CPU_Emulation_Opcode_Dispatch",
       "iterations": 500000,
-      "avg_latency_us": 0.094,
-      "throughput_mops": 10.6,
+      "avg_latency_us": 0.074,
+      "throughput_mops": 13.54,
       "description": "Simulates CPU opcode fetch-decode-execute cycle dispatch throughput."
     },
     {
       "name": "Direct_GPIO_Atomic_Bitmask_Sampling",
       "iterations": 100000,
-      "avg_latency_us": 0.504,
-      "throughput_mops": 15.88,
+      "avg_latency_us": 0.482,
+      "throughput_mops": 16.61,
       "description": "Measures atomic 8-pin bitmask unpacking replacing 8 sequential digitalRead calls."
     },
     {
       "name": "SD_Catalog_O1_Query_And_Page_Jump",
       "iterations": 10000,
-      "avg_latency_us": 0.182,
-      "throughput_mops": 5.49,
+      "avg_latency_us": 0.167,
+      "throughput_mops": 6.01,
       "description": "Measures 16,384 PSRAM ROM O(1) count queries and rapid +/-10 page-jump calculations."
     }
   ],
@@ -501,12 +501,12 @@
     "05_git_workflow.md": {
       "file": ".agents/rules/05_git_workflow.md",
       "title": "Git & Commit Discipline",
-      "lines": 66
+      "lines": 67
     },
     "06_verification_standards.md": {
       "file": ".agents/rules/06_verification_standards.md",
       "title": "Verification & Evidence Standards",
-      "lines": 121
+      "lines": 118
     },
     "07_task_protocol.md": {
       "file": ".agents/rules/07_task_protocol.md",
@@ -646,7 +646,7 @@
     "34_ai_agent_sandbox_and_guardrails.md": {
       "file": ".agents/rules/34_ai_agent_sandbox_and_guardrails.md",
       "title": "34. AI Agent Guardrails & Execution Invariants",
-      "lines": 44
+      "lines": 51
     },
     "35_bmo_face_contract.md": {
       "file": ".agents/rules/35_bmo_face_contract.md",
@@ -677,6 +677,11 @@
       "file": ".agents/rules/40_ai_knowledge_graph_and_indexing_protocol.md",
       "title": "40. AI Knowledge Graph, AST Indexing & Decision Matrix Protocol",
       "lines": 76
+    },
+    "41_engineering_communication_and_critical_pushback.md": {
+      "file": ".agents/rules/41_engineering_communication_and_critical_pushback.md",
+      "title": "41. Engineering Communication, Critical Pushback & Toolchain Autonomy",
+      "lines": 80
     }
   },
   "symbol_registry": {
@@ -1956,11 +1961,11 @@
     ".agents/rules/05_git_workflow.md": {
       "path": ".agents/rules/05_git_workflow.md",
       "category": "AGENT_RULES",
-      "total_lines": 66,
-      "sloc": 60,
+      "total_lines": 67,
+      "sloc": 61,
       "comments": 0,
       "blanks": 6,
-      "density_percent": 90.9,
+      "density_percent": 91.0,
       "symbols": [],
       "pins_accessed": [],
       "includes": []
@@ -1968,11 +1973,11 @@
     ".agents/rules/06_verification_standards.md": {
       "path": ".agents/rules/06_verification_standards.md",
       "category": "AGENT_RULES",
-      "total_lines": 121,
-      "sloc": 104,
+      "total_lines": 118,
+      "sloc": 101,
       "comments": 0,
       "blanks": 17,
-      "density_percent": 86.0,
+      "density_percent": 85.6,
       "symbols": [],
       "pins_accessed": [],
       "includes": []
@@ -2343,11 +2348,11 @@
     ".agents/rules/34_ai_agent_sandbox_and_guardrails.md": {
       "path": ".agents/rules/34_ai_agent_sandbox_and_guardrails.md",
       "category": "AGENT_RULES",
-      "total_lines": 44,
-      "sloc": 32,
+      "total_lines": 51,
+      "sloc": 37,
       "comments": 0,
-      "blanks": 12,
-      "density_percent": 72.7,
+      "blanks": 14,
+      "density_percent": 72.5,
       "symbols": [],
       "pins_accessed": [
         "GPIO1"
@@ -2428,11 +2433,23 @@
       ],
       "includes": []
     },
+    ".agents/rules/41_engineering_communication_and_critical_pushback.md": {
+      "path": ".agents/rules/41_engineering_communication_and_critical_pushback.md",
+      "category": "AGENT_RULES",
+      "total_lines": 80,
+      "sloc": 60,
+      "comments": 0,
+      "blanks": 20,
+      "density_percent": 75.0,
+      "symbols": [],
+      "pins_accessed": [],
+      "includes": []
+    },
     ".agents/rules/CONTEXT_INDEX.json": {
       "path": ".agents/rules/CONTEXT_INDEX.json",
       "category": "AGENT_RULES",
-      "total_lines": 285,
-      "sloc": 285,
+      "total_lines": 301,
+      "sloc": 301,
       "comments": 0,
       "blanks": 0,
       "density_percent": 100.0,
@@ -2443,11 +2460,11 @@
     ".agents/rules/README.md": {
       "path": ".agents/rules/README.md",
       "category": "AGENT_RULES",
-      "total_lines": 49,
-      "sloc": 47,
+      "total_lines": 50,
+      "sloc": 48,
       "comments": 0,
       "blanks": 2,
-      "density_percent": 95.9,
+      "density_percent": 96.0,
       "symbols": [],
       "pins_accessed": [],
       "includes": []
@@ -2455,8 +2472,8 @@
     "AGENT_DECISION_TREE.json": {
       "path": "AGENT_DECISION_TREE.json",
       "category": "OTHER",
-      "total_lines": 183,
-      "sloc": 183,
+      "total_lines": 213,
+      "sloc": 213,
       "comments": 0,
       "blanks": 0,
       "density_percent": 100.0,
@@ -2469,8 +2486,8 @@
     "AGENT_KNOWLEDGE_GRAPH.json": {
       "path": "AGENT_KNOWLEDGE_GRAPH.json",
       "category": "OTHER",
-      "total_lines": 15545,
-      "sloc": 15545,
+      "total_lines": 15562,
+      "sloc": 15562,
       "comments": 0,
       "blanks": 0,
       "density_percent": 100.0,
@@ -6705,11 +6722,11 @@
     "docs/performance_and_benchmarking.md": {
       "path": "docs/performance_and_benchmarking.md",
       "category": "DOCUMENTATION",
-      "total_lines": 107,
-      "sloc": 85,
+      "total_lines": 113,
+      "sloc": 89,
       "comments": 0,
-      "blanks": 22,
-      "density_percent": 79.4,
+      "blanks": 24,
+      "density_percent": 78.8,
       "symbols": [],
       "pins_accessed": [],
       "includes": []
@@ -6741,11 +6758,11 @@
     "docs/software-design-document.md": {
       "path": "docs/software-design-document.md",
       "category": "DOCUMENTATION",
-      "total_lines": 457,
-      "sloc": 372,
+      "total_lines": 461,
+      "sloc": 376,
       "comments": 0,
       "blanks": 85,
-      "density_percent": 81.4,
+      "density_percent": 81.6,
       "symbols": [],
       "pins_accessed": [
         "GPIO1",
@@ -15187,11 +15204,11 @@
     "scripts/generate_ai_knowledge_base.py": {
       "path": "scripts/generate_ai_knowledge_base.py",
       "category": "SCRIPTS",
-      "total_lines": 310,
-      "sloc": 268,
+      "total_lines": 317,
+      "sloc": 275,
       "comments": 14,
       "blanks": 28,
-      "density_percent": 86.5,
+      "density_percent": 86.8,
       "symbols": [],
       "pins_accessed": [
         "GPIO1"

@@ -1,5 +1,5 @@
 # .agents/rules/ Index
-**RULESET_VERSION: 6**
+**RULESET_VERSION: 7**
 
 Read in this order. 00-01 are mandatory for every task, no exceptions.
 For a fast 90-second primer on the entire codebase, start with [`31_quick_start_primer.md`](file:///e:/BMO%20Gameboy/.agents/rules/31_quick_start_primer.md).
@@ -47,3 +47,4 @@ For a fast 90-second primer on the entire codebase, start with [`31_quick_start_
 | [`38_mandatory_documentation_update.md`](file:///e:/BMO%20Gameboy/.agents/rules/38_mandatory_documentation_update.md) | **Forced rule**: required documentation updates per change type, pre-commit checklist | **Always — every task** |
 | [`39_performance_and_benchmark_framework.md`](file:///e:/BMO%20Gameboy/.agents/rules/39_performance_and_benchmark_framework.md) | Mandatory Guardian performance & ground-truth framework governance | **Always — all performance tasks** |
 | [`40_ai_knowledge_graph_and_indexing_protocol.md`](file:///e:/BMO%20Gameboy/.agents/rules/40_ai_knowledge_graph_and_indexing_protocol.md) | Mandatory AI Knowledge Graph, AST Indexing & Decision Matrix Protocol | **Always — every task** |
+| [`41_engineering_communication_and_critical_pushback.md`](file:///e:/BMO%20Gameboy/.agents/rules/41_engineering_communication_and_critical_pushback.md) | Engineering communication, critical pushback, fact-checking & toolchain autonomy | **Always — all sessions** |

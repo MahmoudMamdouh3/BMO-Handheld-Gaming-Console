@@ -51,13 +51,10 @@ pass. If a resource limit (frame budget, timeout, memory) is the
 suspected cause of an incomplete run, that is itself something to fix and
 rerun, not something to reason past.
 
-## Banned language in status reports
-No superlatives or narrative framing when reporting engineering results:
-banned words/phrases include but aren't limited to "massive victory,"
-"flawlessly," "rigorously proves," "crushed it," "perfect." Report what
-ran, what it output, and what state that leaves the issue in. Neutral and
-boring is correct — see also 09_testing_infrastructure.md's loading-message
-tone guidance, same principle.
+## Banned AI Marketing Jargon & Hyperbolic Slop
+No superlatives, hype, or marketing framing in status reports, PRs, docs, or commit messages.
+- Banned terms: "amazing", "groundbreaking", "state-of-the-art", "game-changing", "revolutionary", "production-grade", "reviewer-grade", "masterclass", "overkill", "insane", "flawlessly", "massive victory", "perfection", "miracle", "blazing fast", "ultra-optimized", "bulletproof", "unprecedented", "seamless", "supercharged".
+- Mandate: Report what ran, exact output numbers, measured latency in microseconds, memory consumption in bytes, and precise issue status. Use objective, scientific software engineering terminology (see 41_engineering_communication_and_critical_pushback.md). Neutral, empirical, and reproducible reporting is mandatory.
 
 ## Quoting code
 When asked to show code, or when justifying a claim about existing code,
