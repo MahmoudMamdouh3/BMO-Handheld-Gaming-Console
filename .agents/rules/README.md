@@ -44,4 +44,4 @@ For a fast 90-second primer on the entire codebase, start with [`31_quick_start_
 | [`35_bmo_face_contract.md`](file:///e:/BMO%20Gameboy/.agents/rules/35_bmo_face_contract.md) | Procedural SDF mascot renderer contract, dirty-flag caching, call sites | Mascot/UI tasks |
 | [`36_bug_intake_protocol.md`](file:///e:/BMO%20Gameboy/.agents/rules/36_bug_intake_protocol.md) | Structured bug intake protocol for human-reported device misbehavior | Bug investigation tasks |
 | [`37_rom_governance_and_flash_budget.md`](file:///e:/BMO%20Gameboy/.agents/rules/37_rom_governance_and_flash_budget.md) | ROM tracking resolution, standing flash-budget invariant, partition changes | Assets/ROM tasks |
-
+| [`38_mandatory_documentation_update.md`](file:///e:/BMO%20Gameboy/.agents/rules/38_mandatory_documentation_update.md) | **Forced rule**: required documentation updates per change type, pre-commit checklist | **Always — every task** |

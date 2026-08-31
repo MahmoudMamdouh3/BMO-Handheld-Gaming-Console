@@ -54,8 +54,16 @@
     ],
     "session_handoff_and_logging": [
       ".agents/rules/33_agent_handoff_and_optimization_cycle.md",
+      ".agents/rules/38_mandatory_documentation_update.md",
       ".agents/rules/04_known_issues.md",
       "CHANGELOG.md"
+    ],
+    "documentation_updates": [
+      ".agents/rules/38_mandatory_documentation_update.md",
+      ".agents/rules/10_symbol_reference.md",
+      ".agents/rules/21_documentation_standards.md",
+      "AGENT_MANIFEST.json",
+      "docs/software-design-document.md"
     ],
     "debugging_or_investigation": [
       ".agents/rules/36_bug_intake_protocol.md",

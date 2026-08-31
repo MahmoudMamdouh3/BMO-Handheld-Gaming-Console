@@ -18,9 +18,15 @@ did not personally run the command/read the file in this session, say
 - `OPEN` — known bug, no fix attempted yet.
 - `IN_PROGRESS` — fix attempted, not yet compiled/tested.
 - `FIXED_UNVERIFIED` — compiles, but no test has run against it.
-- `VERIFIED_HOST` — a host-side or unit test ran to full, designed
-  completion (not partial) and passed. State which test, and quote its
-  final line of output.
+- `STUB` — feature/engine is present as a scaffold only; renders a blank
+  screen or no-op. Not functionally emulating the target hardware.
+- `VERIFIED_HOST` — **requires `arduino-cli compile` to pass** with
+  `PartitionScheme=custom` FQBN (see §Verification Ladder below), AND at
+  least one Python unit test ran to full completion. Python-only text
+  pattern checks DO NOT qualify for VERIFIED_HOST. State the arduino-cli
+  binary size output AND the test final line of output literally.
+- `VERIFIED_SIMULATOR` — confirmed correct behavior in the PC-side
+  BMO Simulator (tools/bmo_simulator/). Note what was verified.
 - `VERIFIED_HARDWARE` — a human confirmed a PASS on physical hardware
   against an explicit, pre-stated PASS/FAIL definition. State the git tag
   created for this (see 05_git_workflow.md).
@@ -60,6 +66,52 @@ session) inside a fenced block with line numbers if available. A
 description of code ("it just checks bounds and returns") is not a
 substitute when the standing order calls for showing code — that
 distinction is exactly what caught the semicolon hallucination.
+
+## Verification Ladder
+
+The following ladder defines exactly what evidence is required at each tier.
+An agent MUST NOT claim a higher tier without the stated evidence.
+
+```
+STUB
+  └── Code exists, no emulation. Renders blank screen. STUB_ENGINE sentinel present.
+
+FIXED_UNVERIFIED
+  └── Code change made. Not yet compiled or tested.
+
+VERIFIED_HOST  ← minimum bar for any "it works" claim
+  ├── arduino-cli compile with FQBN PartitionScheme=custom passes (exit 0)
+  ├── Binary size quoted (e.g. "4,997,068 bytes = 59.6% of 8,388,608 bytes")
+  ├── At least one Python unit test ran to full completion (exit 0, OK output)
+  └── Both outputs quoted literally in the session/log.
+  NOTE: Python text-pattern tests alone are NOT sufficient.
+  NOTE: A 158% flash overflow indicates wrong partition scheme, not just big code.
+
+VERIFIED_SIMULATOR
+  └── BMO Simulator (tools/bmo_simulator/) confirmed behavior visually.
+
+VERIFIED_HARDWARE
+  └── Human flashed and tested on the physical ESP32-S3 board.
+  └── PASS/FAIL criteria stated in advance. Git tag created per 05_git_workflow.md.
+
+RESOLVED
+  └── VERIFIED_HARDWARE reached, no follow-up needed.
+```
+
+## Anti-Pattern: Python Tests Are Not Compilation Verification
+
+Previous agents claimed `VERIFIED_HOST` based solely on `python -m unittest
+discover tests` passing. This is a **critical mistake**. The Python test suite
+checks file existence and string presence — it **cannot detect**:
+- Flash overflow (158% partition error)
+- Link errors
+- Type mismatch or include errors in C++
+- PSRAM exhaustion at runtime
+
+The canonical compile command must be run and pass before VERIFIED_HOST is claimed:
+```powershell
+.\arduino-cli.exe compile --fqbn "esp32:esp32:esp32s3:FlashMode=opi,FlashSize=16M,PartitionScheme=custom,PSRAM=opi" firmware/BmoGameboy
+```
 
 ## Numeric claims (counts, hit totals, percentages)
 If you state a count derived from a search/grep/audit, and you later

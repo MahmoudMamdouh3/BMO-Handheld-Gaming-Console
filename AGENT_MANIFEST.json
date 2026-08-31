@@ -90,28 +90,150 @@
       "type": "ROM_GBC",
       "extension": ".gbc",
       "wrapper": "src/emulators/emu_walnut.cpp",
-      "engine": "src/engine/walnut_cgb/walnut_cgb.h"
+      "engine": "src/engine/walnut_cgb/walnut_cgb.h",
+      "engine_status": "production",
+      "build_verified": false,
+      "last_hardware_verified": null,
+      "notes": "16-bit fast paths reverted to 0 (stable). FIXED_UNVERIFIED on hardware."
     },
     {
       "name": "Peanut-GB",
       "type": "ROM_GB",
       "extension": ".gb",
       "wrapper": "src/emulators/emu_peanut.cpp",
-      "engine": "src/vendor/peanut_gb/peanut_gb.h"
+      "engine": "src/vendor/peanut_gb/peanut_gb.h",
+      "engine_status": "production",
+      "build_verified": false,
+      "last_hardware_verified": null
     },
     {
       "name": "Agnes",
       "type": "ROM_NES",
       "extension": ".nes",
       "wrapper": "src/emulators/emu_nes.cpp",
-      "engine": "src/vendor/agnes/agnes.c"
+      "engine": "src/vendor/agnes/agnes.c",
+      "engine_status": "production",
+      "build_verified": false,
+      "last_hardware_verified": null
     },
     {
       "name": "doomgeneric",
       "type": "ROM_WAD",
       "extension": ".wad",
       "wrapper": "src/emulators/emu_doom.cpp",
-      "engine": "src/vendor/doom/"
+      "engine": "src/vendor/doom/",
+      "engine_status": "production",
+      "build_verified": false,
+      "last_hardware_verified": null
+    },
+    {
+      "name": "SMSPlus",
+      "type": "ROM_SMS_GG",
+      "extension": ".sms / .gg",
+      "wrapper": "src/emulators/emu_sms.cpp",
+      "engine": "src/vendor/smsplus/sms.c",
+      "engine_status": "production",
+      "build_verified": false,
+      "last_hardware_verified": null
+    },
+    {
+      "name": "PCE-Stub",
+      "type": "ROM_PCE",
+      "extension": ".pce",
+      "wrapper": "src/emulators/emu_pce.cpp",
+      "engine": "src/vendor/pce/pce.c",
+      "engine_status": "stub",
+      "build_verified": false,
+      "last_hardware_verified": null,
+      "notes": "STUB_ENGINE: renders blank framebuffer only. No HuC6280 emulation."
+    },
+    {
+      "name": "Stella-Stub",
+      "type": "ROM_ATARI",
+      "extension": ".a26",
+      "wrapper": "src/emulators/emu_atari.cpp",
+      "engine": "src/vendor/stella/atari.c",
+      "engine_status": "stub",
+      "build_verified": false,
+      "last_hardware_verified": null,
+      "notes": "STUB_ENGINE: renders blank framebuffer only. No 6507 emulation."
+    },
+    {
+      "name": "PICO-8-Stub",
+      "type": "ROM_PICO8",
+      "extension": ".p8",
+      "wrapper": "src/emulators/emu_pico.cpp",
+      "engine": "src/vendor/pico/pico.c",
+      "engine_status": "stub",
+      "build_verified": false,
+      "last_hardware_verified": null,
+      "notes": "STUB_ENGINE: renders blank framebuffer only. No Lua VM."
+    },
+    {
+      "name": "Genesis-Stub",
+      "type": "ROM_GENESIS",
+      "extension": ".gen / .md / .smd",
+      "wrapper": "src/emulators/emu_genesis.cpp",
+      "engine": "src/vendor/genesis/genesis.c",
+      "engine_status": "stub",
+      "build_verified": false,
+      "last_hardware_verified": null,
+      "notes": "STUB_ENGINE: renders solid background only. No 68000 emulation."
+    },
+    {
+      "name": "SNES-Stub",
+      "type": "ROM_SNES",
+      "extension": ".sfc / .smc",
+      "wrapper": "src/emulators/emu_snes.cpp",
+      "engine": "src/vendor/snes/snes.c",
+      "engine_status": "stub",
+      "build_verified": false,
+      "last_hardware_verified": null,
+      "notes": "STUB_ENGINE: renders blank framebuffer only. No 65C816 emulation."
+    },
+    {
+      "name": "WonderSwan-Stub",
+      "type": "ROM_WSWAN",
+      "extension": ".ws / .wsc",
+      "wrapper": "src/emulators/emu_wswan.cpp",
+      "engine": "src/vendor/wswan/wswan.c",
+      "engine_status": "stub",
+      "build_verified": false,
+      "last_hardware_verified": null,
+      "notes": "STUB_ENGINE: renders blank framebuffer only. No V30 MZ emulation."
+    },
+    {
+      "name": "NGP-Stub",
+      "type": "ROM_NGP",
+      "extension": ".ngp / .ngc",
+      "wrapper": "src/emulators/emu_ngp.cpp",
+      "engine": "src/vendor/ngp/ngp.c",
+      "engine_status": "stub",
+      "build_verified": false,
+      "last_hardware_verified": null,
+      "notes": "STUB_ENGINE: renders blank framebuffer only. No TLCS-900H emulation."
+    },
+    {
+      "name": "Lynx-Stub",
+      "type": "ROM_LYNX",
+      "extension": ".lnx",
+      "wrapper": "src/emulators/emu_lynx.cpp",
+      "engine": "src/vendor/lynx/lynx.c",
+      "engine_status": "stub",
+      "build_verified": false,
+      "last_hardware_verified": null,
+      "notes": "STUB_ENGINE: renders blank framebuffer only. No 65SC02/Suzy emulation."
+    },
+    {
+      "name": "ColecoVision-Stub",
+      "type": "ROM_COLEM",
+      "extension": ".col / .sg",
+      "wrapper": "src/emulators/emu_colem.cpp",
+      "engine": "src/vendor/colem/colem.c",
+      "engine_status": "stub",
+      "build_verified": false,
+      "last_hardware_verified": null,
+      "notes": "STUB_ENGINE: renders blank framebuffer only. No Z80/TMS9918A emulation."
     }
   ]
 }

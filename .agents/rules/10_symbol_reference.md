@@ -14,13 +14,23 @@ signatures, macro `#define`s, and top-level struct declarations from:
 `src/core/`, `src/emulators/`, `src/engine/*/`, `src/vendor/*/`.
 
 ## Staleness detection
-This file was last regenerated: **2026-08-30**.
+This file was last regenerated: **2026-08-31**.
 If any of the following files have a newer git commit date than that,
-this file is stale -- grep live and update before making any symbol claims:
+this file is stale — grep live and update before making any symbol claims:
 - `src/emulators/emu_walnut.cpp/h`
 - `src/emulators/emu_peanut.cpp/h`
 - `src/emulators/emu_nes.cpp/h`
 - `src/emulators/emu_doom.cpp/h`
+- `src/emulators/emu_sms.cpp/h`
+- `src/emulators/emu_pce.cpp/h`
+- `src/emulators/emu_atari.cpp/h`
+- `src/emulators/emu_pico.cpp/h`
+- `src/emulators/emu_genesis.cpp/h`
+- `src/emulators/emu_snes.cpp/h`
+- `src/emulators/emu_wswan.cpp/h`
+- `src/emulators/emu_ngp.cpp/h`
+- `src/emulators/emu_lynx.cpp/h`
+- `src/emulators/emu_colem.cpp/h`
 - `src/core/display_emu.h`
 - `src/core/buttons.h`
 - `src/core/sd_card.h`
@@ -45,12 +55,25 @@ One table per file, columns: `Symbol | Kind (fn/macro/struct) | Signature | Note
 | `DisplayEmu::showSDCardWarning` | fn | `void showSDCardWarning()` | Shows SD card error message |
 | `DisplayEmu::initMenuUI` | fn | `void initMenuUI()` | Allocates menu buffer in PSRAM |
 | `DisplayEmu::cleanupMenuUI` | fn | `void cleanupMenuUI()` | Frees menu buffer in PSRAM |
-| `DisplayEmu::drawConsoleSelectMenu`| fn | `void drawConsoleSelectMenu(int selectedIndex, const int gameCounts[4], bool sdMounted)` | Renders console menu carousel |
+| `DisplayEmu::drawConsoleSelectMenu` | fn | `void drawConsoleSelectMenu(int selectedIndex, const int* gameCounts, int consoleCount, bool sdMounted)` | Renders 15-platform console carousel |
+| `DisplayEmu::drawConsoleMuseumModal` | fn | `void drawConsoleMuseumModal(RomType console)` | Renders console history/specs modal (STATE_CONSOLE_MUSEUM) |
 | `DisplayEmu::drawGameSelectMenu` | fn | `void drawGameSelectMenu(const RomFile* const* games, int count, int selectedIndex, RomType console, bool sdMounted)` | Renders game list menu |
 | `DisplayEmu::startFrame` | fn | `void startFrame()` | Asserts CS & sets 240x216 window once |
 | `DisplayEmu::endFrame` | fn | `void endFrame()` | Deasserts CS |
 | `DisplayEmu::streamPixelRow` | fn | `void streamPixelRow(const uint16_t* buf, int pixelCount)` | Streams scanline without CS toggle |
-| `DisplayEmu::pushPixelsFullScreen`| fn | `void pushPixelsFullScreen(const uint16_t* buffer)` | Full 320x240 frame blit |
+| `DisplayEmu::streamNESFrame` | fn | `void streamNESFrame(const uint8_t* fb)` | 256x240 NES frame, scaled/cropped to 240x216 |
+| `DisplayEmu::streamDoomFrame` | fn | `void streamDoomFrame(const uint8_t* cmap)` | 320x200 DOOM indexed frame |
+| `DisplayEmu::streamSMSFrame` | fn | `void streamSMSFrame(const uint16_t* fb, bool isGameGear)` | 256x192 SMS or 160x144 GG frame |
+| `DisplayEmu::streamPCEFrame` | fn | `void streamPCEFrame(const uint16_t* fb)` | 256x240 PC Engine frame |
+| `DisplayEmu::streamAtariFrame` | fn | `void streamAtariFrame(const uint16_t* fb)` | 160x192 Atari 2600 frame |
+| `DisplayEmu::streamPicoFrame` | fn | `void streamPicoFrame(const uint16_t* fb)` | 128x128 PICO-8 frame |
+| `DisplayEmu::streamGenesisFrame` | fn | `void streamGenesisFrame(const uint16_t* fb, int w, int h)` | 320x224 Genesis frame, yOffset=8 |
+| `DisplayEmu::streamSNESFrame` | fn | `void streamSNESFrame(const uint16_t* fb, int w, int h)` | 256x224 SNES frame, xOffset=32 |
+| `DisplayEmu::streamWSwanFrame` | fn | `void streamWSwanFrame(const uint16_t* fb, int w, int h)` | 224x144 WonderSwan frame, centered |
+| `DisplayEmu::streamNGPFrame` | fn | `void streamNGPFrame(const uint16_t* fb, int w, int h)` | 160x152 Neo Geo Pocket frame, centered |
+| `DisplayEmu::streamLynxFrame` | fn | `void streamLynxFrame(const uint16_t* fb, int w, int h)` | 160x102 Atari Lynx frame, centered |
+| `DisplayEmu::streamColemFrame` | fn | `void streamColemFrame(const uint16_t* fb, int w, int h)` | 256x192 ColecoVision frame, centered |
+| `DisplayEmu::pushPixelsFullScreen` | fn | `void pushPixelsFullScreen(const uint16_t* buffer)` | Full 320x240 frame blit |
 | `DisplayEmu::pushPixelsAt` | fn | `void pushPixelsAt(int x, int y, int w, int h, const uint16_t* buf)` | Arbitrary sub-rect blit |
 | `DisplayEmu::CLASSIC_PALETTE` | const | `const uint16_t CLASSIC_PALETTE[4]` | Pre-swapped BGR565 green palette |
 | `DisplayEmu::NES_PALETTE` | const | `const uint16_t NES_PALETTE[64]` | Pre-swapped BGR565 NES palette |
