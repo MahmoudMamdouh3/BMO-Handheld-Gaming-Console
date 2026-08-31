@@ -1,81 +1,285 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "index_version": 5,
-  "last_updated": "2026-08-30",
-  "task_to_rules": {
-    "quick_start": [
-      ".agents/rules/31_quick_start_primer.md",
-      "AGENT_MANIFEST.json"
-    ],
-    "hardware_wiring_or_pins": [
-      ".agents/rules/00_hard_stops.md",
-      ".agents/rules/01_hardware.md",
-      "firmware/BmoGameboy/src/core/config.h"
-    ],
-    "display_colors_spi_scaling": [
-      ".agents/rules/28_display_and_spi_contract.md",
-      "firmware/BmoGameboy/src/core/display_emu.h",
-      "firmware/BmoGameboy/src/core/display_emu.cpp"
-    ],
-    "mascot_bmo_face_rendering": [
-      ".agents/rules/35_bmo_face_contract.md",
-      "firmware/BmoGameboy/src/core/bmo_face.h",
-      "firmware/BmoGameboy/src/core/bmo_face.cpp"
-    ],
-    "hardware_bug_intake": [
-      ".agents/rules/36_bug_intake_protocol.md",
-      ".agents/rules/23_incident_postmortem_log.md"
-    ],
-    "emulator_modification_or_new_core": [
-      ".agents/rules/12_extensibility_contract.md",
-      ".agents/rules/26_emulator_exit_contract.md",
-      ".agents/rules/32_modular_core_template.md"
-    ],
-    "adding_baked_rom": [
-      ".agents/rules/29_adding_a_baked_rom.md",
-      ".agents/rules/37_rom_governance_and_flash_budget.md",
-      "firmware/BmoGameboy/src/core/sd_card.cpp"
-    ],
-    "rom_governance_and_flash_budget": [
-      ".agents/rules/37_rom_governance_and_flash_budget.md",
-      ".agents/rules/29_adding_a_baked_rom.md",
-      "firmware/BmoGameboy/partitions.csv"
-    ],
-    "api_lookup_and_symbol_check": [
-      ".agents/rules/10_symbol_reference.md"
-    ],
-    "vendor_flags_or_patches": [
-      ".agents/rules/18_dependency_and_vendor_sync.md",
-      ".agents/rules/24_vendor_flag_safety.md"
-    ],
-    "ai_guardrails_and_invariants": [
-      ".agents/rules/34_ai_agent_sandbox_and_guardrails.md",
-      ".agents/rules/30_common_agent_mistakes.md"
-    ],
-    "session_handoff_and_logging": [
-      ".agents/rules/33_agent_handoff_and_optimization_cycle.md",
-      ".agents/rules/38_mandatory_documentation_update.md",
-      ".agents/rules/04_known_issues.md",
-      "CHANGELOG.md"
-    ],
-    "performance_and_benchmarking": [
-      ".agents/rules/39_performance_and_benchmark_framework.md",
-      ".agents/rules/15_performance_budgets.md",
-      "docs/performance_and_benchmarking.md",
-      "tools/guardian/cli.py"
-    ],
-    "documentation_updates": [
-      ".agents/rules/38_mandatory_documentation_update.md",
-      ".agents/rules/10_symbol_reference.md",
-      ".agents/rules/21_documentation_standards.md",
-      "AGENT_MANIFEST.json",
-      "docs/software-design-document.md"
-    ],
-    "debugging_or_investigation": [
-      ".agents/rules/36_bug_intake_protocol.md",
-      ".agents/rules/04_known_issues.md",
-      ".agents/rules/23_incident_postmortem_log.md",
-      ".agents/rules/30_common_agent_mistakes.md"
-    ]
+  "schema_version": "2.0.0",
+  "last_updated": "2026-08-31T15:12:11.662874",
+  "task_decision_table": {
+    "modify_gpio_or_pin": {
+      "rules": [
+        "01_hardware.md",
+        "00_hard_stops.md"
+      ],
+      "files": [
+        "firmware/BmoGameboy/src/core/config.h",
+        "firmware/BmoGameboy/src/core/buttons.cpp"
+      ]
+    },
+    "modify_display_rendering_or_spi": {
+      "rules": [
+        "28_display_and_spi_contract.md",
+        "15_performance_budgets.md",
+        "39_performance_and_benchmark_framework.md"
+      ],
+      "files": [
+        "firmware/BmoGameboy/src/core/display_emu.h",
+        "firmware/BmoGameboy/src/core/display_emu.cpp"
+      ]
+    },
+    "add_or_modify_emulator_core": {
+      "rules": [
+        "12_extensibility_contract.md",
+        "26_emulator_exit_contract.md",
+        "32_modular_core_template.md"
+      ],
+      "files": [
+        "firmware/BmoGameboy/src/emulators/",
+        "firmware/BmoGameboy/BmoGameboy.ino"
+      ]
+    },
+    "bake_rom_into_flash": {
+      "rules": [
+        "29_adding_a_baked_rom.md",
+        "37_rom_governance_and_flash_budget.md"
+      ],
+      "files": [
+        "firmware/BmoGameboy/src/assets/roms/",
+        "firmware/BmoGameboy/src/core/sd_card.cpp"
+      ]
+    },
+    "bmo_mascot_face": {
+      "rules": [
+        "35_bmo_face_contract.md",
+        "08_ui_style_guide.md"
+      ],
+      "files": [
+        "firmware/BmoGameboy/src/core/bmo_face.h",
+        "firmware/BmoGameboy/src/core/bmo_face.cpp"
+      ]
+    },
+    "benchmark_and_performance_audit": {
+      "rules": [
+        "39_performance_and_benchmark_framework.md",
+        "04_known_issues.md"
+      ],
+      "files": [
+        "tools/guardian/",
+        "report_guardian.md"
+      ]
+    },
+    "session_handoff_and_logging": {
+      "rules": [
+        "33_agent_handoff_and_optimization_cycle.md",
+        "06_verification_standards.md"
+      ],
+      "files": [
+        ".agents/rules/04_known_issues.md",
+        "CHANGELOG.md"
+      ]
+    }
+  },
+  "rules": {
+    "00_hard_stops.md": {
+      "file": ".agents/rules/00_hard_stops.md",
+      "title": "0. Hard Stops",
+      "lines": 6
+    },
+    "01_hardware.md": {
+      "file": ".agents/rules/01_hardware.md",
+      "title": "1. Physically Wired Hardware (Verified Ground Truth)",
+      "lines": 47
+    },
+    "02_architecture.md": {
+      "file": ".agents/rules/02_architecture.md",
+      "title": "4. Toolchain & Build Configuration",
+      "lines": 19
+    },
+    "03_conventions.md": {
+      "file": ".agents/rules/03_conventions.md",
+      "title": "7. Repository & File Structure",
+      "lines": 63
+    },
+    "04_known_issues.md": {
+      "file": ".agents/rules/04_known_issues.md",
+      "title": "6. Known Issues, Technical Debt & Hardware Limitations Registry",
+      "lines": 252
+    },
+    "05_git_workflow.md": {
+      "file": ".agents/rules/05_git_workflow.md",
+      "title": "Git & Commit Discipline",
+      "lines": 66
+    },
+    "06_verification_standards.md": {
+      "file": ".agents/rules/06_verification_standards.md",
+      "title": "Verification & Evidence Standards",
+      "lines": 121
+    },
+    "07_task_protocol.md": {
+      "file": ".agents/rules/07_task_protocol.md",
+      "title": "Standard Task Protocol",
+      "lines": 86
+    },
+    "08_ui_style_guide.md": {
+      "file": ".agents/rules/08_ui_style_guide.md",
+      "title": "UI & Visual Style Guide",
+      "lines": 49
+    },
+    "09_testing_infrastructure.md": {
+      "file": ".agents/rules/09_testing_infrastructure.md",
+      "title": "Testing Infrastructure",
+      "lines": 60
+    },
+    "10_symbol_reference.md": {
+      "file": ".agents/rules/10_symbol_reference.md",
+      "title": "Symbol Reference (Ground Truth for Names)",
+      "lines": 195
+    },
+    "11_rules_meta.md": {
+      "file": ".agents/rules/11_rules_meta.md",
+      "title": "Meta-Rules for the Rules Directory Itself",
+      "lines": 22
+    },
+    "12_extensibility_contract.md": {
+      "file": ".agents/rules/12_extensibility_contract.md",
+      "title": "Extensibility Contract (New Emulator Cores)",
+      "lines": 42
+    },
+    "13_code_style.md": {
+      "file": ".agents/rules/13_code_style.md",
+      "title": "Code Style & Formatting",
+      "lines": 27
+    },
+    "14_error_handling_and_fault_isolation.md": {
+      "file": ".agents/rules/14_error_handling_and_fault_isolation.md",
+      "title": "Error Handling & Fault Isolation",
+      "lines": 25
+    },
+    "15_performance_budgets.md": {
+      "file": ".agents/rules/15_performance_budgets.md",
+      "title": "Performance Engineering & Budgets",
+      "lines": 33
+    },
+    "16_logging_and_diagnostics.md": {
+      "file": ".agents/rules/16_logging_and_diagnostics.md",
+      "title": "Logging & Diagnostics",
+      "lines": 20
+    },
+    "17_release_and_versioning.md": {
+      "file": ".agents/rules/17_release_and_versioning.md",
+      "title": "Release & Versioning",
+      "lines": 25
+    },
+    "18_dependency_and_vendor_sync.md": {
+      "file": ".agents/rules/18_dependency_and_vendor_sync.md",
+      "title": "Dependency & Vendor-Library Sync",
+      "lines": 31
+    },
+    "19_security_and_data_integrity.md": {
+      "file": ".agents/rules/19_security_and_data_integrity.md",
+      "title": "Security & Data Integrity",
+      "lines": 18
+    },
+    "20_multi_agent_protocol.md": {
+      "file": ".agents/rules/20_multi_agent_protocol.md",
+      "title": "Multi-Agent / Cross-Session Protocol",
+      "lines": 19
+    },
+    "21_documentation_standards.md": {
+      "file": ".agents/rules/21_documentation_standards.md",
+      "title": "Documentation Standards",
+      "lines": 19
+    },
+    "22_review_checklist.md": {
+      "file": ".agents/rules/22_review_checklist.md",
+      "title": "Everyday Self-Review Checklist",
+      "lines": 14
+    },
+    "23_incident_postmortem_log.md": {
+      "file": ".agents/rules/23_incident_postmortem_log.md",
+      "title": "Incident / Process-Failure Log",
+      "lines": 35
+    },
+    "24_vendor_flag_safety.md": {
+      "file": ".agents/rules/24_vendor_flag_safety.md",
+      "title": "Vendor Flag Safety",
+      "lines": 78
+    },
+    "25_game_compatibility_ledger.md": {
+      "file": ".agents/rules/25_game_compatibility_ledger.md",
+      "title": "Game Compatibility Ledger",
+      "lines": 52
+    },
+    "26_emulator_exit_contract.md": {
+      "file": ".agents/rules/26_emulator_exit_contract.md",
+      "title": "Emulator Exit Contract",
+      "lines": 52
+    },
+    "27_codebase_map.md": {
+      "file": ".agents/rules/27_codebase_map.md",
+      "title": "Codebase Map \u2014 Ground Truth for Architecture",
+      "lines": 191
+    },
+    "28_display_and_spi_contract.md": {
+      "file": ".agents/rules/28_display_and_spi_contract.md",
+      "title": "Display & SPI Bus Contract",
+      "lines": 73
+    },
+    "29_adding_a_baked_rom.md": {
+      "file": ".agents/rules/29_adding_a_baked_rom.md",
+      "title": "How to Add a Baked ROM",
+      "lines": 80
+    },
+    "30_common_agent_mistakes.md": {
+      "file": ".agents/rules/30_common_agent_mistakes.md",
+      "title": "Common Agent Mistakes (Anti-Pattern Catalogue)",
+      "lines": 170
+    },
+    "31_quick_start_primer.md": {
+      "file": ".agents/rules/31_quick_start_primer.md",
+      "title": "31. Quick-Start Primer (Zero-Context Agent On-Ramp)",
+      "lines": 79
+    },
+    "32_modular_core_template.md": {
+      "file": ".agents/rules/32_modular_core_template.md",
+      "title": "32. Modular Core Template & Scaffolding Guide",
+      "lines": 128
+    },
+    "33_agent_handoff_and_optimization_cycle.md": {
+      "file": ".agents/rules/33_agent_handoff_and_optimization_cycle.md",
+      "title": "33. Agent Handoff & Continuous Optimization Cycle",
+      "lines": 59
+    },
+    "34_ai_agent_sandbox_and_guardrails.md": {
+      "file": ".agents/rules/34_ai_agent_sandbox_and_guardrails.md",
+      "title": "34. AI Agent Guardrails & Execution Invariants",
+      "lines": 44
+    },
+    "35_bmo_face_contract.md": {
+      "file": ".agents/rules/35_bmo_face_contract.md",
+      "title": "BmoFace Mascot Subsystem Contract",
+      "lines": 73
+    },
+    "36_bug_intake_protocol.md": {
+      "file": ".agents/rules/36_bug_intake_protocol.md",
+      "title": "Human-Reported Hardware Bug Intake Protocol",
+      "lines": 68
+    },
+    "37_rom_governance_and_flash_budget.md": {
+      "file": ".agents/rules/37_rom_governance_and_flash_budget.md",
+      "title": "ROM Governance & Flash-Budget Invariant",
+      "lines": 59
+    },
+    "38_mandatory_documentation_update.md": {
+      "file": ".agents/rules/38_mandatory_documentation_update.md",
+      "title": "38. Mandatory Documentation Update Protocol",
+      "lines": 96
+    },
+    "39_performance_and_benchmark_framework.md": {
+      "file": ".agents/rules/39_performance_and_benchmark_framework.md",
+      "title": "39. Mandatory Performance & Benchmark Framework (Guardian Engine)",
+      "lines": 70
+    },
+    "40_ai_knowledge_graph_and_indexing_protocol.md": {
+      "file": ".agents/rules/40_ai_knowledge_graph_and_indexing_protocol.md",
+      "title": "40. AI Knowledge Graph, AST Indexing & Decision Matrix Protocol",
+      "lines": 61
+    }
   }
 }

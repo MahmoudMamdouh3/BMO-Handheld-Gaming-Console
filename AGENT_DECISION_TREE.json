@@ -1,0 +1,183 @@
+{
+  "schema_version": "2.0.0",
+  "description": "Zero-shot task intent routing table for autonomous AI coding agents.",
+  "tasks": {
+    "modify_gpio_or_pin": {
+      "intent_keywords": [
+        "pin",
+        "gpio",
+        "button",
+        "hardware",
+        "switch",
+        "wiring"
+      ],
+      "mandatory_rules": [
+        "01_hardware.md",
+        "00_hard_stops.md"
+      ],
+      "primary_files": [
+        "firmware/BmoGameboy/src/core/config.h",
+        "firmware/BmoGameboy/src/core/buttons.cpp"
+      ],
+      "guardrails": [
+        "Never touch GPIO1 (battery)",
+        "Never enable I2S audio GPIOs"
+      ],
+      "verification_command": "python scripts/validate_repo.py"
+    },
+    "modify_display_rendering_or_spi": {
+      "intent_keywords": [
+        "display",
+        "spi",
+        "screen",
+        "st7789",
+        "scaling",
+        "color",
+        "bgr565",
+        "palette",
+        "framebuffer"
+      ],
+      "mandatory_rules": [
+        "28_display_and_spi_contract.md",
+        "15_performance_budgets.md",
+        "39_performance_and_benchmark_framework.md"
+      ],
+      "primary_files": [
+        "firmware/BmoGameboy/src/core/display_emu.h",
+        "firmware/BmoGameboy/src/core/display_emu.cpp"
+      ],
+      "guardrails": [
+        "Wire format is BGR565 byte-swapped",
+        "Must open window once per frame with startDirectWindow"
+      ],
+      "verification_command": "python -m tools.guardian bus-calc && python scripts/validate_repo.py"
+    },
+    "add_or_modify_emulator_core": {
+      "intent_keywords": [
+        "emulator",
+        "core",
+        "tier",
+        "nes",
+        "genesis",
+        "snes",
+        "doom",
+        "peanut",
+        "walnut",
+        "sms"
+      ],
+      "mandatory_rules": [
+        "12_extensibility_contract.md",
+        "26_emulator_exit_contract.md",
+        "32_modular_core_template.md"
+      ],
+      "primary_files": [
+        "firmware/BmoGameboy/src/emulators/",
+        "firmware/BmoGameboy/BmoGameboy.ino"
+      ],
+      "guardrails": [
+        "Must implement destroy() to free PSRAM",
+        "SELECT+UP must cleanly return to menu",
+        "Must include #pragma GCC optimize"
+      ],
+      "verification_command": "python -m unittest discover tests && python scripts/validate_repo.py"
+    },
+    "bake_rom_into_flash": {
+      "intent_keywords": [
+        "bake",
+        "rom",
+        "header",
+        "flash",
+        "app0",
+        "aladdin",
+        "mario",
+        "zelda"
+      ],
+      "mandatory_rules": [
+        "29_adding_a_baked_rom.md",
+        "37_rom_governance_and_flash_budget.md"
+      ],
+      "primary_files": [
+        "firmware/BmoGameboy/src/assets/roms/",
+        "firmware/BmoGameboy/src/core/sd_card.cpp"
+      ],
+      "guardrails": [
+        "Check Flash headroom (stay under 8MB app0)",
+        "Protect .rodata pointer in freeRom()"
+      ],
+      "verification_command": "python scripts/validate_repo.py"
+    },
+    "bmo_mascot_face": {
+      "intent_keywords": [
+        "bmo",
+        "face",
+        "mascot",
+        "sdf",
+        "animation",
+        "blink",
+        "expression"
+      ],
+      "mandatory_rules": [
+        "35_bmo_face_contract.md",
+        "08_ui_style_guide.md"
+      ],
+      "primary_files": [
+        "firmware/BmoGameboy/src/core/bmo_face.h",
+        "firmware/BmoGameboy/src/core/bmo_face.cpp"
+      ],
+      "guardrails": [
+        "Preserve bounding-box spatial culling (PERF-12)",
+        "Cache faceBuf in PSRAM"
+      ],
+      "verification_command": "python -m tools.guardian bench-host"
+    },
+    "benchmark_and_performance_audit": {
+      "intent_keywords": [
+        "benchmark",
+        "performance",
+        "audit",
+        "profile",
+        "latency",
+        "framerate",
+        "fps",
+        "memory"
+      ],
+      "mandatory_rules": [
+        "39_performance_and_benchmark_framework.md",
+        "04_known_issues.md"
+      ],
+      "primary_files": [
+        "tools/guardian/",
+        "report_guardian.md"
+      ],
+      "guardrails": [
+        "No throwaway scripts (Rule 2.1)",
+        "Use tools.guardian framework"
+      ],
+      "verification_command": "python -m tools.guardian audit && python -m tools.guardian report"
+    },
+    "session_handoff_and_logging": {
+      "intent_keywords": [
+        "handoff",
+        "changelog",
+        "commit",
+        "known issues",
+        "log",
+        "summary",
+        "done"
+      ],
+      "mandatory_rules": [
+        "33_agent_handoff_and_optimization_cycle.md",
+        "06_verification_standards.md"
+      ],
+      "primary_files": [
+        ".agents/rules/04_known_issues.md",
+        "CHANGELOG.md"
+      ],
+      "guardrails": [
+        "Use two-header format: Verified by me this session / Waiting on you",
+        "Run validate_repo.py first"
+      ],
+      "verification_command": "python scripts/validate_repo.py"
+    }
+  }
+}

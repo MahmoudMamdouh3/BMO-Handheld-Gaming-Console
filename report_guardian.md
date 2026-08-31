@@ -1,8 +1,8 @@
 # BMO Handheld Console — Complete Line-by-Line Benchmark & Architecture Audit
-**Generated:** 2026-08-31 15:09:18  
+**Generated:** 2026-08-31 15:04:20  
 **Target MCU:** ESP32-S3-N16R8 (240MHz Xtensa LX7, 16MB OPI Flash, 8MB Octal PSRAM)  
 **Display:** ST7789VW 2.4" TFT on Shared 80MHz FSPI  
-**Total Repository Files Audited:** 786 files (1,371,522 total lines, 1,284,285 SLOC)  
+**Total Repository Files Audited:** 783 files (1,355,401 total lines, 1,268,218 SLOC)  
 **Ground-Truth Quality Gate:** PASS (Zero Critical Violations)
 
 ---
@@ -95,11 +95,9 @@ Exhaustive line-by-line statistics across every single file in the repository:
 | `.agents/rules/37_rom_governance_and_flash_budget.md` | `AGENT_RULES` | 59 | 53 | 0 | 6 | 89.8% |
 | `.agents/rules/38_mandatory_documentation_update.md` | `AGENT_RULES` | 96 | 74 | 0 | 22 | 77.1% |
 | `.agents/rules/39_performance_and_benchmark_framework.md` | `AGENT_RULES` | 70 | 51 | 0 | 19 | 72.9% |
-| `.agents/rules/CONTEXT_INDEX.json` | `AGENT_RULES` | 280 | 280 | 0 | 0 | 100.0% |
+| `.agents/rules/CONTEXT_INDEX.json` | `AGENT_RULES` | 81 | 81 | 0 | 0 | 100.0% |
 | `.agents/rules/README.md` | `AGENT_RULES` | 48 | 46 | 0 | 2 | 95.8% |
-| `AGENT_DECISION_TREE.json` | `OTHER` | 183 | 183 | 0 | 0 | 100.0% |
-| `AGENT_KNOWLEDGE_GRAPH.json` | `OTHER` | 15,452 | 15,452 | 0 | 0 | 100.0% |
-| `AGENT_MANIFEST.json` | `OTHER` | 186 | 186 | 0 | 0 | 100.0% |
+| `AGENT_MANIFEST.json` | `OTHER` | 239 | 239 | 0 | 0 | 100.0% |
 | `AGENTS.md` | `OTHER` | 19 | 15 | 0 | 4 | 78.9% |
 | `assets/legacy_headers/cover_aladdin.h` | `OTHER` | 1,010 | 1,009 | 0 | 1 | 99.9% |
 | `assets/legacy_headers/cover_amazingspiderman.h` | `OTHER` | 1,009 | 1,008 | 0 | 1 | 99.9% |
@@ -344,10 +342,10 @@ Exhaustive line-by-line statistics across every single file in the repository:
 | `diagram.json` | `OTHER` | 18 | 18 | 0 | 0 | 100.0% |
 | `docs/consolidated-rules.md` | `DOCUMENTATION` | 2,435 | 1,951 | 38 | 446 | 80.1% |
 | `docs/hardware-notes.md` | `DOCUMENTATION` | 162 | 112 | 0 | 50 | 69.1% |
-| `docs/performance_and_benchmarking.md` | `DOCUMENTATION` | 107 | 85 | 0 | 22 | 79.4% |
+| `docs/performance_and_benchmarking.md` | `DOCUMENTATION` | 99 | 78 | 0 | 21 | 78.8% |
 | `docs/performance_report.md` | `DOCUMENTATION` | 74 | 60 | 0 | 14 | 81.1% |
 | `docs/project-rules.md` | `DOCUMENTATION` | 5 | 3 | 0 | 2 | 60.0% |
-| `docs/software-design-document.md` | `DOCUMENTATION` | 457 | 372 | 0 | 85 | 81.4% |
+| `docs/software-design-document.md` | `DOCUMENTATION` | 434 | 355 | 0 | 79 | 81.8% |
 | `docs/wiring/01-display-and-buttons.md` | `DOCUMENTATION` | 52 | 40 | 0 | 12 | 76.9% |
 | `docs/wiring/02-sd-card.md` | `DOCUMENTATION` | 54 | 43 | 0 | 11 | 79.6% |
 | `firmware/03_emulator/build/esp32.esp32.esp32s3/build.options.json` | `OTHER` | 9 | 9 | 0 | 0 | 100.0% |
@@ -614,7 +612,7 @@ Exhaustive line-by-line statistics across every single file in the repository:
 | `firmware/BmoGameboy/src/vendor/wswan/wswan.h` | `VENDOR_ENGINES` | 32 | 26 | 0 | 6 | 81.2% |
 | `IMPLEMENTATION_PLAN.md` | `OTHER` | 41 | 28 | 0 | 13 | 68.3% |
 | `README.md` | `OTHER` | 111 | 89 | 0 | 22 | 80.2% |
-| `report_guardian.md` | `OTHER` | 871 | 853 | 0 | 18 | 97.9% |
+| `report_guardian.md` | `OTHER` | 870 | 852 | 0 | 18 | 97.9% |
 | `scratch/doomgeneric/doomgeneric/am_map.c` | `OTHER` | 1,355 | 970 | 162 | 223 | 71.6% |
 | `scratch/doomgeneric/doomgeneric/am_map.h` | `OTHER` | 49 | 13 | 24 | 12 | 26.5% |
 | `scratch/doomgeneric/doomgeneric/config.h` | `OTHER` | 100 | 33 | 34 | 33 | 33.0% |
@@ -814,7 +812,6 @@ Exhaustive line-by-line statistics across every single file in the repository:
 | `scripts/color_calc.py` | `SCRIPTS` | 40 | 19 | 15 | 6 | 47.5% |
 | `scripts/convert_roms.py` | `SCRIPTS` | 36 | 31 | 0 | 5 | 86.1% |
 | `scripts/fetch_covers.py` | `SCRIPTS` | 85 | 76 | 0 | 9 | 89.4% |
-| `scripts/generate_ai_knowledge_base.py` | `SCRIPTS` | 293 | 251 | 14 | 28 | 85.7% |
 | `scripts/process_games.py` | `SCRIPTS` | 139 | 116 | 0 | 23 | 83.5% |
 | `scripts/repo_tools.py` | `SCRIPTS` | 31 | 22 | 0 | 9 | 71.0% |
 | `scripts/test_runner.py` | `SCRIPTS` | 34 | 27 | 1 | 6 | 79.4% |
@@ -830,7 +827,7 @@ Exhaustive line-by-line statistics across every single file in the repository:
 | `tools/convert.py` | `TOOLS` | 14 | 14 | 0 | 0 | 100.0% |
 | `tools/guardian/__init__.py` | `GUARDIAN_TOOLCHAIN` | 5 | 2 | 2 | 1 | 40.0% |
 | `tools/guardian/__main__.py` | `GUARDIAN_TOOLCHAIN` | 8 | 4 | 2 | 2 | 50.0% |
-| `tools/guardian/cli.py` | `GUARDIAN_TOOLCHAIN` | 236 | 169 | 21 | 46 | 71.6% |
+| `tools/guardian/cli.py` | `GUARDIAN_TOOLCHAIN` | 225 | 163 | 19 | 43 | 72.4% |
 | `tools/guardian/core/__init__.py` | `GUARDIAN_TOOLCHAIN` | 26 | 22 | 2 | 2 | 84.6% |
 | `tools/guardian/core/ast_linter.py` | `GUARDIAN_TOOLCHAIN` | 358 | 308 | 14 | 36 | 86.0% |
 | `tools/guardian/core/bus_model.py` | `GUARDIAN_TOOLCHAIN` | 278 | 245 | 11 | 22 | 88.1% |
@@ -839,7 +836,7 @@ Exhaustive line-by-line statistics across every single file in the repository:
 | `tools/guardian/core/host_bench.py` | `GUARDIAN_TOOLCHAIN` | 283 | 215 | 19 | 49 | 76.0% |
 | `tools/guardian/core/report_gen.py` | `GUARDIAN_TOOLCHAIN` | 243 | 220 | 3 | 20 | 90.5% |
 | `tools/guardian/tests/__init__.py` | `GUARDIAN_TOOLCHAIN` | 3 | 1 | 2 | 0 | 33.3% |
-| `tools/guardian/tests/test_guardian.py` | `GUARDIAN_TOOLCHAIN` | 111 | 81 | 14 | 16 | 73.0% |
+| `tools/guardian/tests/test_guardian.py` | `GUARDIAN_TOOLCHAIN` | 107 | 77 | 14 | 16 | 72.0% |
 | `tools/host_test.cpp` | `TOOLS` | 123 | 99 | 2 | 22 | 80.5% |
 
 ---
@@ -848,13 +845,13 @@ Exhaustive line-by-line statistics across every single file in the repository:
 
 | Benchmark Kernel | Iterations | Total Time | Avg Latency | Throughput | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **BMO_SDF_Procedural_Face_Render_Unculled** | 100 | 127.16 ms | 1271.569 µs | 3.22 MOps/s | Evaluates raw procedural 2D SDF math across 128x128 grid without spatial culling. |
-| **BMO_SDF_Procedural_Face_Render_Culled** | 200 | 98.06 ms | 490.284 µs | 8.35 MOps/s | Evaluates procedural 2D SDF with bounding-box spatial culling (~75% math reduction). |
-| **4Pixel_Coalesced_Aligned_Store_Kernel** | 50,000 | 123.63 ms | 2.473 µs | 12.13 MOps/s | Measures throughput of Xtensa LX7 32-bit coalesced memory stores for 3:2 scaling. |
-| **O1_Palette_Scanline_Transformation** | 10,000 | 44.78 ms | 4.478 µs | 53.60 MOps/s | Measures 240-pixel scanline indexed-to-BGR565 palette transform throughput. |
-| **CPU_Emulation_Opcode_Dispatch** | 500,000 | 36.69 ms | 0.073 µs | 13.63 MOps/s | Simulates CPU opcode fetch-decode-execute cycle dispatch throughput. |
-| **Direct_GPIO_Atomic_Bitmask_Sampling** | 100,000 | 47.23 ms | 0.472 µs | 16.94 MOps/s | Measures atomic 8-pin bitmask unpacking replacing 8 sequential digitalRead calls. |
-| **SD_Catalog_O1_Query_And_Page_Jump** | 10,000 | 1.71 ms | 0.171 µs | 5.84 MOps/s | Measures 16,384 PSRAM ROM O(1) count queries and rapid +/-10 page-jump calculations. |
+| **BMO_SDF_Procedural_Face_Render_Unculled** | 100 | 126.43 ms | 1264.261 µs | 3.24 MOps/s | Evaluates raw procedural 2D SDF math across 128x128 grid without spatial culling. |
+| **BMO_SDF_Procedural_Face_Render_Culled** | 200 | 99.40 ms | 497.013 µs | 8.24 MOps/s | Evaluates procedural 2D SDF with bounding-box spatial culling (~75% math reduction). |
+| **4Pixel_Coalesced_Aligned_Store_Kernel** | 50,000 | 120.93 ms | 2.419 µs | 12.40 MOps/s | Measures throughput of Xtensa LX7 32-bit coalesced memory stores for 3:2 scaling. |
+| **O1_Palette_Scanline_Transformation** | 10,000 | 46.65 ms | 4.665 µs | 51.45 MOps/s | Measures 240-pixel scanline indexed-to-BGR565 palette transform throughput. |
+| **CPU_Emulation_Opcode_Dispatch** | 500,000 | 37.89 ms | 0.076 µs | 13.20 MOps/s | Simulates CPU opcode fetch-decode-execute cycle dispatch throughput. |
+| **Direct_GPIO_Atomic_Bitmask_Sampling** | 100,000 | 48.08 ms | 0.481 µs | 16.64 MOps/s | Measures atomic 8-pin bitmask unpacking replacing 8 sequential digitalRead calls. |
+| **SD_Catalog_O1_Query_And_Page_Jump** | 10,000 | 1.76 ms | 0.176 µs | 5.70 MOps/s | Measures 16,384 PSRAM ROM O(1) count queries and rapid +/-10 page-jump calculations. |
 
 ---
 

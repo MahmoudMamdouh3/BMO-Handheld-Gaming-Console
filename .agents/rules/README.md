@@ -1,5 +1,5 @@
 # .agents/rules/ Index
-**RULESET_VERSION: 5**
+**RULESET_VERSION: 6**
 
 Read in this order. 00-01 are mandatory for every task, no exceptions.
 For a fast 90-second primer on the entire codebase, start with [`31_quick_start_primer.md`](file:///e:/BMO%20Gameboy/.agents/rules/31_quick_start_primer.md).
@@ -46,3 +46,4 @@ For a fast 90-second primer on the entire codebase, start with [`31_quick_start_
 | [`37_rom_governance_and_flash_budget.md`](file:///e:/BMO%20Gameboy/.agents/rules/37_rom_governance_and_flash_budget.md) | ROM tracking resolution, standing flash-budget invariant, partition changes | Assets/ROM tasks |
 | [`38_mandatory_documentation_update.md`](file:///e:/BMO%20Gameboy/.agents/rules/38_mandatory_documentation_update.md) | **Forced rule**: required documentation updates per change type, pre-commit checklist | **Always — every task** |
 | [`39_performance_and_benchmark_framework.md`](file:///e:/BMO%20Gameboy/.agents/rules/39_performance_and_benchmark_framework.md) | Mandatory Guardian performance & ground-truth framework governance | **Always — all performance tasks** |
+| [`40_ai_knowledge_graph_and_indexing_protocol.md`](file:///e:/BMO%20Gameboy/.agents/rules/40_ai_knowledge_graph_and_indexing_protocol.md) | Mandatory AI Knowledge Graph, AST Indexing & Decision Matrix Protocol | **Always — every task** |
