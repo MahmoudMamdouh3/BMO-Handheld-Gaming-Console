@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "last_updated": "2026-08-31T15:12:11.662874",
+  "last_updated": "2026-08-31T15:21:36.708984",
   "task_decision_table": {
     "modify_gpio_or_pin": {
       "rules": [
@@ -234,7 +234,7 @@
     "31_quick_start_primer.md": {
       "file": ".agents/rules/31_quick_start_primer.md",
       "title": "31. Quick-Start Primer (Zero-Context Agent On-Ramp)",
-      "lines": 79
+      "lines": 84
     },
     "32_modular_core_template.md": {
       "file": ".agents/rules/32_modular_core_template.md",
@@ -279,7 +279,7 @@
     "40_ai_knowledge_graph_and_indexing_protocol.md": {
       "file": ".agents/rules/40_ai_knowledge_graph_and_indexing_protocol.md",
       "title": "40. AI Knowledge Graph, AST Indexing & Decision Matrix Protocol",
-      "lines": 61
+      "lines": 76
     }
   }
 }

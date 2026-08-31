@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-08-31T15:12:11.662874",
+  "generated_at": "2026-08-31T15:21:36.708984",
   "target_mcu": {
     "chip": "ESP32-S3-N16R8",
     "cpu_arch": "Xtensa dual-core 32-bit LX7 @ 240MHz",
@@ -425,50 +425,50 @@
     {
       "name": "BMO_SDF_Procedural_Face_Render_Unculled",
       "iterations": 100,
-      "avg_latency_us": 1228.622,
+      "avg_latency_us": 1229.91,
       "throughput_mops": 3.33,
       "description": "Evaluates raw procedural 2D SDF math across 128x128 grid without spatial culling."
     },
     {
       "name": "BMO_SDF_Procedural_Face_Render_Culled",
       "iterations": 200,
-      "avg_latency_us": 474.704,
-      "throughput_mops": 8.63,
+      "avg_latency_us": 486.465,
+      "throughput_mops": 8.42,
       "description": "Evaluates procedural 2D SDF with bounding-box spatial culling (~75% math reduction)."
     },
     {
       "name": "4Pixel_Coalesced_Aligned_Store_Kernel",
       "iterations": 50000,
-      "avg_latency_us": 2.429,
-      "throughput_mops": 12.35,
+      "avg_latency_us": 2.576,
+      "throughput_mops": 11.64,
       "description": "Measures throughput of Xtensa LX7 32-bit coalesced memory stores for 3:2 scaling."
     },
     {
       "name": "O1_Palette_Scanline_Transformation",
       "iterations": 10000,
-      "avg_latency_us": 4.429,
-      "throughput_mops": 54.18,
+      "avg_latency_us": 4.88,
+      "throughput_mops": 49.18,
       "description": "Measures 240-pixel scanline indexed-to-BGR565 palette transform throughput."
     },
     {
       "name": "CPU_Emulation_Opcode_Dispatch",
       "iterations": 500000,
-      "avg_latency_us": 0.075,
-      "throughput_mops": 13.35,
+      "avg_latency_us": 0.077,
+      "throughput_mops": 12.94,
       "description": "Simulates CPU opcode fetch-decode-execute cycle dispatch throughput."
     },
     {
       "name": "Direct_GPIO_Atomic_Bitmask_Sampling",
       "iterations": 100000,
-      "avg_latency_us": 0.471,
-      "throughput_mops": 16.99,
+      "avg_latency_us": 0.466,
+      "throughput_mops": 17.17,
       "description": "Measures atomic 8-pin bitmask unpacking replacing 8 sequential digitalRead calls."
     },
     {
       "name": "SD_Catalog_O1_Query_And_Page_Jump",
       "iterations": 10000,
-      "avg_latency_us": 0.177,
-      "throughput_mops": 5.65,
+      "avg_latency_us": 0.173,
+      "throughput_mops": 5.76,
       "description": "Measures 16,384 PSRAM ROM O(1) count queries and rapid +/-10 page-jump calculations."
     }
   ],
@@ -631,7 +631,7 @@
     "31_quick_start_primer.md": {
       "file": ".agents/rules/31_quick_start_primer.md",
       "title": "31. Quick-Start Primer (Zero-Context Agent On-Ramp)",
-      "lines": 79
+      "lines": 84
     },
     "32_modular_core_template.md": {
       "file": ".agents/rules/32_modular_core_template.md",
@@ -676,7 +676,7 @@
     "40_ai_knowledge_graph_and_indexing_protocol.md": {
       "file": ".agents/rules/40_ai_knowledge_graph_and_indexing_protocol.md",
       "title": "40. AI Knowledge Graph, AST Indexing & Decision Matrix Protocol",
-      "lines": 61
+      "lines": 76
     }
   },
   "symbol_registry": {
@@ -2297,11 +2297,11 @@
     ".agents/rules/31_quick_start_primer.md": {
       "path": ".agents/rules/31_quick_start_primer.md",
       "category": "AGENT_RULES",
-      "total_lines": 79,
-      "sloc": 67,
+      "total_lines": 84,
+      "sloc": 71,
       "comments": 0,
-      "blanks": 12,
-      "density_percent": 84.8,
+      "blanks": 13,
+      "density_percent": 84.5,
       "symbols": [],
       "pins_accessed": [
         "GPIO1"
@@ -2417,20 +2417,22 @@
     ".agents/rules/40_ai_knowledge_graph_and_indexing_protocol.md": {
       "path": ".agents/rules/40_ai_knowledge_graph_and_indexing_protocol.md",
       "category": "AGENT_RULES",
-      "total_lines": 61,
-      "sloc": 47,
+      "total_lines": 76,
+      "sloc": 59,
       "comments": 0,
-      "blanks": 14,
-      "density_percent": 77.0,
+      "blanks": 17,
+      "density_percent": 77.6,
       "symbols": [],
-      "pins_accessed": [],
+      "pins_accessed": [
+        "TFT_CS"
+      ],
       "includes": []
     },
     ".agents/rules/CONTEXT_INDEX.json": {
       "path": ".agents/rules/CONTEXT_INDEX.json",
       "category": "AGENT_RULES",
-      "total_lines": 280,
-      "sloc": 280,
+      "total_lines": 285,
+      "sloc": 285,
       "comments": 0,
       "blanks": 0,
       "density_percent": 100.0,
@@ -2467,8 +2469,8 @@
     "AGENT_KNOWLEDGE_GRAPH.json": {
       "path": "AGENT_KNOWLEDGE_GRAPH.json",
       "category": "OTHER",
-      "total_lines": 15514,
-      "sloc": 15514,
+      "total_lines": 15545,
+      "sloc": 15545,
       "comments": 0,
       "blanks": 0,
       "density_percent": 100.0,
@@ -15196,6 +15198,18 @@
       ],
       "includes": []
     },
+    "scripts/install_git_hooks.py": {
+      "path": "scripts/install_git_hooks.py",
+      "category": "SCRIPTS",
+      "total_lines": 43,
+      "sloc": 27,
+      "comments": 6,
+      "blanks": 10,
+      "density_percent": 62.8,
+      "symbols": [],
+      "pins_accessed": [],
+      "includes": []
+    },
     "scripts/process_games.py": {
       "path": "scripts/process_games.py",
       "category": "SCRIPTS",
@@ -15235,11 +15249,11 @@
     "scripts/validate_repo.py": {
       "path": "scripts/validate_repo.py",
       "category": "SCRIPTS",
-      "total_lines": 496,
-      "sloc": 379,
-      "comments": 51,
-      "blanks": 66,
-      "density_percent": 76.4,
+      "total_lines": 510,
+      "sloc": 389,
+      "comments": 52,
+      "blanks": 69,
+      "density_percent": 76.3,
       "symbols": [],
       "pins_accessed": [],
       "includes": []
@@ -15390,11 +15404,11 @@
     "tools/guardian/cli.py": {
       "path": "tools/guardian/cli.py",
       "category": "GUARDIAN_TOOLCHAIN",
-      "total_lines": 236,
-      "sloc": 169,
-      "comments": 21,
-      "blanks": 46,
-      "density_percent": 71.6,
+      "total_lines": 370,
+      "sloc": 276,
+      "comments": 28,
+      "blanks": 66,
+      "density_percent": 74.6,
       "symbols": [],
       "pins_accessed": [],
       "includes": []

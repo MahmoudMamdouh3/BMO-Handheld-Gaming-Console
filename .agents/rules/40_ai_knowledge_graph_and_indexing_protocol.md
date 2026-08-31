@@ -49,6 +49,21 @@ Before performing broad directory searches or file scans, an agent **MUST** quer
 ### Rule 40.3: Ground-Truth Telemetry Derivation
 All symbol signatures, memory section allocations (`IRAM`, `DRAM`, `PSRAM`, `FLASH`), line-by-line metrics, and latency budgets in generated artifacts **MUST** be derived directly from the Guardian engine (`tools/guardian/`). Never fabricate or estimate performance numbers.
 
+### Rule 40.4: Instant CLI Query & Navigation Tools
+To prevent context window saturation and hallucinations, agents may execute Guardian zero-shot query commands directly from the terminal:
+```powershell
+# Instant task-to-rule routing
+python -m tools.guardian route "add new sound feature"
+
+# Instant symbol, function, or pin lookup
+python -m tools.guardian lookup "DisplayEmu::startDirectWindow"
+python -m tools.guardian lookup "TFT_CS"
+```
+
+### Rule 40.5: Automated Continuous Live Synchronization (Self-Healing)
+- **CI Gate Auto-Sync:** `scripts/validate_repo.py` automatically recompiles the AI Knowledge Base in Phase 6 on every run.
+- **Git Pre-Commit Hook:** `.git/hooks/pre-commit` automatically runs `python -m tools.guardian index` and `python scripts/validate_repo.py` before any commit can land in git.
+
 ---
 
 ## 3. Pre-Handoff Verification Checklist
@@ -56,6 +71,6 @@ All symbol signatures, memory section allocations (`IRAM`, `DRAM`, `PSRAM`, `FLA
 ```
 [ ] Ran `python -m tools.guardian index` -> regenerated AGENT_KNOWLEDGE_GRAPH.json and AGENT_DECISION_TREE.json.
 [ ] Verified AGENT_MANIFEST.json and CONTEXT_INDEX.json are 100% synchronized.
-[ ] Ran `python scripts/validate_repo.py` -> 0 errors across all phases.
+[ ] Ran `python scripts/validate_repo.py` -> automatically validated & synchronized all knowledge bases.
 [ ] Ran `python -m unittest discover tests` -> all unit tests passing.
 ```

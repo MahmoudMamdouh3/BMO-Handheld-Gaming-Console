@@ -47,13 +47,18 @@ Purpose: Any AI agent or developer starting a session with zero prior memory can
 ---
 
 ## 5. Task Decision Table: "I Want To Do X → Read File Y First"
+> [!TIP]
+> **Instant Zero-Shot CLI Router:** Run `python -m tools.guardian route "<your task>"` or `python -m tools.guardian lookup "<symbol>"` for instantaneous directions without searching!
+
 | If your task touches... | You MUST read this rule file first: |
 | :--- | :--- |
 | Any pin, GPIO, or hardware component | `01_hardware.md` & `src/core/config.h` |
-| Display rendering, colors, scaling, or SPI | `28_display_and_spi_contract.md` |
+| Display rendering, colors, scaling, or SPI | `28_display_and_spi_contract.md` & `15_performance_budgets.md` |
 | Adding or modifying an emulator core | `12_extensibility_contract.md`, `26_emulator_exit_contract.md`, & `32_modular_core_template.md` |
-| Adding a new baked ROM | `29_adding_a_baked_rom.md` |
-| Citing any function or variable name | `10_symbol_reference.md` |
+| Adding a new baked ROM | `29_adding_a_baked_rom.md` & `37_rom_governance_and_flash_budget.md` |
+| Citing any function or variable name | `10_symbol_reference.md` or `python -m tools.guardian lookup "<name>"` |
+| Performance benchmarks or profiling | `39_performance_and_benchmark_framework.md` & `tools/guardian/` |
+| AI Knowledge base & indexing | `40_ai_knowledge_graph_and_indexing_protocol.md` |
 | Modifying vendor `#define` flags | `24_vendor_flag_safety.md` |
 | AI guardrails, anti-hallucination, invariants | `34_ai_agent_sandbox_and_guardrails.md` |
 | Ending session / logging handoffs | `33_agent_handoff_and_optimization_cycle.md` & `04_known_issues.md` |
