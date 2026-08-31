@@ -101,6 +101,7 @@ One table per file, columns: `Symbol | Kind (fn/macro/struct) | Signature | Note
 | `SDCard::isMounted` | fn | `bool isMounted()` | Returns true if SD card is mounted |
 | `SDCard::scanRoms` | fn | `void scanRoms()` | Populates romList from SD card |
 | `SDCard::getRomCount` | fn | `int getRomCount()` | Returns total ROM count (baked + SD) |
+| `SDCard::getRomCountForType` | fn | `int getRomCountForType(RomType type)` | Returns cached ROM count for specific console (O(1)) |
 | `SDCard::getRomInfo` | fn | `const RomFile* getRomInfo(int index)` | Returns RomFile pointer |
 | `SDCard::loadRom` | fn | `uint8_t* loadRom(const char* filename, size_t* outSize)` | Loads ROM to PSRAM (or returns .rodata) |
 | `SDCard::freeRom` | fn | `void freeRom(uint8_t* buffer)` | Frees PSRAM ROM (safe for .rodata) |
