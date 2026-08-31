@@ -13,6 +13,65 @@ These are verified latent bugs existing in the current codebase:
 7. **Emulator Teardown PSRAM Leak (FIXED_UNVERIFIED)**: `WalnutEmu::destroy()` and `PeanutEmu::destroy()` were not previously called on SELECT+UP return-to-menu exit in `BmoGameboy.ino`, leaking 128KB cart_ram PSRAM per session. All 4 emulator cores (Walnut, Peanut, NES, DOOM) now call `destroy()` in the SELECT+UP handler. Status: `FIXED_UNVERIFIED`.
 8. **FLASH_OVERFLOW_IDE (OPEN)**: When building in the Arduino IDE without explicitly selecting **Tools → Partition Scheme → Custom**, the IDE defaults to the 3MB partition scheme. The firmware is ~4.99MB, producing `158% of program storage space` compile error. The custom `partitions.csv` in the sketch directory is NOT automatically used by the IDE. Fix: select Custom partition scheme. CLI build is unaffected when using the canonical FQBN with `PartitionScheme=custom`.
 9. **STUB_ENGINES_MISLABELED (FIXED — 2026-08-31)**: Previous agent sessions marked all Tier 1 and Tier 2 emulators as `VERIFIED_HOST`. This was false. The Python unit test suite only verified file existence and string presence — it never invoked `arduino-cli compile`. Additionally, 9 of the 14 emulator vendor engines (`pce`, `stella`, `pico`, `genesis`, `snes`, `wswan`, `ngp`, `lynx`, `colem`) are architectural stubs that render a blank framebuffer and perform no actual CPU/hardware emulation. These engines now carry `STUB_ENGINE` sentinel comments, are tagged `"engine_status": "stub"` in `AGENT_MANIFEST.json`, and are registered in `STUB_ENGINES` in the test suite. `validate_repo.py` has been overhauled with a real arduino-cli compilation gate (Phase 0).
+10. **PERF-01: SD Card Mounted at 4 MHz (OPEN — HIGH PRIORITY)**
+    - **Evidence**: `sd_card.cpp:75` — `SD.begin(SD_CS, SPI, 4000000, "/sd")`. The SPI bus runs at 80 MHz for the display. SD cards are rated for 25 MHz (standard) or 50 MHz (high-speed SDHC/SDXC). At 4 MHz, `SDCard::loadRom()` reads a 512 KB ROM in ~1 second. At 25 MHz it would take ~160 ms.
+    - **Root Cause**: Conservative default never tuned. The bus is shared with the display (already at 80 MHz). The Arduino SD library allows per-call speed selection; raising SD to 25 MHz has no effect on the display's 80 MHz transaction since each device asserts its own CS and calls `SPI.beginTransaction()`.
+    - **Fix**: Change `4000000` → `25000000` in `SD.begin(...)`. If SDIO access patterns are heavy, bump to `40000000` and test stability. This is a **one-line change with potentially 5-6× ROM load speedup** and no hardware risk.
+    - **Impact**: ROM load time for a 4MB ROM drops from ~8 seconds → ~1.5 seconds.
+
+11. **PERF-02: countGamesForConsole() O(n×15) on Every Console Menu Frame (OPEN — HIGH PRIORITY)**
+    - **Evidence**: `BmoGameboy.ino:222-223` — inside `STATE_CONSOLE_MENU`, every frame executes:
+      ```c
+      for (int i = 0; i < CONSOLE_COUNT; ++i) counts[i] = countGamesForConsole(CONSOLES[i]);
+      ```
+      `countGamesForConsole` iterates the entire ROM list. With 16,384 ROMs and 15 consoles: **245,760 iterations per menu frame** (~16.7 ms budget). At 240 MHz, this is ~1,000,000 cycles minimum, before cache misses on the PSRAM ROM list.
+    - **Root Cause**: Count is recomputed every frame instead of being cached at scan time.
+    - **Fix**: Cache `counts[]` as a static array, computed once in `SDCard::scanRoms()` and updated only when the ROM list changes. `SDCard` already knows the type of each ROM as it scans — incrementing a per-type counter during scan is free.
+    - **Impact**: Eliminates ~245K iterations per frame from the menu hot path. Menu responsiveness visibly improves.
+
+12. **PERF-03: rebuildVisibleGames() O(n) Called Every Game Menu Frame (OPEN — MEDIUM)**
+    - **Evidence**: `BmoGameboy.ino:268` — `rebuildVisibleGames()` is called unconditionally on every game menu frame, iterating up to 16,384 ROMs to filter by type. This happens regardless of whether the console selection changed.
+    - **Fix**: Set a `bool visibleGamesDirty` flag. Set it when console selection changes or SD scan completes. Only call `rebuildVisibleGames()` when dirty. Reset the flag afterward. One comparison per frame vs. one full O(n) scan.
+    - **Impact**: Eliminates O(n) scan from the game menu hot path on idle frames.
+
+13. **PERF-04: initMenuUI() Called Every Frame — Guarded But Wasteful (OPEN — LOW)**
+    - **Evidence**: `display_emu.cpp:443-453` — `initMenuUI()` is called at the top of every `STATE_CONSOLE_MENU`, `STATE_CONSOLE_MUSEUM`, and `STATE_GAME_MENU` frame. It checks `if (!menuCanvas)` and exits fast if allocated. However:
+      1. It performs a null-check function call and pointer read on every frame.
+      2. More critically, `cleanupMenuUI()` is called on game launch (`BmoGameboy.ino:298`) to free PSRAM, then `initMenuUI()` re-allocates 153,600 bytes of PSRAM on the next menu frame. This causes PSRAM fragmentation over time.
+    - **Fix**: Allocate the menu canvas once at `setup()` time and never free it during normal operation. Only free if entering emulator mode AND PSRAM pressure requires it.
+    - **Impact**: Eliminates repeated 153 KB PSRAM allocations and PSRAM heap fragmentation.
+
+14. **PERF-05: NES Emulator (Agnes) Allocates in Internal DRAM, Not PSRAM (OPEN — HIGH)**
+    - **Evidence**: `agnes.c` — `agnes_make()` calls:
+      `heap_caps_aligned_alloc(32, sizeof(*agnes), MALLOC_CAP_8BIT | MALLOC_CAP_INTERNAL)`
+      This forces the entire `agnes_t` state (which includes PPU, APU, CPU state, CHR/name tables, OAM) into the 327 KB internal SRAM. This consumes a significant fraction of the internal SRAM budget (SRAM is already at 74.6%).
+    - **Root Cause**: Agnes's default allocator was written for desktop — `MALLOC_CAP_INTERNAL` was added without knowing the SRAM budget.
+    - **Fix**: Patch `agnes.c` to use `MALLOC_CAP_SPIRAM` (add as a `BMO-PATCH`). Agnes state does not require zero-wait-state access — CPU state is accessed via pointer and PSRAM is acceptable latency. Cart RAM (tile data, name tables) also belongs in PSRAM.
+    - **Impact**: Frees several tens of KB of internal SRAM. Reduces OOM risk when stacking emulators.
+
+15. **PERF-06: NES Wrapper Missing `#pragma GCC optimize("O3")` (OPEN — MEDIUM)**
+    - **Evidence**: `emu_nes.cpp:1` — file starts with `#include "emu_nes.h"`. No `#pragma GCC optimize` directive. `emu_peanut.cpp:1` and `emu_walnut.cpp:1` both correctly open with `#pragma GCC optimize("O3,unroll-loops")`. `display_emu.cpp:1` has `#pragma GCC optimize ("O3")`.
+    - **Fix**: Add `#pragma GCC optimize("O3,unroll-loops")` as the first line of `emu_nes.cpp`. The NES render path (`agnes_next_frame`) is a cycle-stepped inner loop — O3 loop unrolling matters here.
+    - **Impact**: Potentially 5-15% NES frame time improvement.
+
+16. **PERF-07: NES Frame Rendering — Stack-Allocated `row_buf[256]` Per Scanline, No IRAM_ATTR (OPEN — MEDIUM)**
+    - **Evidence**: `display_emu.cpp:276` — `uint16_t row_buf[256]` is declared inside `streamNESFrame()` and re-initialized on the stack every call. 240 calls per frame × 512 bytes = 122,880 byte-touches of stack memory per frame. No `IRAM_ATTR` on the function despite being a display streaming hot path.
+    - Additionally: `streamNESFrame` iterates with two nested `for` loops without any vectorization hints or 4-pixel batching (compare to the 4-pixel aligned stores in `lcd_draw_line` for GB/GBC).
+    - **Fix (1)**: Hoist `row_buf` to a static module-level buffer (as done with `rowBuffer[480]` in Walnut/Peanut wrappers).
+    - **Fix (2)**: Apply the 4-pixel batching + 32-bit aligned store pattern (same as Walnut E1 optimization) to the NES scanline loop.
+    - **Fix (3)**: Pre-bake NES_PALETTE to a static 256-entry lookup on `NesEmu::begin()` (matching Peanut's PAL_256 table).
+    - **Impact**: ~10-20% NES frame time reduction estimated.
+
+17. **PERF-08: SMS SPI Blit Sends Full 256×192 = 98,304 Bytes Every Frame (OPEN — MEDIUM)**
+    - **Evidence**: `display_emu.cpp:336` — `SPI.writeBytes((const uint8_t*)sms_framebuffer, 256 * 192 * 2)`. This is a raw 196,608-byte transfer with no dirty-region optimization. 320 × 200 DOOM is comparable. At 80 MHz SPI, 196 KB takes ~20 ms — this by itself exceeds the 16.7 ms frame budget.
+    - **Root Cause**: SMS frame is rendered at full native resolution. The display supports an address window, so only the used region (256×192 = 73% of screen) is sent — this is already correct. However no double-buffering or DMA transfer is used.
+    - **Fix**: Investigate `SPI.writeBytes()` DMA mode. On ESP32-S3, the SPI peripheral supports DMA transfers (`hal/spi_hal.h`). Using DMA for the pixel transfer would allow the CPU to advance the emulator while the previous frame transfers — a classic ping-pong buffer pattern.
+    - **Impact**: With DMA double-buffering, CPU and SPI bus can run in parallel — potentially 40-60% effective throughput increase.
+
+18. **PERF-09: Frame Pacing Uses Hybrid delay()+ets_delay_us() Spin (ACCEPTABLE — DOCUMENT)**
+    - **Evidence**: `BmoGameboy.ino:501-511` — Uses `delay((remaining - 2000) / 1000)` for bulk sleep and `ets_delay_us()` for the sub-ms spin. This is the correct approach per N7 in the code comments. However, the 2000 µs spin-tail is fixed regardless of the frame's compute time. If a frame takes 15 ms (tight), the 2 ms spin is 12% of the frame budget spent burning CPU.
+    - **Observation**: This is not a bug but should be documented. The spin-tail protects against `delay()` oversleeping by ~1-2 ms (FreeRTOS tick granularity). A 500-1000 µs spin tail would be a tighter margin.
+    - **Status**: OPEN — document as acceptable with a note that the 2000 µs constant can be tuned down to ~800 µs if frame timing measurements confirm `delay()` overshoots by less than 1 ms on this hardware.
 
 
 ---
