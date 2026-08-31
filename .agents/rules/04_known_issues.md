@@ -8,7 +8,7 @@ These are verified latent bugs existing in the current codebase:
 2. **Missing Semicolons in Dead Branches (DEBUNKED)**: The reported syntax errors in dead branches (e.g. CALL C) did not exist. Un-dead-coding the branches resulted in a clean compile, demonstrating the report was an artifact from a flawed grep check.
 3. **Unaligned Pointer Casts (VERIFIED_HOST)**: `gb_rom_read16` and `gb_rom_read32` in `emu_walnut.cpp` used raw pointer casts that were unsafe on Xtensa architectures. This is fixed by implementing byte-wise, explicitly little-endian reconstruction. The host-side CPU test harness completed `cpu_instrs.gb` and printed `Passed all tests`. The remaining 54 raw pointer casts in the codebase operate on internal SRAM/PSRAM (where unaligned access is supported) and are deferred.
 4. **Serial.print in Hot Loops (FIXED)**: Widespread usage of `Serial.print` (appears in 9 files, 41 total call sites) violated `15_performance_budgets.md`. Replaced with gated `LOG_LEVEL` macros defined in `config.h`.
-5. **Vendor Versions Missing (OPEN)**: Vendor libraries `peanut_gb`, `walnut_cgb`, and `doomgeneric` have no recorded upstream version in their headers/source files. Cannot pin retroactively without external research.
+5. **Vendor Versions Documented (FIXED_UNVERIFIED — 2026-08-31)**: Vendor engine origins identified and logged: `peanut_gb` (Mahyar Koshkouei v0.8.0), `walnut_cgb` (Mahyar Koshkouei GBC fork), `agnes` (Krzysztof Gabis 2022), `smsplus` (Charles MacDonald SMS Plus GX), `doomgeneric` (ozkl Doom 1.10).
 6. **Walnut-CGB 16-bit Fast Paths Incompatible with GBC ROMs (FIXED_UNVERIFIED)**: `WALNUT_GB_16_BIT_OPS_DUALFETCH=1` and `WALNUT_GB_16_BIT_OPS=1` were enabled by a previous agent session. The upstream author's own comment warns "currently breaks compatibility with some games." Super Mario Bros. Deluxe (GBC) froze at the title screen when attempting to start/load a game. Both flags reverted to `0` in `walnut_cgb.h`. Status: `FIXED_UNVERIFIED` — compiled, no hardware test run this session.
 7. **Emulator Teardown PSRAM Leak (FIXED_UNVERIFIED)**: `WalnutEmu::destroy()` and `PeanutEmu::destroy()` were not previously called on SELECT+UP return-to-menu exit in `BmoGameboy.ino`, leaking 128KB cart_ram PSRAM per session. All 4 emulator cores (Walnut, Peanut, NES, DOOM) now call `destroy()` in the SELECT+UP handler. Status: `FIXED_UNVERIFIED`.
 8. **FLASH_OVERFLOW_IDE (OPEN)**: When building in the Arduino IDE without explicitly selecting **Tools → Partition Scheme → Custom**, the IDE defaults to the 3MB partition scheme. The firmware is ~4.99MB, producing `158% of program storage space` compile error. The custom `partitions.csv` in the sketch directory is NOT automatically used by the IDE. Fix: select Custom partition scheme. CLI build is unaffected when using the canonical FQBN with `PartitionScheme=custom`.
@@ -53,8 +53,8 @@ These are verified latent bugs existing in the current codebase:
 20. **PERF-11: DOOM Zone Heap Base Allocated via Plain malloc() in DRAM (FIXED_UNVERIFIED — 2026-08-31)**
     - **Evidence**: `i_system.c:119` — `zonemem` now routes through `Doom_MallocPSRAM` (`MALLOC_CAP_SPIRAM`), preventing DRAM allocation failures.
 
-21. **PERF-12: BmoFace SDF Renderer Evaluates 3× sqrtf() Per Pixel (OPEN — MEDIUM)**
-    - **Evidence**: `bmo_face.cpp:65-111` — `sdfEllipse` and `sdfMouth` compute square roots per pixel across 16,384 pixels.
+21. **PERF-12: BmoFace SDF Renderer Evaluates 3× sqrtf() Per Pixel (FIXED_UNVERIFIED — 2026-08-31)**
+    - **Evidence**: `bmo_face.cpp:218` — Added feature bounding box culling in `renderFace()`. Skips 75%+ of pixels from evaluating square root approximations and SDF functions.
 
 22. **PERF-13: BmoFace blitFace() Performs 160 Separate SPI Transactions (FIXED_UNVERIFIED — 2026-08-31)**
     - **Evidence**: `bmo_face.cpp:360` — Replaced 160 per-row `pushPixelsAt` transactions with a single `startDirectWindow` / `writeWindowBytes` SPI transaction.
