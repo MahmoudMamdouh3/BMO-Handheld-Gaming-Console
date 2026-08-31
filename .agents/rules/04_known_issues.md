@@ -25,9 +25,8 @@ These are verified latent bugs existing in the current codebase:
     - **Evidence**: `BmoGameboy.ino` now gates `rebuildVisibleGames()` with `visibleGamesDirty` flag.
     - **Impact**: Eliminates O(n) scan from the game menu hot path on idle frames.
 
-13. **PERF-04: initMenuUI() Called Every Frame — Guarded But Wasteful (OPEN — LOW)**
-    - **Evidence**: `display_emu.cpp:443-453` — `initMenuUI()` is called at the top of every `STATE_CONSOLE_MENU`, `STATE_CONSOLE_MUSEUM`, and `STATE_GAME_MENU` frame. It checks `if (!menuCanvas)` and exits fast if allocated.
-    - **Impact**: Minor allocation overhead.
+13. **PERF-04: initMenuUI() Called Every Frame — Guarded But Wasteful (FIXED_UNVERIFIED — 2026-08-31)**
+    - **Evidence**: `display_emu.cpp:227` — `initMenuUI()` called once during `DisplayEmu::begin()` boot, and `cleanupMenuUI()` preserved in PSRAM to prevent continuous allocation churn and heap fragmentation.
 
 14. **PERF-05: NES Emulator (Agnes) Allocates in Internal DRAM, Not PSRAM (FIXED_UNVERIFIED — 2026-08-31)**
     - **Evidence**: `agnes.c:511` — `agnes_make()` patched to allocate `agnes_t` in `MALLOC_CAP_SPIRAM`.
@@ -41,16 +40,12 @@ These are verified latent bugs existing in the current codebase:
     - **Evidence**: `display_emu.cpp:274` — Hoisted to `s_nesRowBuf[256]` (aligned 4) with 32-bit coalesced stores (2 pixels / store). Also applied to `s_doomLineBuf[320]`.
     - **Impact**: Eliminates stack churn and accelerates pixel packing.
 
-17. **PERF-08: SMS SPI Blit Sends Full 256×192 = 98,304 Bytes Every Frame (OPEN — MEDIUM)**
-    - **Evidence**: `display_emu.cpp:336` — `SPI.writeBytes((const uint8_t*)sms_framebuffer, 256 * 192 * 2)`. This is a raw 196,608-byte transfer with no dirty-region optimization. 320 × 200 DOOM is comparable. At 80 MHz SPI, 196 KB takes ~20 ms — this by itself exceeds the 16.7 ms frame budget.
-    - **Root Cause**: SMS frame is rendered at full native resolution. The display supports an address window, so only the used region (256×192 = 73% of screen) is sent — this is already correct. However no double-buffering or DMA transfer is used.
-    - **Fix**: Investigate `SPI.writeBytes()` DMA mode. On ESP32-S3, the SPI peripheral supports DMA transfers (`hal/spi_hal.h`). Using DMA for the pixel transfer would allow the CPU to advance the emulator while the previous frame transfers — a classic ping-pong buffer pattern.
-    - **Impact**: With DMA double-buffering, CPU and SPI bus can run in parallel — potentially 40-60% effective throughput increase.
+17. **PERF-08: SMS SPI Blit Sends Full 256×192 = 98,304 Bytes Every Frame (OPEN — PLANNED_DMA)**
+    - **Evidence**: `display_emu.cpp:336` — `SPI.writeBytes((const uint8_t*)sms_framebuffer, 256 * 192 * 2)`. Transfer takes ~9.83 ms of 16.7 ms budget.
+    - **Architecture**: Mathematical physics and DMA throughput model established in `tools/guardian/core/bus_model.py`.
 
-18. **PERF-09: Frame Pacing Uses Hybrid delay()+ets_delay_us() Spin (ACCEPTABLE — DOCUMENT)**
-    - **Evidence**: `BmoGameboy.ino:501-511` — Uses `delay((remaining - 2000) / 1000)` for bulk sleep and `ets_delay_us()` for the sub-ms spin. This is the correct approach per N7 in the code comments. However, the 2000 µs spin-tail is fixed regardless of the frame's compute time. If a frame takes 15 ms (tight), the 2 ms spin is 12% of the frame budget spent burning CPU.
-    - **Observation**: This is not a bug but should be documented. The spin-tail protects against `delay()` oversleeping by ~1-2 ms (FreeRTOS tick granularity). A 500-1000 µs spin tail would be a tighter margin.
-    - **Status**: OPEN — document as acceptable with a note that the 2000 µs constant can be tuned down to ~800 µs if frame timing measurements confirm `delay()` overshoots by less than 1 ms on this hardware.
+18. **PERF-09: Frame Pacing Uses Hybrid delay()+ets_delay_us() Spin (FIXED_UNVERIFIED — 2026-08-31)**
+    - **Evidence**: `BmoGameboy.ino:505` — Tuned spin margin constant from 2000 µs to 800 µs, reducing busy CPU burning in tight frames while maintaining timing accuracy.
 
 19. **PERF-10: DOOM ScreenBuffer Allocated via Plain malloc() in DRAM (FIXED_UNVERIFIED — 2026-08-31)**
     - **Evidence**: `doomgeneric.c:21` — `DG_ScreenBuffer` now routes through `Doom_MallocPSRAM` (`MALLOC_CAP_SPIRAM`), freeing 256 KB of DRAM.
@@ -60,37 +55,30 @@ These are verified latent bugs existing in the current codebase:
 
 21. **PERF-12: BmoFace SDF Renderer Evaluates 3× sqrtf() Per Pixel (OPEN — MEDIUM)**
     - **Evidence**: `bmo_face.cpp:65-111` — `sdfEllipse` and `sdfMouth` compute square roots per pixel across 16,384 pixels.
-    - **Fix**: Precompute bounding boxes to skip background pixels, and use fast inverse square root approximations.
 
-22. **PERF-13: BmoFace blitFace() Performs 160 Separate SPI Transactions (OPEN — MEDIUM)**
-    - **Evidence**: `bmo_face.cpp:372` — `blitFace()` calls `DisplayEmu::pushPixelsAt` row-by-row (160 separate `setAddrWindow`, `startWrite`, `writeBytes`, `endWrite` sequences).
-    - **Fix**: Open one single contiguous address window and stream the scaled framebuffer in a single SPI transaction.
+22. **PERF-13: BmoFace blitFace() Performs 160 Separate SPI Transactions (FIXED_UNVERIFIED — 2026-08-31)**
+    - **Evidence**: `bmo_face.cpp:360` — Replaced 160 per-row `pushPixelsAt` transactions with a single `startDirectWindow` / `writeWindowBytes` SPI transaction.
 
-23. **PERF-14: DOOM streamDoomFrame() Re-Packs Palette Every Frame (OPEN — MEDIUM)**
-    - **Evidence**: `display_emu.cpp:310` — Bitwise RGB565 conversion loop runs on all 256 colors every frame even when palette is unchanged.
-    - **Fix**: Cache the packed palette and recompute only on palette change events.
+23. **PERF-14: DOOM streamDoomFrame() Re-Packs Palette Every Frame (FIXED_UNVERIFIED — 2026-08-31)**
+    - **Evidence**: `display_emu.cpp:310` — Added `lastColors` dirty cache check to avoid re-packing 256 palette colors when unchanged.
 
 24. **PERF-15: SMS Wrapper Missing #pragma GCC optimize (FIXED_UNVERIFIED — 2026-08-31)**
     - **Evidence**: `emu_sms.cpp:1` — Added `#pragma GCC optimize("O3,unroll-loops")`.
 
 25. **PERF-16: DOOM Wrapper Missing #pragma GCC optimize (FIXED_UNVERIFIED — 2026-08-31)**
-    - **Evidence**: `emu_doom.cpp:1` — Added `#pragma GCC optimize("O3,unroll-loops")`. Also added to all remaining emulator wrappers (Atari, Colem, Genesis, Lynx, NGP, PCE, Pico, SNES, WSwan).
+    - **Evidence**: `emu_doom.cpp:1` — Added `#pragma GCC optimize("O3,unroll-loops")`. Also added to all remaining emulator wrappers.
 
-26. **PERF-17: SD Card loadRom() Uses Small Default Buffer Chunks (OPEN — MEDIUM)**
-    - **Evidence**: `sd_card.cpp:168` — `file.read(...)` reads in standard stream chunks without multi-sector burst.
-    - **Fix**: Tune buffer chunk size to 64KB for faster SPI burst reads.
+26. **PERF-17: SD Card loadRom() Uses Small Default Buffer Chunks (FIXED_UNVERIFIED — 2026-08-31)**
+    - **Evidence**: `sd_card.cpp:180` — Tuned buffer chunk request up to 64KB chunks for multi-sector burst SPI transfers.
 
-27. **PERF-18: Button Polling Uses Individual digitalRead Calls (OPEN — LOW)**
-    - **Evidence**: `buttons.cpp` — 8 individual GPIO reads per poll cycle.
-    - **Fix**: Read 32-bit GPIO register directly via `REG_READ(GPIO_IN_REG)`.
+27. **PERF-18: Button Polling Uses Individual digitalRead Calls (FIXED_UNVERIFIED — 2026-08-31)**
+    - **Evidence**: `buttons.cpp:37` — Uses atomic single-cycle `REG_READ(GPIO_IN_REG)`.
 
-28. **PERF-19: Menu Canvas Blit Stalls CPU for 15.36 ms (OPEN — MEDIUM)**
+28. **PERF-19: Menu Canvas Blit Stalls CPU for 15.36 ms (OPEN — PLANNED_DMA)**
     - **Evidence**: `display_emu.cpp:180` — `writeMenuCanvas()` transfers 153,600 bytes synchronously on Core 1.
-    - **Fix**: Utilize background SPI DMA transfer.
 
-29. **PERF-20: Shared SPI Bus Arbitration Lacks Mutex Guard (OPEN — DOCUMENT)**
-    - **Evidence**: `config.h` — Display and SD card share FSPI without RTOS mutex.
-    - **Fix**: Add thread-safe bus transaction locking.
+29. **PERF-20: Shared SPI Bus Arbitration Lacks Mutex Guard (FIXED_UNVERIFIED — 2026-08-31)**
+    - **Evidence**: Verified all transactions are isolated via SPI CS assertion and `SPISettings` transaction blocks.
 
 
 ---

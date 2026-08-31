@@ -76,6 +76,9 @@ One table per file, columns: `Symbol | Kind (fn/macro/struct) | Signature | Note
 | `DisplayEmu::streamColemFrame` | fn | `void streamColemFrame(const uint16_t* fb, int w, int h)` | 256x192 ColecoVision frame, centered |
 | `DisplayEmu::pushPixelsFullScreen` | fn | `void pushPixelsFullScreen(const uint16_t* buffer)` | Full 320x240 frame blit |
 | `DisplayEmu::pushPixelsAt` | fn | `void pushPixelsAt(int x, int y, int w, int h, const uint16_t* buf)` | Arbitrary sub-rect blit |
+| `DisplayEmu::startDirectWindow` | fn | `void startDirectWindow(int x, int y, int w, int h)` | Opens window & asserts SPI CS |
+| `DisplayEmu::writeWindowBytes` | fn | `void writeWindowBytes(const uint8_t* data, size_t len)` | Streams raw bytes to open window |
+| `DisplayEmu::endDirectWindow` | fn | `void endDirectWindow()` | Deasserts SPI CS |
 | `DisplayEmu::CLASSIC_PALETTE` | const | `const uint16_t CLASSIC_PALETTE[4]` | Pre-swapped BGR565 green palette |
 | `DisplayEmu::NES_PALETTE` | const | `const uint16_t NES_PALETTE[64]` | Pre-swapped BGR565 NES palette |
 
