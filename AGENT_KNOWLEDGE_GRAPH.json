@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-08-31T17:53:02.844940",
+  "generated_at": "2026-08-31T17:53:45.021050",
   "target_mcu": {
     "chip": "ESP32-S3-N16R8",
     "cpu_arch": "Xtensa dual-core 32-bit LX7 @ 240MHz",
@@ -425,50 +425,50 @@
     {
       "name": "BMO_SDF_Procedural_Face_Render_Unculled",
       "iterations": 100,
-      "avg_latency_us": 1202.624,
-      "throughput_mops": 3.41,
+      "avg_latency_us": 1195.211,
+      "throughput_mops": 3.43,
       "description": "Evaluates raw procedural 2D SDF math across 128x128 grid without spatial culling."
     },
     {
       "name": "BMO_SDF_Procedural_Face_Render_Culled",
       "iterations": 200,
-      "avg_latency_us": 476.941,
-      "throughput_mops": 8.59,
+      "avg_latency_us": 461.001,
+      "throughput_mops": 8.89,
       "description": "Evaluates procedural 2D SDF with bounding-box spatial culling (~75% math reduction)."
     },
     {
       "name": "4Pixel_Coalesced_Aligned_Store_Kernel",
       "iterations": 50000,
-      "avg_latency_us": 2.543,
-      "throughput_mops": 11.8,
+      "avg_latency_us": 2.353,
+      "throughput_mops": 12.75,
       "description": "Measures throughput of Xtensa LX7 32-bit coalesced memory stores for 3:2 scaling."
     },
     {
       "name": "O1_Palette_Scanline_Transformation",
       "iterations": 10000,
-      "avg_latency_us": 4.399,
-      "throughput_mops": 54.56,
+      "avg_latency_us": 4.269,
+      "throughput_mops": 56.21,
       "description": "Measures 240-pixel scanline indexed-to-BGR565 palette transform throughput."
     },
     {
       "name": "CPU_Emulation_Opcode_Dispatch",
       "iterations": 500000,
       "avg_latency_us": 0.071,
-      "throughput_mops": 14.13,
+      "throughput_mops": 14.18,
       "description": "Simulates CPU opcode fetch-decode-execute cycle dispatch throughput."
     },
     {
       "name": "Direct_GPIO_Atomic_Bitmask_Sampling",
       "iterations": 100000,
-      "avg_latency_us": 0.448,
-      "throughput_mops": 17.87,
+      "avg_latency_us": 0.463,
+      "throughput_mops": 17.28,
       "description": "Measures atomic 8-pin bitmask unpacking replacing 8 sequential digitalRead calls."
     },
     {
       "name": "SD_Catalog_O1_Query_And_Page_Jump",
       "iterations": 10000,
-      "avg_latency_us": 0.167,
-      "throughput_mops": 5.99,
+      "avg_latency_us": 0.175,
+      "throughput_mops": 5.73,
       "description": "Measures 16,384 PSRAM ROM O(1) count queries and rapid +/-10 page-jump calculations."
     }
   ],
