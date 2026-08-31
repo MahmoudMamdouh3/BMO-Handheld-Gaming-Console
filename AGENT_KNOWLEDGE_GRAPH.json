@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-08-31T17:17:51.310254",
+  "generated_at": "2026-08-31T17:24:28.037032",
   "target_mcu": {
     "chip": "ESP32-S3-N16R8",
     "cpu_arch": "Xtensa dual-core 32-bit LX7 @ 240MHz",
@@ -425,50 +425,50 @@
     {
       "name": "BMO_SDF_Procedural_Face_Render_Unculled",
       "iterations": 100,
-      "avg_latency_us": 1207.823,
-      "throughput_mops": 3.39,
+      "avg_latency_us": 1202.482,
+      "throughput_mops": 3.41,
       "description": "Evaluates raw procedural 2D SDF math across 128x128 grid without spatial culling."
     },
     {
       "name": "BMO_SDF_Procedural_Face_Render_Culled",
       "iterations": 200,
-      "avg_latency_us": 473.755,
-      "throughput_mops": 8.65,
+      "avg_latency_us": 478.344,
+      "throughput_mops": 8.56,
       "description": "Evaluates procedural 2D SDF with bounding-box spatial culling (~75% math reduction)."
     },
     {
       "name": "4Pixel_Coalesced_Aligned_Store_Kernel",
       "iterations": 50000,
-      "avg_latency_us": 2.444,
-      "throughput_mops": 12.28,
+      "avg_latency_us": 2.709,
+      "throughput_mops": 11.08,
       "description": "Measures throughput of Xtensa LX7 32-bit coalesced memory stores for 3:2 scaling."
     },
     {
       "name": "O1_Palette_Scanline_Transformation",
       "iterations": 10000,
-      "avg_latency_us": 4.327,
-      "throughput_mops": 55.47,
+      "avg_latency_us": 4.928,
+      "throughput_mops": 48.7,
       "description": "Measures 240-pixel scanline indexed-to-BGR565 palette transform throughput."
     },
     {
       "name": "CPU_Emulation_Opcode_Dispatch",
       "iterations": 500000,
-      "avg_latency_us": 0.076,
-      "throughput_mops": 13.1,
+      "avg_latency_us": 0.073,
+      "throughput_mops": 13.72,
       "description": "Simulates CPU opcode fetch-decode-execute cycle dispatch throughput."
     },
     {
       "name": "Direct_GPIO_Atomic_Bitmask_Sampling",
       "iterations": 100000,
-      "avg_latency_us": 0.477,
-      "throughput_mops": 16.79,
+      "avg_latency_us": 0.463,
+      "throughput_mops": 17.28,
       "description": "Measures atomic 8-pin bitmask unpacking replacing 8 sequential digitalRead calls."
     },
     {
       "name": "SD_Catalog_O1_Query_And_Page_Jump",
       "iterations": 10000,
-      "avg_latency_us": 0.231,
-      "throughput_mops": 4.34,
+      "avg_latency_us": 0.19,
+      "throughput_mops": 5.28,
       "description": "Measures 16,384 PSRAM ROM O(1) count queries and rapid +/-10 page-jump calculations."
     }
   ],
@@ -526,7 +526,7 @@
     "10_symbol_reference.md": {
       "file": ".agents/rules/10_symbol_reference.md",
       "title": "Symbol Reference (Ground Truth for Names)",
-      "lines": 195
+      "lines": 220
     },
     "11_rules_meta.md": {
       "file": ".agents/rules/11_rules_meta.md",
@@ -686,7 +686,7 @@
     "42_quality_of_life_and_roadmap_ledger.md": {
       "file": ".agents/rules/42_quality_of_life_and_roadmap_ledger.md",
       "title": "42. Quality of Life (QoL), UI/UX & System Roadmap Ledger",
-      "lines": 105
+      "lines": 107
     }
   },
   "symbol_registry": {
@@ -2188,11 +2188,11 @@
     ".agents/rules/10_symbol_reference.md": {
       "path": ".agents/rules/10_symbol_reference.md",
       "category": "AGENT_RULES",
-      "total_lines": 195,
-      "sloc": 172,
+      "total_lines": 220,
+      "sloc": 195,
       "comments": 0,
-      "blanks": 23,
-      "density_percent": 88.2,
+      "blanks": 25,
+      "density_percent": 88.6,
       "symbols": [],
       "pins_accessed": [],
       "includes": []
@@ -2615,11 +2615,11 @@
     ".agents/rules/42_quality_of_life_and_roadmap_ledger.md": {
       "path": ".agents/rules/42_quality_of_life_and_roadmap_ledger.md",
       "category": "AGENT_RULES",
-      "total_lines": 105,
-      "sloc": 79,
+      "total_lines": 107,
+      "sloc": 81,
       "comments": 0,
       "blanks": 26,
-      "density_percent": 75.2,
+      "density_percent": 75.7,
       "symbols": [],
       "pins_accessed": [],
       "includes": []
@@ -6798,11 +6798,11 @@
     "CHANGELOG.md": {
       "path": "CHANGELOG.md",
       "category": "OTHER",
-      "total_lines": 197,
-      "sloc": 165,
+      "total_lines": 221,
+      "sloc": 187,
       "comments": 0,
-      "blanks": 32,
-      "density_percent": 83.8,
+      "blanks": 34,
+      "density_percent": 84.6,
       "symbols": [],
       "pins_accessed": [],
       "includes": []

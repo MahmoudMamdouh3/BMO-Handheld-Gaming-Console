@@ -56,9 +56,16 @@ One table per file, columns: `Symbol | Kind (fn/macro/struct) | Signature | Note
 | `DisplayEmu::showSDCardWarning` | fn | `void showSDCardWarning()` | Shows SD card error message |
 | `DisplayEmu::initMenuUI` | fn | `void initMenuUI()` | Allocates menu buffer in PSRAM |
 | `DisplayEmu::cleanupMenuUI` | fn | `void cleanupMenuUI()` | Frees menu buffer in PSRAM |
-| `DisplayEmu::drawConsoleSelectMenu` | fn | `void drawConsoleSelectMenu(int selectedIndex, const int* gameCounts, int consoleCount, bool sdMounted)` | Renders 15-platform console carousel |
+| `DisplayEmu::drawBootSplash` | fn | `void drawBootSplash(bool pressAnyButtonBlink)` | Renders Power-On Boot Splash (1:1 with Simulator) |
+| `DisplayEmu::drawConsoleSelectMenu` | fn | `void drawConsoleSelectMenu(int selectedIndex, const int* gameCounts, int consoleCount, bool sdMounted)` | Renders 1:1 Carousel Card console selector |
 | `DisplayEmu::drawConsoleMuseumModal` | fn | `void drawConsoleMuseumModal(RomType console)` | Renders console history/specs modal (STATE_CONSOLE_MUSEUM) |
 | `DisplayEmu::drawGameSelectMenu` | fn | `void drawGameSelectMenu(const RomFile* const* games, int count, int selectedIndex, RomType console, bool sdMounted)` | Renders game list menu |
+| `DisplayEmu::drawConsoleIcon` | fn | `void drawConsoleIcon(RomType type, int x, int y, uint16_t primaryColor = 0)` | Renders pixel-art console hardware silhouette |
+| `DisplayEmu::drawIdleMascotScreen` | fn | `void drawIdleMascotScreen(unsigned long idleSeconds, const char* stateMessage)` | Renders Living BMO Screensaver (STATE_IDLE_MASCOT) |
+| `DisplayEmu::setDmgPalette` | fn | `void setDmgPalette(int paletteIndex)` | Sets active DMG runtime palette |
+| `DisplayEmu::getDmgPaletteIndex` | fn | `int getDmgPaletteIndex()` | Gets current DMG palette index |
+| `DisplayEmu::cycleDmgPalette` | fn | `void cycleDmgPalette()` | Cycles through available DMG palettes |
+| `DisplayEmu::getActiveDmgPalette` | fn | `const uint16_t* getActiveDmgPalette()` | Returns active DMG palette 4-color array |
 | `DisplayEmu::startFrame` | fn | `void startFrame()` | Asserts CS & sets 240x216 window once |
 | `DisplayEmu::endFrame` | fn | `void endFrame()` | Deasserts CS |
 | `DisplayEmu::streamPixelRow` | fn | `void streamPixelRow(const uint16_t* buf, int pixelCount)` | Streams scanline without CS toggle |
@@ -106,10 +113,28 @@ One table per file, columns: `Symbol | Kind (fn/macro/struct) | Signature | Note
 | `SDCard::getRomCount` | fn | `int getRomCount()` | Returns total ROM count (baked + SD) |
 | `SDCard::getRomCountForType` | fn | `int getRomCountForType(RomType type)` | Returns cached ROM count for specific console (O(1)) |
 | `SDCard::getRomInfo` | fn | `const RomFile* getRomInfo(int index)` | Returns RomFile pointer |
+| `SDCard::isFavorite` | fn | `bool isFavorite(int index)` | Returns true if game is in Favorites |
+| `SDCard::toggleFavorite` | fn | `void toggleFavorite(int index)` | Toggles favorite status & persists to SD |
+| `SDCard::getFavoritesCount` | fn | `int getFavoritesCount()` | Returns total count of starred favorite games |
+| `SDCard::saveFavorites` | fn | `void saveFavorites()` | Writes starred titles to /favorites.txt |
+| `SDCard::loadFavorites` | fn | `void loadFavorites()` | Reads starred titles from /favorites.txt |
 | `SDCard::loadRom` | fn | `uint8_t* loadRom(const char* filename, size_t* outSize)` | Loads ROM to PSRAM (or returns .rodata) |
 | `SDCard::freeRom` | fn | `void freeRom(uint8_t* buffer)` | Frees PSRAM ROM (safe for .rodata) |
-| `RomType` | enum | `enum RomType { ROM_UNKNOWN, ROM_GB, ROM_GBC, ROM_NES, ROM_WAD }` | Console type enum |
-| `RomFile` | struct | `struct RomFile { char filename[64]; RomType type; }` | ROM entry info |
+| `RomType` | enum | `enum RomType { ROM_FAVORITES, ROM_GB, ROM_GBC, ROM_NES, ... }` | 16-platform console enum |
+| `RomFile` | struct | `struct RomFile { char filename[64]; RomType type; bool isFavorite; }` | ROM entry info with favorite status |
+
+---
+
+## src/core/theme.h (Theme)
+| Symbol | Kind | Signature | Notes |
+|---|---|---|---|
+| `Theme::BMO_SCREEN_MINT` | const | `constexpr uint16_t BMO_SCREEN_MINT` | Authentic OnionUI Screen Mint (#CEF5E4) |
+| `Theme::BMO_BODY_TEAL` | const | `constexpr uint16_t BMO_BODY_TEAL` | Authentic OnionUI Body Teal (#5FB49C) |
+| `Theme::BMO_DEEP_TEAL` | const | `constexpr uint16_t BMO_DEEP_TEAL` | Deep Pine Teal (#1A4B42) |
+| `Theme::BMO_DPAD_YELLOW` | const | `constexpr uint16_t BMO_DPAD_YELLOW` | Authentic D-Pad Yellow (#FFE033) |
+| `Theme::BMO_CORAL_RED` | const | `constexpr uint16_t BMO_CORAL_RED` | BMO Coral Red (#E8175D) |
+| `Theme::PALETTE_BMO` | const | `constexpr uint16_t PALETTE_BMO[4]` | 4-color BMO Mint/Teal runtime DMG palette |
+| `Theme::PALETTE_COUNT` | const | `constexpr int PALETTE_COUNT = 5` | Number of selectable DMG color palettes |
 
 ---
 

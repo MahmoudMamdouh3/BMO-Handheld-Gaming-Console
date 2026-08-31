@@ -13,7 +13,7 @@ Purpose: Any AI agent or developer starting a session with zero prior memory can
 ## 2. The 3 Absolute Hard Stops (Never Violate)
 1. **NEVER read GPIO1 or enable `FEATURE_BATTERY_MONITOR` (must stay `0`).** Floating ADC on GPIO1 causes bootloops.
 2. **NEVER enable `FEATURE_AUDIO` (must stay `0`).** No physical I2S DAC is wired.
-3. **NEVER change Octal SPI Flash/PSRAM settings in Arduino CLI (requires OPI 80MHz).** QPI will brick boot.
+3. **NEVER set Flash Mode to OPI in Arduino IDE (requires `Flash Mode: QIO 80MHz` + `PSRAM: OPI PSRAM`).** OPI Flash mode bricks boot on this Quad-Flash module.
 
 ---
 

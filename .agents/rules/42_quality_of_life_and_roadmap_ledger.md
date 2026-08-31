@@ -41,6 +41,8 @@ Every feature or tool in this ledger is categorized into one of four states:
 | **Interactive Console Museum** | `[IMPLEMENTED]` | Rich historical specs, landmark games, and architecture notes for all 15 systems. | `STATE_CONSOLE_MUSEUM` |
 | **Universal Multi-Console Favorites (★)** | `[IMPLEMENTED]` | Star games across all 15 platforms (`SELECT` toggle), auto-dispatch to matching core, SD persistence (`/favorites.txt`). | `src/core/sd_card`, `display_emu`, `BmoGameboy.ino` |
 | **Virtual BMO Official Game** | `[IMPLEMENTED]` | Pre-loaded featured title with BMO Desktop, Guardians of Sunshine action platformer, and BMO Talk. | `src/assets/roms/virtual_bmo.h`, `sd_card` |
+| **1:1 Carousel Card UI & Hardware Silhouettes** | `[IMPLEMENTED]` | 1:1 replica of web simulator carousel card with dedicated retro hardware silhouette pixel-art per system. | `src/core/display_emu`, `theme.h` |
+| **Retro Pixel-Art Dynamic Battery Indicator** | `[IMPLEMENTED]` | Pixel-art battery shell with color-changing fill bars (Green > 50%, Gold 20-50%, Pulsing Red < 20%, Cyan Charge Pulse). | `display_emu`, `tools/bmo_simulator` |
 | **Binary ROM Fast-Cache (`.bmo_index`)**| `[BACKLOG / ROADMAP]` | Binary cache reducing 2,000-ROM SD boot enumeration from ~3.5s to < 50ms. | `src/core/sd_card` |
 | **Recently Played History Playlist** | `[BACKLOG / ROADMAP]` | Dynamic playlist tracking last 10 games launched. | `src/core/sd_card` |
 | **Box Art / Screenshot Preview** | `[BACKLOG / ROADMAP]` | Renders 64×64 cover thumbnail next to selected ROM from `/covers/`. | `src/core/display_emu` |
@@ -54,8 +56,8 @@ Every feature or tool in this ledger is categorized into one of four states:
 | :--- | :--- | :--- | :--- |
 | **Procedural 2D SDF Expressions** | `[IMPLEMENTED]` | Anti-aliased mathematical face rendering (`IDLE`, `HAPPY`, `SURPRISED`, `SLEEPY`, `ERROR`). | `src/core/bmo_face` |
 | **Launch Celebration Expression** | `[IMPLEMENTED]` | Brief `HAPPY` expression beat on game launch before emulator handoff. | `BmoGameboy.ino` |
+| **Ambient Living Screensaver (`STATE_IDLE_MASCOT`)** | `[IMPLEMENTED]` | 30s inactivity auto-sleep transitioning to full-screen dreaming BMO mascot (`DisplayEmu::drawIdleMascotScreen`) with any-button wake up. | `BmoGameboy.ino`, `display_emu` |
 | **Interactive Tamagotchi Pet Mode** | `[BACKLOG / ROADMAP]` | Dedicated interactive mode where BMO reacts to button pokes, dizzy spins, and tickles. | `src/core/bmo_face` |
-| **Ambient Screen Saver** | `[BACKLOG / ROADMAP]` | Fades to animated BMO daydreaming/stargazing after 2 minutes of idle in menus. | `BmoGameboy.ino` |
 | **Easter Egg / Konami Code Mini-Game** | `[BACKLOG / ROADMAP]` | Entering `↑ ↑ ↓ ↓ ← → ← → B A` in launcher unlocks built-in retro mini-game. | `BmoGameboy.ino` |
 
 ---

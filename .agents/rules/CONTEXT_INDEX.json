@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "last_updated": "2026-08-31T17:17:51.310254",
+  "last_updated": "2026-08-31T17:24:28.037032",
   "task_decision_table": {
     "modify_gpio_or_pin": {
       "rules": [
@@ -140,7 +140,7 @@
     "10_symbol_reference.md": {
       "file": ".agents/rules/10_symbol_reference.md",
       "title": "Symbol Reference (Ground Truth for Names)",
-      "lines": 195
+      "lines": 220
     },
     "11_rules_meta.md": {
       "file": ".agents/rules/11_rules_meta.md",
@@ -300,7 +300,7 @@
     "42_quality_of_life_and_roadmap_ledger.md": {
       "file": ".agents/rules/42_quality_of_life_and_roadmap_ledger.md",
       "title": "42. Quality of Life (QoL), UI/UX & System Roadmap Ledger",
-      "lines": 105
+      "lines": 107
     }
   }
 }
