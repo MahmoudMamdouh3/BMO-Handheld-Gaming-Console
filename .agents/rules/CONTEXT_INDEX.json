@@ -58,6 +58,12 @@
       ".agents/rules/04_known_issues.md",
       "CHANGELOG.md"
     ],
+    "performance_and_benchmarking": [
+      ".agents/rules/39_performance_and_benchmark_framework.md",
+      ".agents/rules/15_performance_budgets.md",
+      "docs/performance_and_benchmarking.md",
+      "tools/guardian/cli.py"
+    ],
     "documentation_updates": [
       ".agents/rules/38_mandatory_documentation_update.md",
       ".agents/rules/10_symbol_reference.md",

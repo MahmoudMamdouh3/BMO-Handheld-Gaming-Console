@@ -35,7 +35,8 @@ this file is stale — grep live and update before making any symbol claims:
 - `src/core/buttons.h`
 - `src/core/sd_card.h`
 - `src/core/bmo_face.h`
-- `src/core/battery.h`
+-`src/core/battery.h`
+- `src/core/profiler.h`
 - `src/core/config.h`
 - `src/engine/walnut_cgb/walnut_cgb.h`
 
@@ -173,3 +174,18 @@ One table per file, columns: `Symbol | Kind (fn/macro/struct) | Signature | Note
 | `FEATURE_AUDIO` | macro | `#define FEATURE_AUDIO 0` | Dormant I2S audio logic |
 | `BTN_UP`... | macro | `#define BTN_UP 4` (etc) | GPIO pin assignments |
 | `LOG_INFO`, `LOG_ERROR`... | macro | `#define LOG_INFO(fmt, ...)` | Gated logging macros |
+
+---
+
+## src/core/profiler.h (BmoProfiler)
+| Symbol | Kind | Signature | Notes |
+|---|---|---|---|
+| `BMO_PROFILE_BEGIN` | macro | `BMO_PROFILE_BEGIN()` | Gated profiler initialization |
+| `BMO_PROFILE_START` | macro | `BMO_PROFILE_START(zone)` | Records start cycle timestamp (RSR CCOUNT) |
+| `BMO_PROFILE_END` | macro | `BMO_PROFILE_END(zone)` | Records end cycle timestamp and updates stats |
+| `BMO_PROFILE_REPORT_INTERVAL` | macro | `BMO_PROFILE_REPORT_INTERVAL(ms)` | Prints zone averages over time interval |
+| `BMO_PROFILE_RESET` | macro | `BMO_PROFILE_RESET()` | Clears profiler sample accumulator |
+| `BmoProfiler::begin` | fn | `static void begin()` | Profiler initialization |
+| `BmoProfiler::startZone` | fn | `static void startZone(ProfileZone zone)` | Starts zone timing |
+| `BmoProfiler::endZone` | fn | `static void endZone(ProfileZone zone)` | Ends zone timing |
+

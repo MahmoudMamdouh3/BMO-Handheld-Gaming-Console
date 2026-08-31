@@ -73,6 +73,50 @@ These are verified latent bugs existing in the current codebase:
     - **Observation**: This is not a bug but should be documented. The spin-tail protects against `delay()` oversleeping by ~1-2 ms (FreeRTOS tick granularity). A 500-1000 µs spin tail would be a tighter margin.
     - **Status**: OPEN — document as acceptable with a note that the 2000 µs constant can be tuned down to ~800 µs if frame timing measurements confirm `delay()` overshoots by less than 1 ms on this hardware.
 
+19. **PERF-10: DOOM ScreenBuffer Allocated via Plain malloc() in DRAM (OPEN — CRITICAL)**
+    - **Evidence**: `doomgeneric.c:21` — `DG_ScreenBuffer = malloc(DOOMGENERIC_RESX * DOOMGENERIC_RESY * 4)`. Allocates **256,000 bytes (256 KB)** in internal DRAM. The total internal SRAM capacity on ESP32-S3 is 327,680 bytes, and globals use ~244 KB. This allocation fails or starves the system.
+    - **Fix**: Route allocation to `heap_caps_malloc(..., MALLOC_CAP_SPIRAM)`.
+
+20. **PERF-11: DOOM Zone Heap Base Allocated via Plain malloc() in DRAM (OPEN — CRITICAL)**
+    - **Evidence**: `i_system.c:119` — `zonemem = malloc(*size)`. Attempts to allocate 4-6 MB in internal DRAM. Fails every step until `default_ram < min_ram`, triggering fatal `I_Error`.
+    - **Fix**: Route zone memory allocation to `heap_caps_malloc(..., MALLOC_CAP_SPIRAM)`.
+
+21. **PERF-12: BmoFace SDF Renderer Evaluates 3× sqrtf() Per Pixel (OPEN — MEDIUM)**
+    - **Evidence**: `bmo_face.cpp:65-111` — `sdfEllipse` and `sdfMouth` compute square roots per pixel across 16,384 pixels.
+    - **Fix**: Precompute bounding boxes to skip background pixels, and use fast inverse square root approximations.
+
+22. **PERF-13: BmoFace blitFace() Performs 160 Separate SPI Transactions (OPEN — MEDIUM)**
+    - **Evidence**: `bmo_face.cpp:372` — `blitFace()` calls `DisplayEmu::pushPixelsAt` row-by-row (160 separate `setAddrWindow`, `startWrite`, `writeBytes`, `endWrite` sequences).
+    - **Fix**: Open one single contiguous address window and stream the scaled framebuffer in a single SPI transaction.
+
+23. **PERF-14: DOOM streamDoomFrame() Re-Packs Palette Every Frame (OPEN — MEDIUM)**
+    - **Evidence**: `display_emu.cpp:310` — Bitwise RGB565 conversion loop runs on all 256 colors every frame even when palette is unchanged.
+    - **Fix**: Cache the packed palette and recompute only on palette change events.
+
+24. **PERF-15: SMS Wrapper Missing #pragma GCC optimize (OPEN — MEDIUM)**
+    - **Evidence**: `emu_sms.cpp:1` — Missing `#pragma GCC optimize("O3,unroll-loops")`.
+    - **Fix**: Add `#pragma GCC optimize("O3,unroll-loops")` to top of `emu_sms.cpp`.
+
+25. **PERF-16: DOOM Wrapper Missing #pragma GCC optimize (OPEN — MEDIUM)**
+    - **Evidence**: `emu_doom.cpp:1` — Missing `#pragma GCC optimize("O3")`.
+    - **Fix**: Add `#pragma GCC optimize("O3")` to top of `emu_doom.cpp`.
+
+26. **PERF-17: SD Card loadRom() Uses Small Default Buffer Chunks (OPEN — MEDIUM)**
+    - **Evidence**: `sd_card.cpp:168` — `file.read(...)` reads in standard stream chunks without multi-sector burst.
+    - **Fix**: Tune buffer chunk size to 64KB for faster SPI burst reads.
+
+27. **PERF-18: Button Polling Uses Individual digitalRead Calls (OPEN — LOW)**
+    - **Evidence**: `buttons.cpp` — 8 individual GPIO reads per poll cycle.
+    - **Fix**: Read 32-bit GPIO register directly via `REG_READ(GPIO_IN_REG)`.
+
+28. **PERF-19: Menu Canvas Blit Stalls CPU for 15.36 ms (OPEN — MEDIUM)**
+    - **Evidence**: `display_emu.cpp:180` — `writeMenuCanvas()` transfers 153,600 bytes synchronously on Core 1.
+    - **Fix**: Utilize background SPI DMA transfer.
+
+29. **PERF-20: Shared SPI Bus Arbitration Lacks Mutex Guard (OPEN — DOCUMENT)**
+    - **Evidence**: `config.h` — Display and SD card share FSPI without RTOS mutex.
+    - **Fix**: Add thread-safe bus transaction locking.
+
 
 ---
 

@@ -45,3 +45,4 @@ For a fast 90-second primer on the entire codebase, start with [`31_quick_start_
 | [`36_bug_intake_protocol.md`](file:///e:/BMO%20Gameboy/.agents/rules/36_bug_intake_protocol.md) | Structured bug intake protocol for human-reported device misbehavior | Bug investigation tasks |
 | [`37_rom_governance_and_flash_budget.md`](file:///e:/BMO%20Gameboy/.agents/rules/37_rom_governance_and_flash_budget.md) | ROM tracking resolution, standing flash-budget invariant, partition changes | Assets/ROM tasks |
 | [`38_mandatory_documentation_update.md`](file:///e:/BMO%20Gameboy/.agents/rules/38_mandatory_documentation_update.md) | **Forced rule**: required documentation updates per change type, pre-commit checklist | **Always — every task** |
+| [`39_performance_and_benchmark_framework.md`](file:///e:/BMO%20Gameboy/.agents/rules/39_performance_and_benchmark_framework.md) | Mandatory Guardian performance & ground-truth framework governance | **Always — all performance tasks** |
