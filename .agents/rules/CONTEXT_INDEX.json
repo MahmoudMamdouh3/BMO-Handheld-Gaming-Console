@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "last_updated": "2026-08-31T15:34:45.169683",
+  "last_updated": "2026-08-31T16:41:40.326610",
   "task_decision_table": {
     "modify_gpio_or_pin": {
       "rules": [
@@ -110,7 +110,7 @@
     "04_known_issues.md": {
       "file": ".agents/rules/04_known_issues.md",
       "title": "6. Known Issues, Technical Debt & Hardware Limitations Registry",
-      "lines": 252
+      "lines": 254
     },
     "05_git_workflow.md": {
       "file": ".agents/rules/05_git_workflow.md",
@@ -296,6 +296,11 @@
       "file": ".agents/rules/41_engineering_communication_and_critical_pushback.md",
       "title": "41. Engineering Communication, Critical Pushback & Toolchain Autonomy",
       "lines": 80
+    },
+    "42_quality_of_life_and_roadmap_ledger.md": {
+      "file": ".agents/rules/42_quality_of_life_and_roadmap_ledger.md",
+      "title": "42. Quality of Life (QoL), UI/UX & System Roadmap Ledger",
+      "lines": 105
     }
   }
 }

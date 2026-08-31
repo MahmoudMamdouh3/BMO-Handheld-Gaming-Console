@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "generated_at": "2026-08-31T15:34:45.169683",
+  "generated_at": "2026-08-31T16:41:40.326610",
   "target_mcu": {
     "chip": "ESP32-S3-N16R8",
     "cpu_arch": "Xtensa dual-core 32-bit LX7 @ 240MHz",
@@ -425,50 +425,50 @@
     {
       "name": "BMO_SDF_Procedural_Face_Render_Unculled",
       "iterations": 100,
-      "avg_latency_us": 2042.66,
-      "throughput_mops": 2.01,
+      "avg_latency_us": 1257.084,
+      "throughput_mops": 3.26,
       "description": "Evaluates raw procedural 2D SDF math across 128x128 grid without spatial culling."
     },
     {
       "name": "BMO_SDF_Procedural_Face_Render_Culled",
       "iterations": 200,
-      "avg_latency_us": 700.208,
-      "throughput_mops": 5.85,
+      "avg_latency_us": 496.082,
+      "throughput_mops": 8.26,
       "description": "Evaluates procedural 2D SDF with bounding-box spatial culling (~75% math reduction)."
     },
     {
       "name": "4Pixel_Coalesced_Aligned_Store_Kernel",
       "iterations": 50000,
-      "avg_latency_us": 2.488,
-      "throughput_mops": 12.06,
+      "avg_latency_us": 2.633,
+      "throughput_mops": 11.39,
       "description": "Measures throughput of Xtensa LX7 32-bit coalesced memory stores for 3:2 scaling."
     },
     {
       "name": "O1_Palette_Scanline_Transformation",
       "iterations": 10000,
-      "avg_latency_us": 4.881,
-      "throughput_mops": 49.17,
+      "avg_latency_us": 5.079,
+      "throughput_mops": 47.25,
       "description": "Measures 240-pixel scanline indexed-to-BGR565 palette transform throughput."
     },
     {
       "name": "CPU_Emulation_Opcode_Dispatch",
       "iterations": 500000,
-      "avg_latency_us": 0.074,
-      "throughput_mops": 13.54,
+      "avg_latency_us": 0.091,
+      "throughput_mops": 10.96,
       "description": "Simulates CPU opcode fetch-decode-execute cycle dispatch throughput."
     },
     {
       "name": "Direct_GPIO_Atomic_Bitmask_Sampling",
       "iterations": 100000,
-      "avg_latency_us": 0.482,
-      "throughput_mops": 16.61,
+      "avg_latency_us": 0.494,
+      "throughput_mops": 16.19,
       "description": "Measures atomic 8-pin bitmask unpacking replacing 8 sequential digitalRead calls."
     },
     {
       "name": "SD_Catalog_O1_Query_And_Page_Jump",
       "iterations": 10000,
-      "avg_latency_us": 0.167,
-      "throughput_mops": 6.01,
+      "avg_latency_us": 0.23,
+      "throughput_mops": 4.35,
       "description": "Measures 16,384 PSRAM ROM O(1) count queries and rapid +/-10 page-jump calculations."
     }
   ],
@@ -496,7 +496,7 @@
     "04_known_issues.md": {
       "file": ".agents/rules/04_known_issues.md",
       "title": "6. Known Issues, Technical Debt & Hardware Limitations Registry",
-      "lines": 252
+      "lines": 254
     },
     "05_git_workflow.md": {
       "file": ".agents/rules/05_git_workflow.md",
@@ -682,6 +682,11 @@
       "file": ".agents/rules/41_engineering_communication_and_critical_pushback.md",
       "title": "41. Engineering Communication, Critical Pushback & Toolchain Autonomy",
       "lines": 80
+    },
+    "42_quality_of_life_and_roadmap_ledger.md": {
+      "file": ".agents/rules/42_quality_of_life_and_roadmap_ledger.md",
+      "title": "42. Quality of Life (QoL), UI/UX & System Roadmap Ledger",
+      "lines": 105
     }
   },
   "symbol_registry": {
@@ -783,236 +788,278 @@
     },
     "centeredX": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 44,
+      "line": 45,
       "signature": "int centeredX(const char* str, int displayWidth)",
       "is_iram": false
     },
     "consoleName": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 80,
+      "line": 84,
       "signature": "const char* consoleName(RomType type)",
       "is_iram": false
     },
     "consoleYear": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 101,
+      "line": 106,
       "signature": "const char* consoleYear(RomType type)",
       "is_iram": false
     },
     "consoleBadge": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 122,
+      "line": 128,
       "signature": "const char* consoleBadge(RomType type)",
       "is_iram": false
     },
     "drawCentered": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 143,
+      "line": 150,
       "signature": "void drawCentered(const char* text, int y, uint16_t color)",
       "is_iram": false
     },
     "drawFittedCentered": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 149,
+      "line": 156,
       "signature": "void drawFittedCentered(const char* source, int y, int maxWidth, uint16_t color)",
       "is_iram": false
     },
     "gameTitle": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 166,
+      "line": 173,
       "signature": "void gameTitle(const char* filename, char* output, size_t outputSize)",
       "is_iram": false
     },
     "drawFooter": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 174,
+      "line": 177,
       "signature": "void drawFooter(const char* text)",
       "is_iram": false
     },
     "writeMenuCanvas": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 180,
+      "line": 183,
       "signature": "void writeMenuCanvas()",
       "is_iram": false
     },
     "DisplayEmu::begin": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 208,
+      "line": 211,
       "signature": "void DisplayEmu::begin()",
       "is_iram": false
     },
     "DisplayEmu::clearScreen": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 230,
+      "line": 233,
       "signature": "void DisplayEmu::clearScreen()",
       "is_iram": false
     },
     "DisplayEmu::startFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 250,
+      "line": 253,
       "signature": "void DisplayEmu::startFrame()",
       "is_iram": false
     },
     "DisplayEmu::endFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 259,
+      "line": 262,
       "signature": "void DisplayEmu::endFrame()",
       "is_iram": false
     },
     "DisplayEmu::streamPixelRow": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 266,
+      "line": 269,
       "signature": "void DisplayEmu::streamPixelRow(const uint16_t* buf, int pixelCount)",
       "is_iram": false
     },
     "DisplayEmu::streamNESFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 275,
+      "line": 278,
       "signature": "void DisplayEmu::streamNESFrame(const uint8_t* nes_framebuffer)",
       "is_iram": false
     },
     "DisplayEmu::streamDoomFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 309,
+      "line": 312,
       "signature": "void DisplayEmu::streamDoomFrame(const uint8_t* cmap)",
       "is_iram": false
     },
     "DisplayEmu::streamSMSFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 341,
+      "line": 344,
       "signature": "void DisplayEmu::streamSMSFrame(const uint16_t* sms_framebuffer, bool isGameGear)",
       "is_iram": false
     },
     "DisplayEmu::streamPCEFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 353,
+      "line": 356,
       "signature": "void DisplayEmu::streamPCEFrame(const uint16_t* pce_framebuffer)",
       "is_iram": false
     },
     "DisplayEmu::streamAtariFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 360,
+      "line": 363,
       "signature": "void DisplayEmu::streamAtariFrame(const uint16_t* atari_framebuffer)",
       "is_iram": false
     },
     "DisplayEmu::streamPicoFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 367,
+      "line": 370,
       "signature": "void DisplayEmu::streamPicoFrame(const uint16_t* pico_framebuffer)",
       "is_iram": false
     },
     "DisplayEmu::streamGenesisFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 374,
+      "line": 377,
       "signature": "void DisplayEmu::streamGenesisFrame(const uint16_t* genesis_framebuffer, int width, int height)",
       "is_iram": false
     },
     "DisplayEmu::streamSNESFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 382,
+      "line": 385,
       "signature": "void DisplayEmu::streamSNESFrame(const uint16_t* snes_framebuffer, int width, int height)",
       "is_iram": false
     },
     "DisplayEmu::streamWSwanFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 390,
+      "line": 393,
       "signature": "void DisplayEmu::streamWSwanFrame(const uint16_t* wswan_framebuffer, int width, int height)",
       "is_iram": false
     },
     "DisplayEmu::streamNGPFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 398,
+      "line": 401,
       "signature": "void DisplayEmu::streamNGPFrame(const uint16_t* ngp_framebuffer, int width, int height)",
       "is_iram": false
     },
     "DisplayEmu::streamLynxFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 406,
+      "line": 409,
       "signature": "void DisplayEmu::streamLynxFrame(const uint16_t* lynx_framebuffer, int width, int height)",
       "is_iram": false
     },
     "DisplayEmu::streamColemFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 414,
+      "line": 417,
       "signature": "void DisplayEmu::streamColemFrame(const uint16_t* colem_framebuffer, int width, int height)",
       "is_iram": false
     },
     "DisplayEmu::pushPixels": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 426,
+      "line": 429,
       "signature": "void DisplayEmu::pushPixels(int yOffset, const uint16_t* rowBuffer, int rowsToDraw)",
       "is_iram": false
     },
     "DisplayEmu::pushPixelsRaw": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 434,
+      "line": 437,
       "signature": "void DisplayEmu::pushPixelsRaw(int yOffset, const uint16_t* rowBuffer, int rowsToDraw)",
       "is_iram": false
     },
     "DisplayEmu::pushPixelsFullScreen": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 439,
+      "line": 442,
       "signature": "void DisplayEmu::pushPixelsFullScreen(const uint16_t* buffer)",
       "is_iram": false
     },
     "DisplayEmu::pushPixelsAt": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 448,
+      "line": 451,
       "signature": "void DisplayEmu::pushPixelsAt(int x, int y, int w, int h, const uint16_t* buf)",
       "is_iram": false
     },
     "DisplayEmu::startDirectWindow": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 455,
+      "line": 458,
       "signature": "void DisplayEmu::startDirectWindow(int x, int y, int w, int h)",
       "is_iram": false
     },
     "DisplayEmu::writeWindowBytes": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 460,
+      "line": 463,
       "signature": "void DisplayEmu::writeWindowBytes(const uint8_t* data, size_t len)",
       "is_iram": false
     },
     "DisplayEmu::endDirectWindow": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 464,
+      "line": 467,
       "signature": "void DisplayEmu::endDirectWindow()",
       "is_iram": false
     },
     "DisplayEmu::initMenuUI": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 468,
+      "line": 471,
       "signature": "void DisplayEmu::initMenuUI()",
       "is_iram": false
     },
     "DisplayEmu::cleanupMenuUI": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 481,
+      "line": 484,
       "signature": "void DisplayEmu::cleanupMenuUI()",
       "is_iram": false
     },
     "DisplayEmu::drawConsoleSelectMenu": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 485,
+      "line": 488,
       "signature": "void DisplayEmu::drawConsoleSelectMenu(int selectedIndex, const int* gameCounts, int consoleCount, bool sdMounted)",
       "is_iram": false
     },
     "DisplayEmu::drawConsoleMuseumModal": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 530,
+      "line": 551,
       "signature": "void DisplayEmu::drawConsoleMuseumModal(RomType console)",
       "is_iram": false
     },
     "DisplayEmu::drawGameSelectMenu": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 723,
+      "line": 755,
       "signature": "void DisplayEmu::drawGameSelectMenu(const RomFile* const* games, int count, int selectedIndex, RomType console, bool sdMounted)",
       "is_iram": false
     },
     "DisplayEmu::showSDCardWarning": {
       "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
-      "line": 782,
+      "line": 841,
       "signature": "void DisplayEmu::showSDCardWarning()",
+      "is_iram": false
+    },
+    "DisplayEmu::sanitizeRomTitle": {
+      "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
+      "line": 852,
+      "signature": "void DisplayEmu::sanitizeRomTitle(const char* src, char* dst, size_t maxLen)",
+      "is_iram": false
+    },
+    "DisplayEmu::setDmgPalette": {
+      "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
+      "line": 893,
+      "signature": "void DisplayEmu::setDmgPalette(int paletteIndex)",
+      "is_iram": false
+    },
+    "DisplayEmu::getDmgPaletteIndex": {
+      "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
+      "line": 899,
+      "signature": "int DisplayEmu::getDmgPaletteIndex()",
+      "is_iram": false
+    },
+    "DisplayEmu::cycleDmgPalette": {
+      "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
+      "line": 903,
+      "signature": "void DisplayEmu::cycleDmgPalette()",
+      "is_iram": false
+    },
+    "DisplayEmu::getActiveDmgPalette": {
+      "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
+      "line": 907,
+      "signature": "const uint16_t* DisplayEmu::getActiveDmgPalette()",
+      "is_iram": false
+    },
+    "DisplayEmu::drawConsoleIcon": {
+      "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
+      "line": 1016,
+      "signature": "void DisplayEmu::drawConsoleIcon(RomType type, int x, int y, uint16_t primaryColor)",
+      "is_iram": false
+    },
+    "DisplayEmu::drawIdleMascotScreen": {
+      "file": "firmware/BmoGameboy/src/core/display_emu.cpp",
+      "line": 1084,
+      "signature": "void DisplayEmu::drawIdleMascotScreen(unsigned long idleSeconds, const char* stateMessage)",
       "is_iram": false
     },
     "clearScreen": {
@@ -1051,141 +1098,183 @@
       "signature": "void cleanupMenuUI();",
       "is_iram": false
     },
+    "drawConsoleIcon": {
+      "file": "firmware/BmoGameboy/src/core/display_emu.h",
+      "line": 32,
+      "signature": "void drawConsoleIcon(RomType type, int x, int y, uint16_t primaryColor = 0);",
+      "is_iram": false
+    },
+    "drawIdleMascotScreen": {
+      "file": "firmware/BmoGameboy/src/core/display_emu.h",
+      "line": 35,
+      "signature": "void drawIdleMascotScreen(unsigned long idleSeconds, const char* stateMessage);",
+      "is_iram": false
+    },
+    "sanitizeRomTitle": {
+      "file": "firmware/BmoGameboy/src/core/display_emu.h",
+      "line": 38,
+      "signature": "void sanitizeRomTitle(const char* src, char* dst, size_t maxLen);",
+      "is_iram": false
+    },
+    "setDmgPalette": {
+      "file": "firmware/BmoGameboy/src/core/display_emu.h",
+      "line": 41,
+      "signature": "void setDmgPalette(int paletteIndex);",
+      "is_iram": false
+    },
+    "getDmgPaletteIndex": {
+      "file": "firmware/BmoGameboy/src/core/display_emu.h",
+      "line": 42,
+      "signature": "int getDmgPaletteIndex();",
+      "is_iram": false
+    },
+    "cycleDmgPalette": {
+      "file": "firmware/BmoGameboy/src/core/display_emu.h",
+      "line": 43,
+      "signature": "void cycleDmgPalette();",
+      "is_iram": false
+    },
+    "getActiveDmgPalette": {
+      "file": "firmware/BmoGameboy/src/core/display_emu.h",
+      "line": 44,
+      "signature": "const uint16_t* getActiveDmgPalette();",
+      "is_iram": false
+    },
     "streamFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 36,
+      "line": 55,
       "signature": "void streamFrame(const uint8_t* gb_framebuffer, uint16_t* palette);",
       "is_iram": false
     },
     "streamNESFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 40,
+      "line": 59,
       "signature": "void streamNESFrame(const uint8_t* nes_framebuffer);",
       "is_iram": false
     },
     "streamDoomFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 43,
+      "line": 62,
       "signature": "void streamDoomFrame(const uint8_t* cmap);",
       "is_iram": false
     },
     "streamSMSFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 46,
+      "line": 65,
       "signature": "void streamSMSFrame(const uint16_t* sms_framebuffer, bool isGameGear = false);",
       "is_iram": false
     },
     "streamPCEFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 49,
+      "line": 68,
       "signature": "void streamPCEFrame(const uint16_t* pce_framebuffer);",
       "is_iram": false
     },
     "streamAtariFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 52,
+      "line": 71,
       "signature": "void streamAtariFrame(const uint16_t* atari_framebuffer);",
       "is_iram": false
     },
     "streamPicoFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 55,
+      "line": 74,
       "signature": "void streamPicoFrame(const uint16_t* pico_framebuffer);",
       "is_iram": false
     },
     "streamGenesisFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 58,
+      "line": 77,
       "signature": "void streamGenesisFrame(const uint16_t* genesis_framebuffer, int width, int height);",
       "is_iram": false
     },
     "streamSNESFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 61,
+      "line": 80,
       "signature": "void streamSNESFrame(const uint16_t* snes_framebuffer, int width, int height);",
       "is_iram": false
     },
     "streamWSwanFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 64,
+      "line": 83,
       "signature": "void streamWSwanFrame(const uint16_t* wswan_framebuffer, int width, int height);",
       "is_iram": false
     },
     "streamNGPFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 67,
+      "line": 86,
       "signature": "void streamNGPFrame(const uint16_t* ngp_framebuffer, int width, int height);",
       "is_iram": false
     },
     "streamLynxFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 70,
+      "line": 89,
       "signature": "void streamLynxFrame(const uint16_t* lynx_framebuffer, int width, int height);",
       "is_iram": false
     },
     "streamColemFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 73,
+      "line": 92,
       "signature": "void streamColemFrame(const uint16_t* colem_framebuffer, int width, int height);",
       "is_iram": false
     },
     "pushPixels": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 77,
+      "line": 96,
       "signature": "void pushPixels(int yOffset, const uint16_t* rowBuffer, int rowsToDraw);",
       "is_iram": false
     },
     "pushPixelsRaw": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 81,
+      "line": 100,
       "signature": "void pushPixelsRaw(int yOffset, const uint16_t* rowBuffer, int rowsToDraw);",
       "is_iram": false
     },
     "pushPixelsFullScreen": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 84,
+      "line": 103,
       "signature": "void pushPixelsFullScreen(const uint16_t* buffer);",
       "is_iram": false
     },
     "pushPixelsAt": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 90,
+      "line": 109,
       "signature": "void pushPixelsAt(int x, int y, int w, int h, const uint16_t* buf);",
       "is_iram": false
     },
     "startDirectWindow": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 93,
+      "line": 112,
       "signature": "void startDirectWindow(int x, int y, int w, int h);",
       "is_iram": false
     },
     "writeWindowBytes": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 94,
+      "line": 113,
       "signature": "void writeWindowBytes(const uint8_t* data, size_t len);",
       "is_iram": false
     },
     "endDirectWindow": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 95,
+      "line": 114,
       "signature": "void endDirectWindow();",
       "is_iram": false
     },
     "startFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 110,
+      "line": 129,
       "signature": "void startFrame();",
       "is_iram": false
     },
     "endFrame": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 111,
+      "line": 130,
       "signature": "void endFrame();",
       "is_iram": false
     },
     "streamPixelRow": {
       "file": "firmware/BmoGameboy/src/core/display_emu.h",
-      "line": 115,
+      "line": 134,
       "signature": "void streamPixelRow(const uint16_t* buf, int pixelCount);",
       "is_iram": false
     },
@@ -1293,79 +1382,139 @@
     },
     "SDCard::begin": {
       "file": "firmware/BmoGameboy/src/core/sd_card.cpp",
-      "line": 46,
+      "line": 47,
       "signature": "bool SDCard::begin()",
       "is_iram": false
     },
     "SDCard::isMounted": {
       "file": "firmware/BmoGameboy/src/core/sd_card.cpp",
-      "line": 94,
+      "line": 112,
       "signature": "bool SDCard::isMounted()",
       "is_iram": false
     },
     "SDCard::scanRoms": {
       "file": "firmware/BmoGameboy/src/core/sd_card.cpp",
-      "line": 98,
+      "line": 116,
       "signature": "void SDCard::scanRoms()",
       "is_iram": false
     },
     "SDCard::getRomCount": {
       "file": "firmware/BmoGameboy/src/core/sd_card.cpp",
-      "line": 127,
+      "line": 146,
       "signature": "int SDCard::getRomCount()",
       "is_iram": false
     },
     "SDCard::getRomCountForType": {
       "file": "firmware/BmoGameboy/src/core/sd_card.cpp",
-      "line": 131,
+      "line": 150,
       "signature": "int SDCard::getRomCountForType(RomType type)",
       "is_iram": false
     },
     "SDCard::getRomInfo": {
       "file": "firmware/BmoGameboy/src/core/sd_card.cpp",
-      "line": 136,
+      "line": 158,
       "signature": "const RomFile* SDCard::getRomInfo(int index)",
+      "is_iram": false
+    },
+    "SDCard::isFavorite": {
+      "file": "firmware/BmoGameboy/src/core/sd_card.cpp",
+      "line": 168,
+      "signature": "bool SDCard::isFavorite(const char* filename)",
+      "is_iram": false
+    },
+    "SDCard::toggleFavorite": {
+      "file": "firmware/BmoGameboy/src/core/sd_card.cpp",
+      "line": 178,
+      "signature": "void SDCard::toggleFavorite(int index)",
+      "is_iram": false
+    },
+    "SDCard::getFavoritesCount": {
+      "file": "firmware/BmoGameboy/src/core/sd_card.cpp",
+      "line": 184,
+      "signature": "int SDCard::getFavoritesCount()",
+      "is_iram": false
+    },
+    "SDCard::saveFavorites": {
+      "file": "firmware/BmoGameboy/src/core/sd_card.cpp",
+      "line": 192,
+      "signature": "void SDCard::saveFavorites()",
+      "is_iram": false
+    },
+    "SDCard::loadFavorites": {
+      "file": "firmware/BmoGameboy/src/core/sd_card.cpp",
+      "line": 206,
+      "signature": "void SDCard::loadFavorites()",
       "is_iram": false
     },
     "SDCard::freeRom": {
       "file": "firmware/BmoGameboy/src/core/sd_card.cpp",
-      "line": 204,
+      "line": 295,
       "signature": "void SDCard::freeRom(uint8_t* buffer)",
       "is_iram": false
     },
     "isMounted": {
       "file": "firmware/BmoGameboy/src/core/sd_card.h",
-      "line": 32,
+      "line": 34,
       "signature": "static bool isMounted();",
       "is_iram": false
     },
     "scanRoms": {
       "file": "firmware/BmoGameboy/src/core/sd_card.h",
-      "line": 35,
+      "line": 37,
       "signature": "static void scanRoms();",
       "is_iram": false
     },
     "getRomCount": {
       "file": "firmware/BmoGameboy/src/core/sd_card.h",
-      "line": 36,
+      "line": 38,
       "signature": "static int getRomCount();",
       "is_iram": false
     },
     "getRomCountForType": {
       "file": "firmware/BmoGameboy/src/core/sd_card.h",
-      "line": 37,
+      "line": 39,
       "signature": "static int getRomCountForType(RomType type);",
       "is_iram": false
     },
     "getRomInfo": {
       "file": "firmware/BmoGameboy/src/core/sd_card.h",
-      "line": 38,
+      "line": 40,
       "signature": "static const RomFile* getRomInfo(int index);",
+      "is_iram": false
+    },
+    "isFavorite": {
+      "file": "firmware/BmoGameboy/src/core/sd_card.h",
+      "line": 44,
+      "signature": "static bool isFavorite(const char* filename);",
+      "is_iram": false
+    },
+    "toggleFavorite": {
+      "file": "firmware/BmoGameboy/src/core/sd_card.h",
+      "line": 45,
+      "signature": "static void toggleFavorite(int index);",
+      "is_iram": false
+    },
+    "getFavoritesCount": {
+      "file": "firmware/BmoGameboy/src/core/sd_card.h",
+      "line": 46,
+      "signature": "static int getFavoritesCount();",
+      "is_iram": false
+    },
+    "saveFavorites": {
+      "file": "firmware/BmoGameboy/src/core/sd_card.h",
+      "line": 47,
+      "signature": "static void saveFavorites();",
+      "is_iram": false
+    },
+    "loadFavorites": {
+      "file": "firmware/BmoGameboy/src/core/sd_card.h",
+      "line": 48,
+      "signature": "static void loadFavorites();",
       "is_iram": false
     },
     "freeRom": {
       "file": "firmware/BmoGameboy/src/core/sd_card.h",
-      "line": 43,
+      "line": 53,
       "signature": "static void freeRom(uint8_t* buffer);",
       "is_iram": false
     },
@@ -1635,7 +1784,7 @@
     },
     "PeanutEmu::destroy": {
       "file": "firmware/BmoGameboy/src/emulators/emu_peanut.cpp",
-      "line": 171,
+      "line": 181,
       "signature": "void PeanutEmu::destroy()",
       "is_iram": false
     },
@@ -1936,11 +2085,11 @@
     ".agents/rules/04_known_issues.md": {
       "path": ".agents/rules/04_known_issues.md",
       "category": "AGENT_RULES",
-      "total_lines": 252,
-      "sloc": 203,
+      "total_lines": 254,
+      "sloc": 205,
       "comments": 0,
       "blanks": 49,
-      "density_percent": 80.6,
+      "density_percent": 80.7,
       "symbols": [],
       "pins_accessed": [
         "GPIO1",
@@ -2445,11 +2594,23 @@
       "pins_accessed": [],
       "includes": []
     },
+    ".agents/rules/42_quality_of_life_and_roadmap_ledger.md": {
+      "path": ".agents/rules/42_quality_of_life_and_roadmap_ledger.md",
+      "category": "AGENT_RULES",
+      "total_lines": 105,
+      "sloc": 79,
+      "comments": 0,
+      "blanks": 26,
+      "density_percent": 75.2,
+      "symbols": [],
+      "pins_accessed": [],
+      "includes": []
+    },
     ".agents/rules/CONTEXT_INDEX.json": {
       "path": ".agents/rules/CONTEXT_INDEX.json",
       "category": "AGENT_RULES",
-      "total_lines": 301,
-      "sloc": 301,
+      "total_lines": 306,
+      "sloc": 306,
       "comments": 0,
       "blanks": 0,
       "density_percent": 100.0,
@@ -2460,11 +2621,11 @@
     ".agents/rules/README.md": {
       "path": ".agents/rules/README.md",
       "category": "AGENT_RULES",
-      "total_lines": 50,
-      "sloc": 48,
+      "total_lines": 51,
+      "sloc": 49,
       "comments": 0,
       "blanks": 2,
-      "density_percent": 96.0,
+      "density_percent": 96.1,
       "symbols": [],
       "pins_accessed": [],
       "includes": []
@@ -2486,8 +2647,8 @@
     "AGENT_KNOWLEDGE_GRAPH.json": {
       "path": "AGENT_KNOWLEDGE_GRAPH.json",
       "category": "OTHER",
-      "total_lines": 15562,
-      "sloc": 15562,
+      "total_lines": 15766,
+      "sloc": 15766,
       "comments": 0,
       "blanks": 0,
       "density_percent": 100.0,
@@ -6859,11 +7020,11 @@
     "firmware/BmoGameboy/BmoGameboy.ino": {
       "path": "firmware/BmoGameboy/BmoGameboy.ino",
       "category": "FIRMWARE_TOP",
-      "total_lines": 545,
-      "sloc": 444,
-      "comments": 42,
-      "blanks": 59,
-      "density_percent": 81.5,
+      "total_lines": 693,
+      "sloc": 570,
+      "comments": 48,
+      "blanks": 75,
+      "density_percent": 82.3,
       "symbols": [],
       "pins_accessed": [
         "TFT_SCK",
@@ -6968,6 +7129,21 @@
       "pins_accessed": [],
       "includes": [
         "stdint.h"
+      ]
+    },
+    "firmware/BmoGameboy/src/assets/roms/virtual_bmo.h": {
+      "path": "firmware/BmoGameboy/src/assets/roms/virtual_bmo.h",
+      "category": "BAKED_ROMS",
+      "total_lines": 32775,
+      "sloc": 32774,
+      "comments": 0,
+      "blanks": 1,
+      "density_percent": 100.0,
+      "symbols": [],
+      "pins_accessed": [],
+      "includes": [
+        "stdint.h",
+        "stddef.h"
       ]
     },
     "firmware/BmoGameboy/src/assets/roms/zelda_ages.h": {
@@ -7183,10 +7359,10 @@
     "firmware/BmoGameboy/src/core/display_emu.cpp": {
       "path": "firmware/BmoGameboy/src/core/display_emu.cpp",
       "category": "FIRMWARE_CORE",
-      "total_lines": 793,
-      "sloc": 650,
-      "comments": 65,
-      "blanks": 78,
+      "total_lines": 1145,
+      "sloc": 939,
+      "comments": 78,
+      "blanks": 128,
       "density_percent": 82.0,
       "symbols": [
         "centeredX",
@@ -7221,6 +7397,7 @@
         "display_emu.h",
         "config.h",
         "battery.h",
+        "theme.h",
         "SPI.h",
         "Adafruit_ST7789.h",
         "cstring",
@@ -7234,11 +7411,11 @@
     "firmware/BmoGameboy/src/core/display_emu.h": {
       "path": "firmware/BmoGameboy/src/core/display_emu.h",
       "category": "FIRMWARE_CORE",
-      "total_lines": 119,
-      "sloc": 39,
-      "comments": 51,
-      "blanks": 29,
-      "density_percent": 32.8,
+      "total_lines": 138,
+      "sloc": 48,
+      "comments": 56,
+      "blanks": 34,
+      "density_percent": 34.8,
       "symbols": [
         "begin",
         "clearScreen",
@@ -7247,19 +7424,19 @@
         "drawConsoleSelectMenu",
         "drawConsoleMuseumModal",
         "cleanupMenuUI",
+        "drawConsoleIcon",
+        "drawIdleMascotScreen",
+        "sanitizeRomTitle",
+        "setDmgPalette",
+        "getDmgPaletteIndex",
+        "cycleDmgPalette",
+        "getActiveDmgPalette",
         "streamFrame",
         "streamNESFrame",
         "streamDoomFrame",
         "streamSMSFrame",
         "streamPCEFrame",
-        "streamAtariFrame",
-        "streamPicoFrame",
-        "streamGenesisFrame",
-        "streamSNESFrame",
-        "streamWSwanFrame",
-        "streamNGPFrame",
-        "streamLynxFrame",
-        "streamColemFrame"
+        "streamAtariFrame"
       ],
       "pins_accessed": [],
       "includes": [
@@ -7362,11 +7539,11 @@
     "firmware/BmoGameboy/src/core/sd_card.cpp": {
       "path": "firmware/BmoGameboy/src/core/sd_card.cpp",
       "category": "FIRMWARE_CORE",
-      "total_lines": 217,
-      "sloc": 178,
-      "comments": 11,
-      "blanks": 28,
-      "density_percent": 82.0,
+      "total_lines": 309,
+      "sloc": 262,
+      "comments": 12,
+      "blanks": 35,
+      "density_percent": 84.8,
       "symbols": [
         "SDCard::begin",
         "SDCard::isMounted",
@@ -7374,6 +7551,12 @@
         "SDCard::getRomCount",
         "SDCard::getRomCountForType",
         "SDCard::getRomInfo",
+        "SDCard::isFavorite",
+        "SDCard::isFavorite",
+        "SDCard::toggleFavorite",
+        "SDCard::getFavoritesCount",
+        "SDCard::saveFavorites",
+        "SDCard::loadFavorites",
         "SDCard::freeRom"
       ],
       "pins_accessed": [
@@ -7386,6 +7569,7 @@
         "SPI.h",
         "esp_heap_caps.h",
         "string.h",
+        "../assets/roms/virtual_bmo.h",
         "../assets/roms/mario_deluxe.h",
         "../assets/roms/zelda_ages.h",
         "../assets/roms/aladdin.h",
@@ -7395,10 +7579,10 @@
     "firmware/BmoGameboy/src/core/sd_card.h": {
       "path": "firmware/BmoGameboy/src/core/sd_card.h",
       "category": "FIRMWARE_CORE",
-      "total_lines": 45,
-      "sloc": 36,
-      "comments": 3,
-      "blanks": 6,
+      "total_lines": 55,
+      "sloc": 44,
+      "comments": 4,
+      "blanks": 7,
       "density_percent": 80.0,
       "symbols": [
         "begin",
@@ -7407,12 +7591,32 @@
         "getRomCount",
         "getRomCountForType",
         "getRomInfo",
+        "isFavorite",
+        "isFavorite",
+        "toggleFavorite",
+        "getFavoritesCount",
+        "saveFavorites",
+        "loadFavorites",
         "freeRom"
       ],
       "pins_accessed": [],
       "includes": [
         "stdint.h",
         "stddef.h"
+      ]
+    },
+    "firmware/BmoGameboy/src/core/theme.h": {
+      "path": "firmware/BmoGameboy/src/core/theme.h",
+      "category": "FIRMWARE_CORE",
+      "total_lines": 111,
+      "sloc": 75,
+      "comments": 22,
+      "blanks": 14,
+      "density_percent": 67.6,
+      "symbols": [],
+      "pins_accessed": [],
+      "includes": [
+        "stdint.h"
       ]
     },
     "firmware/BmoGameboy/src/emulators/emu_atari.cpp": {
@@ -7778,11 +7982,11 @@
     "firmware/BmoGameboy/src/emulators/emu_peanut.cpp": {
       "path": "firmware/BmoGameboy/src/emulators/emu_peanut.cpp",
       "category": "EMULATOR_WRAPPERS",
-      "total_lines": 176,
-      "sloc": 121,
+      "total_lines": 186,
+      "sloc": 130,
       "comments": 24,
-      "blanks": 31,
-      "density_percent": 68.8,
+      "blanks": 32,
+      "density_percent": 69.9,
       "symbols": [
         "__attribute__",
         "gb_error",
@@ -15421,11 +15625,11 @@
     "tools/guardian/cli.py": {
       "path": "tools/guardian/cli.py",
       "category": "GUARDIAN_TOOLCHAIN",
-      "total_lines": 370,
-      "sloc": 276,
-      "comments": 28,
-      "blanks": 66,
-      "density_percent": 74.6,
+      "total_lines": 441,
+      "sloc": 326,
+      "comments": 33,
+      "blanks": 82,
+      "density_percent": 73.9,
       "symbols": [],
       "pins_accessed": [],
       "includes": []
