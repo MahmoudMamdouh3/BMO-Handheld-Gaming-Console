@@ -7,6 +7,32 @@
 
 ---
 
+## [PERF-Session-2] - 2026-09-18 - 10 Performance Fixes (heap_caps_free + O3 pragmas)
+- CRITICAL: heap_caps_free() fix in 8 emulator destroy() functions (peanut, walnut, genesis, snes, wswan, ngp, lynx, colem)
+  - All had heap_caps_malloc(MALLOC_CAP_SPIRAM) paired with plain free() — allocator mismatch
+- NON-CRITICAL: Added #pragma GCC optimize("O3,unroll-loops") to bmo_face.cpp (SDF renderer ~468-1241µs hot path)
+- NON-CRITICAL: Completed display_emu.cpp pragma from O3 -> O3,unroll-loops
+Verified: guardian audit PASS (0 Critical). validate_repo.py PASS. unittest 32/32 OK.
+---
+
+## [PERF-Session] - 2026-09-18 - 15 Performance Issues Resolved
+- C-1: getFavoritesCount O(N)->O(1) s_favoritesCount counter (sd_card.cpp)
+- C-2: visibleGames[] pointer-copy guarded by dirty flag (BmoGameboy.ino)
+- H-1: drawFittedCentered strlen-in-loop -> int len (display_emu.cpp)
+- H-2: DG_GetKey 256-entry scan -> O(1) 16-slot ring buffer (emu_doom.cpp)
+- H-3: Arduino String heap allocs -> stack char[] (sd_card.cpp)
+- H-4: sdfEllipse 2x sqrtf -> 1x (~80K cycles/render saved) (bmo_face.cpp)
+- H-5: BmoFace::update() guarded against STATE_EMULATOR (BmoGameboy.ino)
+- M-1: millis() cached per canPress() block (BmoGameboy.ino)
+- M-3: consoleCountsDirty file-scope; toggleFavorite invalidates badge (BmoGameboy.ino)
+- M-4: DG_SleepMs() logs warning on Doom pacing (emu_doom.cpp)
+- M-5: Boot delay conditional on CORE_DEBUG_LEVEL>0 (BmoGameboy.ino)
+- L-1: consoles[16] static const (display_emu.cpp)
+- L-3: SMS updateJoypad double-poll safety comment (emu_sms.cpp)
+- L-5: String::trim fixed as part of H-3 (sd_card.cpp)
+Verified: validate_repo.py PASSED. Flash 33.0%. SRAM 75.1%. unittest 32/32.
+---
+
 ## 1. Ground-Truth Hardware State & Hard Stops
 
 The physical soldered hardware configuration is the ground truth. Any software assuming missing hardware components will fail or crash the MCU.

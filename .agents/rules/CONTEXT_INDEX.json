@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0.0",
-  "last_updated": "2026-08-31T17:58:30.258806",
+  "last_updated": "2026-09-18T20:13:27.508067",
   "task_decision_table": {
     "modify_gpio_or_pin": {
       "rules": [
@@ -110,7 +110,7 @@
     "04_known_issues.md": {
       "file": ".agents/rules/04_known_issues.md",
       "title": "6. Known Issues, Technical Debt & Hardware Limitations Registry",
-      "lines": 254
+      "lines": 280
     },
     "05_git_workflow.md": {
       "file": ".agents/rules/05_git_workflow.md",
